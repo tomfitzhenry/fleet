@@ -38,4 +38,6 @@
   environment.systemPackages = with pkgs; [
     firefox
   ];
+
+  services.flatpak.enable = true;
 }
