@@ -4,6 +4,12 @@
     pkgs.linux-firmware
   ];
 
+  users.users.tom = {
+    uid = 1000;
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+  };
+
   services.tailscale.enable = true;
 
   services.comin = {

@@ -21,12 +21,6 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
 
-  users.users.tom = {
-    uid = 1000;
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-  };
-
   environment.systemPackages = with pkgs; [
     firefox
   ];
