@@ -6,20 +6,24 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
   };
-  outputs = { comin, nixpkgs-stable, ... }:
+  outputs =
+    { comin, nixpkgs-stable, ... }:
     let
-      mkStableMachine = hostname: nixpkgs-stable.lib.nixosSystem {
-        modules = [
-	  ./hosts/${hostname}
-	  { networking.hostName = hostname; }
+      mkStableMachine =
+        hostname:
+        nixpkgs-stable.lib.nixosSystem {
+          modules = [
+            ./hosts/${hostname}
+            { networking.hostName = hostname; }
 
-	  comin.nixosModules.comin
+            comin.nixosModules.comin
 
-          ./modules/common
-	  ./modules/rootfs
-        ];
-      };
-    in {
+            ./modules/common
+            ./modules/rootfs
+          ];
+        };
+    in
+    {
       nixosConfigurations = {
         oxygen = mkStableMachine "oxygen";
       };

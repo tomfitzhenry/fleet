@@ -7,10 +7,10 @@ in
   options = {
     tomf.rootfs = {
       device = lib.mkOption {
-	type = lib.types.str;
+        type = lib.types.str;
       };
       subvolume = lib.mkOption {
-	type = lib.types.str;
+        type = lib.types.str;
       };
     };
   };
@@ -18,22 +18,22 @@ in
   config = {
     fileSystems = {
       "/" = {
-	device = cfg.device;
-	fsType = "btrfs";
-	options = [
-	  ("subvol=" + cfg.subvolume)
-	];
-	neededForBoot = true;
+        device = cfg.device;
+        fsType = "btrfs";
+        options = [
+          ("subvol=" + cfg.subvolume)
+        ];
+        neededForBoot = true;
       };
 
       # A mountpoint guaranteed to be the root of the btrfs partition, since / might be a subvolume.
       "/mnt/btrfs" = {
-	device = cfg.device;
-	fsType = "btrfs";
-	options = [
-	  "compress=zstd"
-	];
-	neededForBoot = true;
+        device = cfg.device;
+        fsType = "btrfs";
+        options = [
+          "compress=zstd"
+        ];
+        neededForBoot = true;
       };
     };
 

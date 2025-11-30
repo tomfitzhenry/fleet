@@ -24,7 +24,10 @@
     subvolume = "/";
   };
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+    "armv7l-linux"
+  ];
 
   environment.systemPackages = with pkgs; [
     firefox
