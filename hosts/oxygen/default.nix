@@ -17,7 +17,10 @@
 
   boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/b210a23c-b423-466d-afd1-c383a1b37a64";
 
-  tomf.rootfs.device = "/dev/mapper/enc";
+  tomf.rootfs = {
+    device = "/dev/mapper/enc";
+    subvolume = "/";
+  };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
 

@@ -11,7 +11,6 @@ in
       };
       subvolume = lib.mkOption {
 	type = lib.types.str;
-	default = "/root";
       };
     };
   };
