@@ -1,5 +1,8 @@
 { pkgs, ... }:
 {
+  boot.loader.systemd-boot.configurationLimit = 15;
+  boot.loader.grub.configurationLimit = 15;
+
   hardware.firmware = [
     pkgs.linux-firmware
   ];
