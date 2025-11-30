@@ -6,20 +6,6 @@
 
   boot.loader.systemd-boot.enable = true;
 
-  nix.gc.automatic = false; # for dev
-
-  services.displayManager.cosmic-greeter.enable = true;
-  services.desktopManager.cosmic.enable = true;
-
-  # Yubikey PIV.
-  services.pcscd.enable = true;
-
-  # Yubikey OATH.
-  services.udev.packages = [ pkgs.yubikey-personalization ];
-
-  # GPG.
-  programs.gnupg.agent.enable = true;
-
   boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/b210a23c-b423-466d-afd1-c383a1b37a64";
 
   tomf = {
@@ -30,14 +16,26 @@
     sshd.enable = false;
   };
 
-  boot.binfmt.emulatedSystems = [
-    "aarch64-linux"
-    "armv7l-linux"
-  ];
+  services.displayManager.cosmic-greeter.enable = true;
+  services.desktopManager.cosmic.enable = true;
+  services.flatpak.enable = true;
+
+  # Yubikey PIV.
+  services.pcscd.enable = true;
+
+  # Yubikey OATH.
+  services.udev.packages = [ pkgs.yubikey-personalization ];
+
+  # GPG.
+  programs.gnupg.agent.enable = true;
 
   environment.systemPackages = with pkgs; [
     firefox
   ];
 
-  services.flatpak.enable = true;
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+    "armv7l-linux"
+  ];
+  nix.gc.automatic = false; # for dev
 }
