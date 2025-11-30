@@ -6,6 +6,8 @@
 
   boot.loader.systemd-boot.enable = true;
 
+  nix.gc.automatic = false; # for dev
+
   services.displayManager.cosmic-greeter.enable = true;
   services.desktopManager.cosmic.enable = true;
 
