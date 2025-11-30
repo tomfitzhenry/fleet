@@ -37,6 +37,13 @@ in
       };
     };
 
+    services.btrfs.autoScrub = {
+      enable = true;
+      fileSystems = [
+	"/mnt/btrfs"
+      ];
+    };
+
     systemd.services."create-directories" = {
       script = ''
         cd /mnt/btrfs
