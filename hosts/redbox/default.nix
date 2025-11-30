@@ -90,11 +90,11 @@
       "enp1s0" = {
         name = "enp1s0";
         address = [
-	  "123.243.70.34/30"
+          "123.243.70.34/30"
           "2405:800:2:43::2/126"
         ];
         gateway = [
-	  "123.243.70.33"
+          "123.243.70.33"
           "2405:800:2:43::1"
         ];
       };
@@ -199,7 +199,7 @@
         prefetch = true;
         prefer-ip6 = true;
         local-zone = [
-	  # Keep consoles off this network.
+          # Keep consoles off this network.
           ''"nintendo.com." refuse''
           ''"playstation.com." refuse''
           ''"xbox.com." refuse''
