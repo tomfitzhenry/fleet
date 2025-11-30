@@ -20,12 +20,14 @@
 
             ./modules/common
             ./modules/rootfs
+            ./modules/sshd
           ];
         };
     in
     {
       nixosConfigurations = {
         oxygen = mkStableMachine "oxygen";
+        aluminium = mkStableMachine "aluminium";
       };
     };
 }
