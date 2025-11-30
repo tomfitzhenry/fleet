@@ -16,6 +16,7 @@
 	  comin.nixosModules.comin
 
           ./modules/common
+	  ./modules/rootfs
         ];
       };
     in {

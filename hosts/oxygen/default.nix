@@ -15,12 +15,9 @@
   # Yubikey OATH.
   services.udev.packages = [ pkgs.yubikey-personalization ];
 
-  fileSystems."/" =
-    { device = "/dev/mapper/enc";
-      fsType = "btrfs";
-    };
-
   boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/b210a23c-b423-466d-afd1-c383a1b37a64";
+
+  tomf.rootfs.device = "/dev/mapper/enc";
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
 
