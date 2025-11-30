@@ -63,7 +63,7 @@
   };
 
   # Don't block on lack of connectivity.
-  systemd.network.wait-online.anyInterface = true;
+  systemd.network.wait-online.enable = false;
 
   systemd.network = {
     enable = true;
