@@ -42,6 +42,7 @@
     git
     ncdu
     netcat-gnu
+    ripgrep
     strace
     tcpdump
     tmux
