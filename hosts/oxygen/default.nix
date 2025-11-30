@@ -17,6 +17,9 @@
   # Yubikey OATH.
   services.udev.packages = [ pkgs.yubikey-personalization ];
 
+  # GPG.
+  programs.gnupg.agent.enable = true;
+
   boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/b210a23c-b423-466d-afd1-c383a1b37a64";
 
   tomf = {
