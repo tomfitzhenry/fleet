@@ -34,7 +34,9 @@
     btrfs-progs
     cryptsetup
     curl
+    dig
     file
+    git
     netcat-gnu
     strace
     tcpdump
