@@ -23,6 +23,8 @@
     };
   };
 
+  virtualisation.podman.enable = true;
+
   # Connect with "screen /dev/pts/1"
   systemd.services.vm-alma = {
     wantedBy = [ "multi-user.target" ];
