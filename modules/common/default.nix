@@ -37,9 +37,12 @@
     dig
     file
     git
+    ncdu
     netcat-gnu
     strace
     tcpdump
+    tmux
+    tree
     usbutils
   ];
 
