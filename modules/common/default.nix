@@ -29,6 +29,18 @@
     ];
   };
 
+  environment.systemPackages = with pkgs; [
+    btdu
+    btrfs-progs
+    cryptsetup
+    curl
+    file
+    netcat-gnu
+    strace
+    tcpdump
+    usbutils
+  ];
+
   programs.ssh = {
     knownHosts = {
       "codeberg.org" = {
