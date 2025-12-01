@@ -1,0 +1,31 @@
+name: Nix Flake Health
+
+on:
+  schedule:
+    # 3AM, Sunday.
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  flake-check:
+    runs-on: codeberg-tiny-lazy
+    container:
+      image: nixos/nix:latest
+
+    steps:
+      - name: Enable flakes + experimental features
+        run: |
+          mkdir -p /etc/nix
+          echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+
+      - name: Install dependencies
+        run: |
+          nix-env -iA nixpkgs.flake-checker
+          # https://code.forgejo.org/actions/checkout
+          nix-env -iA nixpkgs.nodejs_24
+
+      - name: Checkout repository
+        uses: https://data.forgejo.org/actions/checkout@v4
+
+      - name: Run flake-checker
+        run: flake-checker --nixpkgs-keys nixpkgs-stable
