@@ -28,4 +28,4 @@ jobs:
         uses: https://data.forgejo.org/actions/checkout@v4
 
       - name: Run flake-checker
-        run: flake-checker --nixpkgs-keys nixpkgs-stable
+        run: flake-checker --nixpkgs-keys nixpkgs-stable --fail-mode
