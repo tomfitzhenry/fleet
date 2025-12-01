@@ -19,7 +19,7 @@ jobs:
 
       - name: Install actions/checkout dependencies
         run: |
-          nix-env -iA nixos.nodejs_24
+          nix-env -iA nixpkgs.nodejs_24
 
       - name: Checkout repository
         uses: https://data.forgejo.org/actions/checkout@v4
