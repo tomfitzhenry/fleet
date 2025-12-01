@@ -1,0 +1,24 @@
+name: Nix Flake Check
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  flake-check:
+    runs-on: docker
+    container:
+      image: nixos/nix:latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Enable flakes + experimental features
+        run: |
+          mkdir -p /etc/nix
+          echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+
+      - name: Run nix flake check
+        run: nix flake check
