@@ -1,0 +1,34 @@
+name: Gittuf Verify
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  schedule:
+    # 3AM, Sunday.
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+enable-email-notifications: true
+
+jobs:
+  gittuf-verify:
+    runs-on: codeberg-small-lazy
+    container:
+      image: nixos/nix:latest
+
+    steps:
+      - name: Install dependencies
+        run: |
+          nix-env -iA nixpkgs.gittuf
+          # https://code.forgejo.org/actions/checkout
+          nix-env -iA nixpkgs.nodejs_24
+
+      - name: Checkout repository
+        uses: https://data.forgejo.org/actions/checkout@v4
+
+      - name: Fetch gittuf refs
+        run: git fetch origin refs/gittuf/*:refs/gittuf/*
+
+      - name: Run gittuf verify
+        run: gittuf verify-ref master
