@@ -17,6 +17,45 @@
 
   services.tailscale.enable = true;
 
+  # TODO: Remove if/when comin supports gittuf.
+  systemd.timers."fleet-repo-poller" = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "*-*-* *:0/10:00";
+      Persistent = true;
+    };
+  };
+
+  systemd.services."fleet-repo-poller" = {
+    script = ''
+      set -eu
+      if [ ! -d repo ]; then
+          git clone https://codeberg.org/tomf/fleet repo
+      fi
+
+      cd repo
+      git pull
+
+      # TODO: Run gittuf verify, when it's ready.
+
+      cd ..
+      rm -rf repo-staging
+      cp -r repo repo-staging
+      mkdir -p repo-live
+      ${pkgs.util-linux}/bin/exch repo-staging repo-live
+    '';
+    path = [
+      pkgs.git
+      pkgs.gittuf
+    ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+      WorkingDirectory = "/var/lib/fleet-repo-poller";
+      StateDirectory = "fleet-repo-poller";
+    };
+  };
+
   services.comin = {
     enable = true;
     gpgPublicKeyPaths = [
