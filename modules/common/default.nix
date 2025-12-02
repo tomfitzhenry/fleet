@@ -36,7 +36,7 @@
       cd repo
       git pull
 
-      # TODO: Run gittuf verify, when it's ready.
+      gittuf verify-ref master
 
       cd ..
       rm -rf repo-staging
