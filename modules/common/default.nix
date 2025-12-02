@@ -64,7 +64,7 @@
     remotes = [
       {
         name = "origin";
-        url = "https://codeberg.org/tomf/fleet";
+        url = "/var/lib/fleet-repo-poller/repo-live";
         branches.main.name = "master";
         poller.period = 60 * 5; # 5 mins
       }
