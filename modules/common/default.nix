@@ -35,6 +35,7 @@
 
       cd repo
       git pull
+      git fetch origin refs/gittuf/*:refs/gittuf/*
 
       gittuf verify-ref master
 
