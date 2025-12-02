@@ -58,9 +58,6 @@
 
   services.comin = {
     enable = true;
-    gpgPublicKeyPaths = [
-      "${./comin-oxygen.asc}"
-    ];
     remotes = [
       {
         name = "origin";
