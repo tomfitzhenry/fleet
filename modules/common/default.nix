@@ -76,6 +76,7 @@
     dig
     file
     git
+    iftop
     ncdu
     netcat-gnu
     nmap
