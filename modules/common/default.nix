@@ -81,6 +81,7 @@
     git
     ncdu
     netcat-gnu
+    nmap
     ripgrep
     strace
     tcpdump
