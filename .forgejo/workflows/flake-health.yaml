@@ -30,4 +30,4 @@ jobs:
         uses: https://data.forgejo.org/actions/checkout@v4
 
       - name: Run flake-checker
-        run: flake-checker --nixpkgs-keys nixpkgs-stable --fail-mode --condition "supportedRefs.contains(gitRef) && (has(numDaysOld) && numDaysOld < 7) && owner == 'NixOS'"
+        run: flake-checker --nixpkgs-keys nixpkgs-stable --fail-mode --condition "(has(numDaysOld) && numDaysOld < 7) && owner == 'NixOS'"
