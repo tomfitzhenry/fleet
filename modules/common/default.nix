@@ -87,6 +87,8 @@
     tmux
     tree
     usbutils
+
+    ghostty.terminfo
   ];
 
   programs.ssh = {
