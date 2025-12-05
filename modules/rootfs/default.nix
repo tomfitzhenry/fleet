@@ -40,7 +40,7 @@ in
     services.btrfs.autoScrub = {
       enable = true;
       fileSystems = [
-	"/mnt/btrfs"
+        "/mnt/btrfs"
       ];
     };
 
