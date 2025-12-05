@@ -29,5 +29,11 @@ jobs:
       - name: Checkout repository
         uses: https://data.forgejo.org/actions/checkout@v4
 
-      - name: Run flake-checker
-        run: flake-checker --nixpkgs-keys nixpkgs-stable --fail-mode --condition "(has(numDaysOld) && numDaysOld < 7) && owner == 'NixOS'"
+      - name: flake-checker age
+        run: flake-checker --nixpkgs-keys nixpkgs-stable --fail-mode --condition "(has(numDaysOld) && numDaysOld < 7)"
+
+      - name: flake-checker owner
+        run: flake-checker --nixpkgs-keys nixpkgs-stable --fail-mode --condition "owner == 'nixos'"
+
+      - name: flake-checker supportedRefs
+        run: flake-checker --nixpkgs-keys nixpkgs-stable --fail-mode --condition "supportedRefs.contains(gitRef)"
