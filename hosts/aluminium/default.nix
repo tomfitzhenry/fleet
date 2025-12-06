@@ -1,5 +1,5 @@
 # Optiplex 7070 Micro, a VM host.
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "25.05";
@@ -24,6 +24,11 @@
   };
 
   virtualisation.podman.enable = true;
+  users.users.podman = {
+    uid = 1005;
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = config.users.users.tom.openssh.authorizedKeys.keys;
+  };
 
   # Connect with "screen /dev/pts/1"
   systemd.services.vm-alma = {
