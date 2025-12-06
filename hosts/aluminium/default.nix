@@ -1,5 +1,10 @@
 # Optiplex 7070 Micro, a VM host.
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "25.05";
