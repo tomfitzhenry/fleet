@@ -52,6 +52,12 @@
     ];
   };
 
+  fileSystems."/mnt/share" = {
+    device = "rockpro64:/export/share";
+    fsType = "nfs";
+    neededForBoot = false;
+  };
+
   # Connect with "screen /dev/pts/1"
   systemd.services.vm-alma = {
     wantedBy = [ "multi-user.target" ];

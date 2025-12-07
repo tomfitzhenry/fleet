@@ -33,6 +33,12 @@
     firefox
   ];
 
+  fileSystems."/mnt/share" = {
+    device = "rockpro64:/export/share";
+    fsType = "nfs";
+    neededForBoot = false;
+  };
+
   boot.binfmt.emulatedSystems = [
     "aarch64-linux"
     "armv7l-linux"
