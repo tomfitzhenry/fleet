@@ -58,6 +58,6 @@
   fileSystems."/mnt/share" = {
     device = "rockpro64:/export/share";
     fsType = "nfs";
-    neededForBoot = false;
+    neededForBoot = true;
   };
 }
