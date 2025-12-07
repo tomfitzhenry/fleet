@@ -29,6 +29,7 @@
         oxygen = mkStableMachine "oxygen";
         aluminium = mkStableMachine "aluminium";
         redbox = mkStableMachine "redbox";
+        rockpro64 = mkStableMachine "rockpro64";
       };
     };
 }
