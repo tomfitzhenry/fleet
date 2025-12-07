@@ -32,6 +32,9 @@
   users.users.podman = {
     uid = 1005;
     isNormalUser = true;
+    extraGroups = [
+      "render" # hw acceleration
+    ];
     openssh.authorizedKeys.keys = config.users.users.tom.openssh.authorizedKeys.keys;
 
     # https://github.com/containers/podman/blob/main/troubleshooting.md#17-rootless-containers-exit-once-the-user-session-exits
