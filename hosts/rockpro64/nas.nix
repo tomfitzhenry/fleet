@@ -33,11 +33,11 @@
       enable = true;
       mountdPort = 4002;
       exports = ''
-        	  /export/share -subtree_check \
-                                172.17.1.160 \
-                                -rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid} \
-        			aluminium \
-        			oxygen
+        /export/share -subtree_check \
+                      172.17.1.160 \
+                      -rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid} \
+                      aluminium \
+                      oxygen
         	'';
     };
   };
