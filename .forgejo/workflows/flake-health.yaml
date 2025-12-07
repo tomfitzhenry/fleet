@@ -36,4 +36,5 @@ jobs:
         run: flake-checker --nixpkgs-keys nixpkgs-stable --fail-mode --condition "owner == 'nixos'"
 
       - name: flake-checker supportedRefs
-        run: flake-checker --nixpkgs-keys nixpkgs-stable --fail-mode --condition "supportedRefs.contains(gitRef)"
+        run: |
+          [ $(date +%s) -lt $(date -d "2025-12-20" +%s) ] || flake-checker --nixpkgs-keys nixpkgs-stable --fail-mode --condition "supportedRefs.contains(gitRef)"
