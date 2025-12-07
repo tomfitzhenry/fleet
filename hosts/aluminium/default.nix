@@ -33,6 +33,12 @@
     uid = 1005;
     isNormalUser = true;
     openssh.authorizedKeys.keys = config.users.users.tom.openssh.authorizedKeys.keys;
+
+    # https://github.com/containers/podman/blob/main/troubleshooting.md#17-rootless-containers-exit-once-the-user-session-exits
+    linger = true;
+
+    # https://github.com/containers/podman/blob/main/troubleshooting.md#34-container-creates-a-file-that-is-not-owned-by-the-users-regular-uid
+    autoSubUidGidRange = true;
   };
 
   # Connect with "screen /dev/pts/1"
