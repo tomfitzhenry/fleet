@@ -16,6 +16,12 @@
     sshd.enable = false;
   };
 
+  swapDevices = [
+    {
+      device = "/swapfile";
+    }
+  ];
+
   services.displayManager.cosmic-greeter.enable = true;
   services.desktopManager.cosmic.enable = true;
   services.flatpak.enable = true;
