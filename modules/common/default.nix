@@ -7,6 +7,8 @@
     pkgs.linux-firmware
   ];
 
+  zramSwap.enable = true;
+
   nix.gc.automatic = lib.mkDefault true;
 
   users.users.tom = {
