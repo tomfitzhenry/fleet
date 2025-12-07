@@ -41,6 +41,17 @@
     autoSubUidGidRange = true;
   };
 
+  services.mosquitto = {
+    enable = true;
+    listeners = [
+      {
+        acl = [ "pattern readwrite #" ];
+        omitPasswordAuth = true;
+        settings.allow_anonymous = true;
+      }
+    ];
+  };
+
   # Connect with "screen /dev/pts/1"
   systemd.services.vm-alma = {
     wantedBy = [ "multi-user.target" ];
