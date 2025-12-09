@@ -1,5 +1,6 @@
 # cwwk monster NAS + Jonsbo N2, as a NAS.
 {
+  pkgs,
   ...
 }:
 {
@@ -13,6 +14,9 @@
     };
     loader.systemd-boot.enable = true;
   };
+
+  # Workaround OS hangs.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   tomf = {
     rootfs = {
