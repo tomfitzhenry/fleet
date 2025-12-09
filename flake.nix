@@ -28,6 +28,7 @@
       nixosConfigurations = {
         oxygen = mkStableMachine "oxygen";
         aluminium = mkStableMachine "aluminium";
+        platinum = mkStableMachine "platinum";
         redbox = mkStableMachine "redbox";
         rockpro64 = mkStableMachine "rockpro64";
       };
