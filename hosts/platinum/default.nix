@@ -7,6 +7,8 @@
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "25.05";
 
+  hardware.cpu.intel.updateMicrocode = true;
+
   boot = {
     initrd.luks.devices.rootfs = {
       device = "/dev/disk/by-partlabel/rootfs";
