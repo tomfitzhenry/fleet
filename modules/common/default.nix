@@ -83,6 +83,8 @@
     ncdu
     netcat-gnu
     nmap
+    nvme-cli
+    pciutils
     ripgrep
     strace
     tcpdump
