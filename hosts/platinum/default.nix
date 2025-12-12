@@ -28,7 +28,9 @@
     #   3 -> Intel C6
     #   4 -> Intel C8
     #   5 -> Intel C10
-    "intel_idle.max_cstate=4"
+    #
+    # Update: Instability returned after plugging in SATA drives. Bad PSU? Dropping max cstate to C6.
+    "intel_idle.max_cstate=3"
   ];
 
   # Experiments in more power saving...
