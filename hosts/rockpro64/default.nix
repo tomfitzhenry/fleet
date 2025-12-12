@@ -4,10 +4,6 @@
   ...
 }:
 {
-  imports = [
-    ./nas.nix
-  ];
-
   nixpkgs.system = "aarch64-linux";
   system.stateVersion = "25.05";
 
