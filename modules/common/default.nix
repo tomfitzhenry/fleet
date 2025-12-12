@@ -84,8 +84,10 @@
     netcat-gnu
     nmap
     nvme-cli
+    parted
     pciutils
     ripgrep
+    smartmontools
     strace
     tcpdump
     tmux
