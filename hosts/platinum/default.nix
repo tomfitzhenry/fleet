@@ -94,4 +94,14 @@
       Restart = "always";
     };
   };
+
+  services.zigbee2mqtt = {
+    enable = true;
+    settings = {
+      frontend = true;
+      mqtt.server = "mqtt://aluminium:1883";
+      permit_join = true;
+      serial.port = "/dev/ttyACM0";
+    };
+  };
 }
