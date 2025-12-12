@@ -27,18 +27,6 @@
       "pcie_rockchip_host"
       "phy_rockchip_pcie"
     ];
-    luks = {
-      devices = {
-        share1 = {
-          device = "/dev/sda3";
-          tryEmptyPassphrase = true;
-        };
-        share2 = {
-          device = "/dev/sdb3";
-          tryEmptyPassphrase = true;
-        };
-      };
-    };
   };
 
   boot.loader.systemd-boot.enable = true;
@@ -58,10 +46,6 @@
   # Prevent frequent disk writes, to prevent HDDs spinning up.
   fileSystems."/var/log".fsType = "tmpfs";
   boot.tmp.useTmpfs = true;
-
-  fileSystems."/srv/share" = {
-    device = "/dev/mapper/share1";
-  };
 
   systemd.services.hd-idle = {
     description = "External HD spin down daemon";
