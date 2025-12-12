@@ -56,4 +56,38 @@
       openFirewall = true;
     };
   };
+
+  boot.initrd.luks.devices = {
+    share1 = {
+      device = "/dev/disk/by-uuid/1abdf7a3-7712-48f3-8f77-9067561fbb73";
+      tryEmptyPassphrase = true;
+    };
+    share2 = {
+      device = "/dev/disk/by-uuid/77e38ce5-3dd6-4b38-8e02-c074d009537f";
+      tryEmptyPassphrase = true;
+    };
+    share3 = {
+      device = "/dev/disk/by-uuid/13af40d6-7de7-44af-99d5-798e210b151d";
+      tryEmptyPassphrase = true;
+    };
+    share4 = {
+      device = "/dev/disk/by-uuid/a633ae97-cfa1-4343-8740-b450c95df8aa";
+      tryEmptyPassphrase = true;
+    };
+  };
+
+  fileSystems."/srv/share" = {
+    device = "/dev/mapper/share1";
+    fsType = "btrfs";
+  };
+
+  systemd.services.hd-idle = {
+    description = "External HD spin down daemon";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.hd-idle}/bin/hd-idle";
+      Restart = "always";
+    };
+  };
 }
