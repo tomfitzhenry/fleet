@@ -56,7 +56,7 @@
   };
 
   fileSystems."/mnt/share" = {
-    device = "rockpro64:/export/share";
+    device = "platinum:/export/share";
     fsType = "nfs";
     neededForBoot = true;
   };
