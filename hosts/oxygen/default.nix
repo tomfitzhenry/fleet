@@ -42,7 +42,6 @@
   fileSystems."/mnt/share" = {
     device = "platinum:/export/share";
     fsType = "nfs";
-    neededForBoot = false;
   };
 
   users.users.tom.extraGroups = [
