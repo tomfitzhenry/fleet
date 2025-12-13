@@ -29,8 +29,13 @@
   # Yubikey PIV.
   services.pcscd.enable = true;
 
-  # Yubikey OATH.
-  services.udev.packages = [ pkgs.yubikey-personalization ];
+  services.udev.packages = [
+    # Yubikey OATH.
+    pkgs.yubikey-personalization
+
+    # nanoDLA.
+    pkgs.libsigrok
+  ];
 
   # GPG.
   programs.gnupg.agent.enable = true;
