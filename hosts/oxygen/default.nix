@@ -39,9 +39,15 @@
     firefox
   ];
 
-  fileSystems."/mnt/share" = {
-    device = "platinum:/export/share";
-    fsType = "nfs";
+  fileSystems = {
+    "/mnt/share" = {
+      device = "platinum:/export/share";
+      fsType = "nfs";
+    };
+    "/mnt/tom" = {
+      device = "platinum:/export/tom";
+      fsType = "nfs";
+    };
   };
 
   users.users.tom.extraGroups = [

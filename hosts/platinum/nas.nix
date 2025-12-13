@@ -23,9 +23,15 @@
   ];
 
   # Since NFS exposes paths as-is, let's give them short names by bind-mounting them under /export.
-  fileSystems."/export/share" = {
-    device = "/srv/share/media";
-    options = [ "bind" ];
+  fileSystems = {
+    "/export/share" = {
+      device = "/srv/share/media";
+      options = [ "bind" ];
+    };
+    "/export/tom" = {
+      device = "/srv/share/tom";
+      options = [ "bind" ];
+    };
   };
 
   services.nfs = {
@@ -37,6 +43,8 @@
                       172.17.1.160 \
                       -rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid} \
                       aluminium \
+                      oxygen
+        /export/tom -subtree_check,rw \
                       oxygen
         	'';
     };
