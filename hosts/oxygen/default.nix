@@ -37,9 +37,6 @@
     pkgs.libsigrok
   ];
 
-  # GPG.
-  programs.gnupg.agent.enable = true;
-
   environment.systemPackages = with pkgs; [
     firefox
   ];
