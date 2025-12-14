@@ -114,6 +114,12 @@
       "oncilla.mythic-beasts.com" = {
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDIdfs0v4y4Qt1a2n7qOMtiI1fQPzqqYUqUFKSK0u7Fq";
       };
+
+      # https://nix-community.org/community-builders/
+      "build-box.nix-community.org".publicKey =
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIElIQ54qAy7Dh63rBudYKdbzJHrrbrrMXLYl7Pkmk88H";
+      "aarch64-build-box.nix-community.org".publicKey =
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG9uyfhyli+BRtk64y+niqtb+sKquRGGZ87f4YRc8EE1";
     };
   };
 }
