@@ -149,13 +149,6 @@
                 data = "Australia/Sydney";
               }
             ];
-            reservations = [
-              {
-                # PS4.
-                hw-address = "78:c8:81:a9:55:e8";
-                ip-address = "172.17.1.160";
-              }
-            ];
           }
         ];
       };
