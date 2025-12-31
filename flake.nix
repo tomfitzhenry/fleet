@@ -19,6 +19,7 @@
             comin.nixosModules.comin
 
             ./modules/common
+            ./modules/podman
             ./modules/rootfs
             ./modules/sshd
           ];
