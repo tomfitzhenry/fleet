@@ -29,6 +29,10 @@
     };
   };
 
+  networking.firewall.allowedTCPPorts = [
+    443 # https
+  ];
+
   users.users.podman.extraGroups = [
     "render" # hw acceleration
   ];
