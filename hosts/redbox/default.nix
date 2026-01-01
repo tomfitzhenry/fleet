@@ -37,6 +37,9 @@
 
   networking.firewall = {
     enable = true;
+    allowedTCPPorts = [
+      443 # https
+    ];
     # Avoid exposing services to WAN.
     interfaces.lan = {
       allowedTCPPorts = [
