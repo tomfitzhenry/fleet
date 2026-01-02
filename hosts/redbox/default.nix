@@ -54,6 +54,7 @@
     filterForward = true;
     extraForwardRules = ''
       ip6 daddr 2404:bf40:81c1:0:e654:e8ff:fe7d:6173 tcp dport 443 counter accept
+      ip6 daddr 2404:bf40:81c1:0:aab8:e0ff:fe06:ae27 tcp dport 443 counter accept
     '';
   };
 
