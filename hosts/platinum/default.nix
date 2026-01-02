@@ -51,6 +51,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   tomf = {
+    podman.enable = true;
     rootfs = {
       device = "/dev/mapper/rootfs";
       subvolume = "/";
