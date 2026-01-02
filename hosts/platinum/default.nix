@@ -62,6 +62,10 @@
     };
   };
 
+  networking.firewall.allowedTCPPorts = [
+    443 # https
+  ];
+
   boot.initrd.luks.devices = {
     share1 = {
       device = "/dev/disk/by-uuid/1abdf7a3-7712-48f3-8f77-9067561fbb73";
