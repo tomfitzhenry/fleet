@@ -58,6 +58,9 @@
     '';
   };
 
+  # Allow non-privileged Podman containers to listen on 443/tcp.
+  boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 443;
+
   networking.nat = {
     enable = true;
     internalInterfaces = [ "lan" ];
