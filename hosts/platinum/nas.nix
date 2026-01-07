@@ -40,7 +40,9 @@
       mountdPort = 4002;
       exports = ''
         /export/share \
-                      -subtree_check,rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid} \
+                      -subtree_check \
+                      172.17.1.44 \
+                      -rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid} \
                       aluminium \
                       gallium \
                       oxygen
