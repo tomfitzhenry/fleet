@@ -44,10 +44,8 @@
                       172.17.1.44 \
                       -rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid} \
                       aluminium \
-                      gallium \
                       oxygen
         /export/tom -subtree_check,rw \
-                      gallium \
                       oxygen
         	'';
     };
