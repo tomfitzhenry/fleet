@@ -27,6 +27,16 @@
       enable = true;
       openFirewall = true;
     };
+    tlshd = {
+      enable = true;
+      settings = {
+        "authenticate.client" = {
+          "x509.certificate" = "/var/lib/tlshd/cert.pem";
+          "x509.private_key" = "/var/lib/tlshd/key.pem";
+          "x509.truststore" = "/var/lib/tlshd/truststore.pem";
+        };
+      };
+    };
   };
 
   # Allow non-privileged Podman containers to listen on 443/tcp.
