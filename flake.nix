@@ -22,6 +22,7 @@
             ./modules/podman
             ./modules/rootfs
             ./modules/sshd
+            ./modules/tlshd
           ];
         };
     in

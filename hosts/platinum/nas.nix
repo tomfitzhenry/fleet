@@ -34,6 +34,17 @@
     };
   };
 
+  tomf.tlshd = {
+    enable = true;
+    settings = {
+      "authenticate.server" = {
+        "x509.certificate" = "/var/lib/tlshd/cert.pem";
+        "x509.private_key" = "/var/lib/tlshd/key.pem";
+        "x509.truststore" = "/var/lib/tlshd/truststore.pem";
+      };
+    };
+  };
+
   services.nfs = {
     server = {
       enable = true;
@@ -45,7 +56,7 @@
                       -rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid} \
                       aluminium \
                       oxygen
-        /export/tom -subtree_check,rw \
+        /export/tom -subtree_check,rw,xprtsec=mtls \
                       oxygen
         	'';
     };

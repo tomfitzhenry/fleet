@@ -14,6 +14,16 @@
       subvolume = "/";
     };
     sshd.enable = false;
+    tlshd = {
+      enable = true;
+      settings = {
+        "authenticate.client" = {
+          "x509.certificate" = "/var/lib/tlshd/cert.pem";
+          "x509.private_key" = "/var/lib/tlshd/key.pem";
+          "x509.truststore" = "/var/lib/tlshd/truststore.pem";
+        };
+      };
+    };
   };
 
   swapDevices = [
@@ -49,6 +59,10 @@
     "/mnt/tom" = {
       device = "platinum:/export/tom";
       fsType = "nfs";
+      options = [
+        # Authenticate with mTLS.
+        "xprtsec=mtls"
+      ];
     };
   };
 
