@@ -55,12 +55,14 @@
     "/mnt/share" = {
       device = "platinum:/export/share";
       fsType = "nfs";
+      options = [
+        "xprtsec=mtls"
+      ];
     };
     "/mnt/tom" = {
       device = "platinum:/export/tom";
       fsType = "nfs";
       options = [
-        # Authenticate with mTLS.
         "xprtsec=mtls"
       ];
     };

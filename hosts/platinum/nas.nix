@@ -53,7 +53,7 @@
         /export/share \
                       -subtree_check \
                       172.17.1.44 \
-                      -rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid} \
+                      -rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid},xprtsec=mtls \
                       aluminium \
                       oxygen
         /export/tom -subtree_check,rw,xprtsec=mtls \

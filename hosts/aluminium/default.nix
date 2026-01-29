@@ -64,5 +64,9 @@
   fileSystems."/mnt/share" = {
     device = "platinum:/export/share";
     fsType = "nfs";
+    options = [
+      # Authenticate with mTLS.
+      "xprtsec=mtls"
+    ];
   };
 }
