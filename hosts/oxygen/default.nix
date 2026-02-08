@@ -32,9 +32,8 @@
     }
   ];
 
-  services.displayManager.cosmic-greeter.enable = true;
-  services.desktopManager.cosmic.enable = true;
-  services.flatpak.enable = true;
+  programs.sway.enable = true;
+  networking.networkmanager.enable = true;
 
   # Yubikey PIV.
   services.pcscd.enable = true;
