@@ -34,5 +34,11 @@
         redbox = mkStableMachine "redbox";
         rockpro64 = mkStableMachine "rockpro64";
       };
+
+      checks.x86_64-linux = {
+        rootfs = nixpkgs-stable.legacyPackages.x86_64-linux.testers.nixosTest (
+          import ./modules/rootfs/vm-test.nix
+        );
+      };
     };
 }
