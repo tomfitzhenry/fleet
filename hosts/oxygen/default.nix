@@ -39,6 +39,7 @@
     alsa.enable = true;
     pulse.enable = true;
   };
+  hardware.bluetooth.enable = true;
 
   # Yubikey PIV.
   services.pcscd.enable = true;
