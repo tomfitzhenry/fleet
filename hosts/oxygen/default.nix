@@ -34,6 +34,11 @@
 
   programs.sway.enable = true;
   networking.networkmanager.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+  };
 
   # Yubikey PIV.
   services.pcscd.enable = true;
