@@ -13,7 +13,8 @@ enable-email-notifications: true
 
 jobs:
   flake-check:
-    runs-on: codeberg-small-lazy
+    # Uses a larger machine since the VM tests need more RAM/disk.
+    runs-on: codeberg-medium-lazy
     container:
       image: nixos/nix:latest
 
