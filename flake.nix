@@ -40,6 +40,9 @@
         rootfs = nixpkgs-stable.legacyPackages.x86_64-linux.testers.nixosTest (
           import ./modules/rootfs/vm-test.nix
         );
+        oxygen = nixpkgs-stable.legacyPackages.x86_64-linux.testers.nixosTest (
+          import ./hosts/oxygen/vm-test.nix
+        );
       };
     };
 }
