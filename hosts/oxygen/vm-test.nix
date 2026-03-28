@@ -13,6 +13,7 @@
       imports = [
         ./default.nix
         ../../modules/common
+        ../../modules/podman
         ../../modules/rootfs
         ../../modules/sshd
         ../../modules/tlshd
