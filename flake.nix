@@ -18,6 +18,7 @@
 
             comin.nixosModules.comin
 
+            ./modules/comin
             ./modules/common
             ./modules/podman
             ./modules/rootfs
