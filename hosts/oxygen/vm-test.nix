@@ -25,10 +25,6 @@
         uid = 1000;
         isNormalUser = true;
         password = "test";
-        extraGroups = [
-          "video"
-          "input"
-        ];
       };
 
       # Automatically start Sway.
