@@ -12,6 +12,7 @@
     {
       imports = [
         ./default.nix
+        ../../modules/common
         ../../modules/rootfs
         ../../modules/sshd
         ../../modules/tlshd
