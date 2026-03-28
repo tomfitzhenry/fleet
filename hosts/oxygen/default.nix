@@ -32,8 +32,7 @@
     }
   ];
 
-  # Desktop stuff.
-  fonts.enableDefaultPackages = true;
+  programs.sway.enable = true;
   services.upower.enable = true;
   networking.networkmanager.enable = true;
   services.pipewire = {
