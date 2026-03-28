@@ -33,4 +33,7 @@ jobs:
         uses: https://data.forgejo.org/actions/checkout@v4
 
       - name: Run nix flake check
-        run: nix flake check
+        # Specify --no-build to avoid running VM tests, since
+        # Forgejo runners don't have KVM, and so the VM tests
+        # are too slow.
+        run: nix flake check --no-build

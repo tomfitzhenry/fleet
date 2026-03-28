@@ -37,9 +37,9 @@
 
       checks.x86_64-linux = {
         # Disabled until CI can run this.
-        #rootfs = nixpkgs-stable.legacyPackages.x86_64-linux.testers.nixosTest (
-        #  import ./modules/rootfs/vm-test.nix
-        #);
+        rootfs = nixpkgs-stable.legacyPackages.x86_64-linux.testers.nixosTest (
+          import ./modules/rootfs/vm-test.nix
+        );
       };
     };
 }
