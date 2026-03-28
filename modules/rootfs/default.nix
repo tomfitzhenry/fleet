@@ -6,6 +6,10 @@ in
 {
   options = {
     tomf.rootfs = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+      };
       device = lib.mkOption {
         type = lib.types.str;
       };
@@ -15,7 +19,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     fileSystems = {
       "/" = {
         device = cfg.device;
