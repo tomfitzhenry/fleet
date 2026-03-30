@@ -33,6 +33,7 @@
   ];
 
   programs.sway.enable = true;
+  programs.niri.enable = true;
   services.upower.enable = true;
   networking.networkmanager.enable = true;
   services.pipewire = {
