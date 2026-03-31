@@ -38,6 +38,10 @@
         fi
       '';
 
+      environment.systemPackages = [
+        pkgs.firefox
+      ];
+
       virtualisation = {
         qemu.options = [ "-vga none -device virtio-gpu-pci" ];
       };

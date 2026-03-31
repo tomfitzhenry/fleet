@@ -54,10 +54,6 @@
     pkgs.libsigrok
   ];
 
-  environment.systemPackages = with pkgs; [
-    firefox
-  ];
-
   fileSystems = {
     "/mnt/share" = {
       device = "platinum:/export/share";
