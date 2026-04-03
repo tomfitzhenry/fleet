@@ -96,5 +96,11 @@
 
     # Client pings upstream IPv6
     client.succeed("ping -c 3 2405:800:2:43::1 -I eth1")
+
+    # Wait for client to get IPv4 DHCP address
+    client.wait_until_succeeds("ip -4 addr show dev eth1 | grep '172.17.1.'")
+
+    # Client pings upstream IPv4
+    client.succeed("ping -c 3 123.243.70.33 -I eth1")
   '';
 }
