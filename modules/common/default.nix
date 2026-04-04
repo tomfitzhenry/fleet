@@ -10,6 +10,7 @@
   zramSwap.enable = true;
 
   nix.gc.automatic = lib.mkDefault true;
+  boot.tmp.cleanOnBoot = true;
 
   users.users.tom = {
     uid = 1000;
