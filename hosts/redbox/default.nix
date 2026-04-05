@@ -1,5 +1,5 @@
 # redbox is a PC Engines APU1 acting as a router.
-{ config, ... }:
+{ config, lib, ... }:
 {
   nixpkgs.system = "x86_64-linux";
   system.stateVersion = "25.05";
@@ -130,6 +130,13 @@
           interfaces = [
             "lan"
           ];
+
+          # Kea by default does not exit on startup if it fails to bind a socket.
+          # This can happen if Kea starts before the 'lan' interface is created.
+          # So let's add retries, and exit if the interface fails to bind.
+          # https://gitlab.isc.org/isc-projects/kea/-/issues/2776
+          service-sockets-max-retries = 5;
+          service-sockets-require-all = true;
         };
         lease-database = {
           name = "/var/lib/kea/dhcp4.leases";
@@ -226,4 +233,29 @@
       ];
     };
   };
+
+  assertions = [
+    (
+      let
+        networkOnlineReverseDependencies = lib.attrNames (
+          lib.filterAttrs (
+            name: service: lib.elem "network-online.target" service.after
+          ) config.systemd.services
+        );
+      in
+      {
+        assertion =
+          networkOnlineReverseDependencies == [
+            "kea-dhcp4-server"
+          ];
+        message = ''
+          The following services depend on 'network-online.target'. 
+          To maintain a robust/self-healing router, remove these dependencies and 
+          configure the services to retry on failure instead.
+
+          Violating services: ${lib.concatStringsSep ", " networkOnlineReverseDependencies}
+        '';
+      }
+    )
+  ];
 }
