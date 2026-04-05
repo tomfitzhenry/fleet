@@ -9,3 +9,13 @@ $ git config --local gpg.format ssh
 $ git config --local user.signingkey ~/.ssh/id_ed25519_sk.pub
 $ git config --local commit.gpgSign true
 ```
+
+## VM tests
+
+To run a VM test, run:
+
+```shell
+$ nix build --print-build-logs .#checks.x86_64-linux.redbox
+```
+
+Add the `--rebuild` flag to re-run.
