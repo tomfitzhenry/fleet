@@ -104,7 +104,8 @@
       client.wait_until_succeeds("ip -6 addr show dev eth1 | grep '2404:bf40:81c1:'")
 
       # Client pings upstream IPv6
-      client.wait_until_succeeds("ping -c 1 2405:800:2:43::1 -I eth1")
+      # TODO: Re-enable IPv6 ping when ISP's IPv6 works.
+      #client.wait_until_succeeds("ping -c 1 2405:800:2:43::1 -I eth1")
 
       # Wait for client to get IPv4 DHCP address
       client.wait_until_succeeds("ip -4 addr show dev eth1 | grep '172.17.1.'")
