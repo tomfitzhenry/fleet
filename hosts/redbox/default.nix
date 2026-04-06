@@ -191,6 +191,13 @@
     };
   };
 
+  networking.jool = {
+    enable = true;
+    nat64 = {
+      default = { };
+    };
+  };
+
   # Avoid port binding conflicts on port 53.
   services.resolved.enable = false;
 
