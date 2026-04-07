@@ -193,20 +193,9 @@ in
         {
           name = "lan";
           advertise = true;
-          # Don't advertise this router as a default IPv6 gateway — ISP's IPv6 is broken.
-          # Setting default_lifetime to 0 clears the Router Lifetime field in RAs,
-          # so clients won't use this router as a default route.
-          # Clients will still get LAN IPv6 addresses via the prefix below.
-          default_lifetime = "0s";
           prefix = [ { prefix = "::/64"; } ];
           rdnss = [ { } ];
-          # Don't advertise a default IPv6 route — ISP's IPv6 is broken.
-          # Clients will still get LAN IPv6 addresses via the prefix above.
-          #
-          # Advertise a route for the snid NAT46 prefix so that LAN backends can
-          # reply to connections proxied by snid — their reply packets are destined
-          # to 64:ff9b:1::<client-ipv4> and need a path back through the router.
-          route = [ { prefix = "64:ff9b:1::/96"; } ];
+          route = [ { } ];
           verbose = true;
         }
       ];
