@@ -1,8 +1,9 @@
-# TODO: Remove this package when https://github.com/NixOS/nixpkgs/pull/506555 reaches stable.
+# TODO: Remove this package when https://github.com/NixOS/nixpkgs/pull/507875 reaches stable.
 {
   lib,
   buildGoModule,
   fetchFromGitHub,
+  nixosTests,
 }:
 
 buildGoModule (finalAttrs: {
@@ -17,6 +18,14 @@ buildGoModule (finalAttrs: {
   };
 
   vendorHash = "sha256-cVarG6Tx4yWpZE5BLZsMtLV9LF1lsiFfIXxhYiNjQlY=";
+
+  passthru = {
+    tests.nixos = nixosTests.snid;
+    services.default = {
+      imports = [ (lib.modules.importApply ./service.nix { }) ];
+      snid.package = finalAttrs.finalPackage;
+    };
+  };
 
   meta = {
     description = "Zero config TLS proxy server that uses SNI";

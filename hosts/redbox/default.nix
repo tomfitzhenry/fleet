@@ -6,7 +6,7 @@
   ...
 }:
 let
-  snid = pkgs.callPackage ../../pkgs/snid { };
+  snid = pkgs.callPackage ../../pkgs/snid/package.nix { };
   httpsBackends = [
     "2404:bf40:81c1:0:e654:e8ff:fe7d:6173"
     "2404:bf40:81c1:0:aab8:e0ff:fe06:ae27"
@@ -250,23 +250,13 @@ in
     ip -6 route add local 64:ff9b:1::/96 dev lo
   '';
 
-  systemd.services.snid = {
-    description = "SNI-based TLS proxy";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-
-    serviceConfig = {
-      ExecStart = pkgs.lib.concatStringsSep " " (
-        [
-          "${snid}/bin/snid"
-          "-listen tcp:0.0.0.0:443"
-          "-mode nat46"
-          "-nat46-prefix 64:ff9b:1::"
-        ]
-        ++ map (host: "-backend-cidr ${host}/128") httpsBackends
-      );
-      Restart = "on-failure";
-      DynamicUser = true;
+  system.services.snid = {
+    imports = [ snid.services.default ];
+    snid = {
+      listen = [ "tcp:0.0.0.0:443" ];
+      mode = "nat46";
+      nat46Prefix = "64:ff9b:1::";
+      backendCidrs = map (host: "${host}/128") httpsBackends;
     };
   };
 
