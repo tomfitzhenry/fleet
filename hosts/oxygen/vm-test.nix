@@ -23,13 +23,6 @@
       # Disable rootfs module, since the VM test provides it.
       tomf.rootfs.enable = false;
 
-      # TODO: Remove this once I import modules/common.
-      users.users.tom = {
-        uid = 1000;
-        isNormalUser = true;
-        password = "test";
-      };
-
       # Automatically start Sway.
       services.getty.autologinUser = "tom";
       programs.bash.loginShellInit = ''
