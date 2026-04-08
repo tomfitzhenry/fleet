@@ -14,6 +14,7 @@
         ./default.nix
         ../../modules/common
         ../../modules/podman
+        ../../modules/remote-builders
         ../../modules/rootfs
         ../../modules/sshd
         ../../modules/tlshd

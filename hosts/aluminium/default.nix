@@ -19,6 +19,7 @@
 
   tomf = {
     podman.enable = true;
+    remote-builders.enable = true;
     rootfs = {
       device = "/dev/mapper/rootfs";
       subvolume = "/";

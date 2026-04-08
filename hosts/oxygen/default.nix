@@ -13,6 +13,7 @@
       device = "/dev/mapper/enc";
       subvolume = "/";
     };
+    remote-builders.enable = true;
     sshd.enable = false;
     tlshd = {
       enable = true;
