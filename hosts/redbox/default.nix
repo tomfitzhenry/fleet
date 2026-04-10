@@ -11,6 +11,10 @@ let
     "2404:bf40:81c1:0:e654:e8ff:fe7d:6173"
     "2404:bf40:81c1:0:aab8:e0ff:fe06:ae27"
   ];
+  wireguardBackends = [
+    "2404:bf40:81c1:0:e654:e8ff:fe7d:6173"
+    "2404:bf40:81c1:0:aab8:e0ff:fe06:ae27"
+  ];
 in
 {
   nixpkgs.system = "x86_64-linux";
@@ -64,9 +68,10 @@ in
     };
 
     filterForward = true;
-    extraForwardRules = lib.concatMapStrings (
-      host: "ip6 daddr ${host} tcp dport 443 counter accept\n"
-    ) httpsBackends;
+    extraForwardRules = lib.concatLines (
+      map (host: "ip6 daddr ${host} tcp dport 443 counter accept") httpsBackends
+      ++ map (host: "ip6 daddr ${host} udp dport 51820 counter accept") wireguardBackends
+    );
   };
 
   # Allow non-privileged Podman containers to listen on 443/tcp.
