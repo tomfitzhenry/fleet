@@ -2,6 +2,7 @@
 { config, lib, ... }:
 let
   cfg = config.tomf.wireguard;
+  fleetHosts = import ../../lib/hosts.nix;
   port = 51820;
   mkPeer = id: publicKey: {
     ip = "192.168.2.${toString id}";
@@ -17,10 +18,10 @@ let
   hosts = {
     oxygen = mkPeer 1 "KaNVCe+3pvRPFG/DznQDktplLMmP/7s5Vw5l6xjcpDs=";
     aluminium =
-      mkReachablePeer 2 "2404:bf40:81c1:0:e654:e8ff:fe7d:6173"
+      mkReachablePeer 2 fleetHosts.aluminium.ipv6
         "Gfe6lYdGn+CDBokXOe1gVOysyZQJ8LwJrrViuR8vGyc=";
     platinum =
-      mkReachablePeer 3 "2404:bf40:81c1:0:aab8:e0ff:fe06:ae27"
+      mkReachablePeer 3 fleetHosts.platinum.ipv6
         "x7/D2CNMhUQnJZvUqOSfjj/8ZoYgd8mphgLAR0ZA9kA=";
   };
 in

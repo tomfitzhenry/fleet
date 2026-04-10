@@ -7,13 +7,14 @@
 }:
 let
   snid = pkgs.callPackage ../../pkgs/snid/package.nix { };
+  fleetHosts = import ../../lib/hosts.nix;
   httpsBackends = [
-    "2404:bf40:81c1:0:e654:e8ff:fe7d:6173"
-    "2404:bf40:81c1:0:aab8:e0ff:fe06:ae27"
+    fleetHosts.aluminium.ipv6
+    fleetHosts.platinum.ipv6
   ];
   wireguardBackends = [
-    "2404:bf40:81c1:0:e654:e8ff:fe7d:6173"
-    "2404:bf40:81c1:0:aab8:e0ff:fe06:ae27"
+    fleetHosts.aluminium.ipv6
+    fleetHosts.platinum.ipv6
   ];
 in
 {
