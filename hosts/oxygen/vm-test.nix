@@ -18,10 +18,14 @@
         ../../modules/rootfs
         ../../modules/sshd
         ../../modules/tlshd
+        ../../modules/wireguard
       ];
 
       # Disable rootfs module, since the VM test provides it.
       tomf.rootfs.enable = false;
+
+      # flake.nix defines this for all hosts, but tests don't get that config, so let's define it here.
+      networking.hostName = "oxygen";
 
       # Automatically start Sway.
       services.getty.autologinUser = "tom";

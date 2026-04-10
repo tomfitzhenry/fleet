@@ -43,6 +43,7 @@
           ../../modules/podman
           ../../modules/rootfs
           ../../modules/sshd
+          ../../modules/wireguard
         ];
 
         tomf.rootfs.enable = false;

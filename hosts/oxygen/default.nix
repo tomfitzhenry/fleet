@@ -25,6 +25,7 @@
         };
       };
     };
+    wireguard.enable = true;
   };
 
   swapDevices = [

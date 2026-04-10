@@ -68,6 +68,7 @@
       enable = true;
       openFirewall = true;
     };
+    wireguard.enable = true;
   };
 
   # Allow non-privileged Podman containers to listen on 443/tcp.

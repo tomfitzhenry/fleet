@@ -25,6 +25,7 @@
             ./modules/rootfs
             ./modules/sshd
             ./modules/tlshd
+            ./modules/wireguard
           ];
         };
     in
