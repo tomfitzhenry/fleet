@@ -51,9 +51,6 @@
     "100.87.189.44" = [ "oxygen" ];
     "100.103.31.75" = [ "aluminium" ];
     "100.94.214.53" = [ "platinum" ];
-
-    # Force IPv4, since codeberg.org's IPv6 is broken for SSH.
-    "217.197.84.140" = [ "codeberg.org" ];
   };
 
   programs.ssh = {
