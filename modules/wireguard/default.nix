@@ -18,7 +18,7 @@ let
     oxygen = mkPeer 1 "KaNVCe+3pvRPFG/DznQDktplLMmP/7s5Vw5l6xjcpDs=";
     aluminium =
       mkReachablePeer 2 "2404:bf40:81c1:0:e654:e8ff:fe7d:6173"
-        "KaNVCe+3pvRPFG/DznQDktplLMmP/7s5Vw5l6xjcpDs=";
+        "Gfe6lYdGn+CDBokXOe1gVOysyZQJ8LwJrrViuR8vGyc=";
     platinum =
       mkReachablePeer 3 "2404:bf40:81c1:0:aab8:e0ff:fe06:ae27"
         "x7/D2CNMhUQnJZvUqOSfjj/8ZoYgd8mphgLAR0ZA9kA=";
