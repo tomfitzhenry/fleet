@@ -50,6 +50,14 @@
   # Workaround OS hangs.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Use out-of-tree driver until IT8613E is supported in mainline.
+  boot.extraModulePackages = [ pkgs.linuxPackages_latest.it87 ];
+  boot.kernelModules = [
+    "drivetemp"
+    # Fan driver for CWWK NAS motherboard.
+    "it87"
+  ];
+
   tomf = {
     podman.enable = true;
     rootfs = {
@@ -111,6 +119,114 @@
       Restart = "always";
     };
   };
+
+  systemd.services.fan2go =
+    let
+      cfg = (pkgs.formats.yaml { }).generate "fan2go.yaml" {
+        dbPath = "/var/lib/fan2go/fan2go.db";
+        fans = [
+          {
+            id = "hdd-fan";
+            hwmon = {
+              platform = "it8613-isa-0a20";
+              # SYSFAN, plugged into HDD back plate.
+              rpmChannel = 3;
+            };
+            neverStop = true;
+            curve = "hottest-hdd-curve";
+            minPwm = 80;
+            maxPwm = 255;
+          }
+        ];
+        sensors = [
+          {
+            id = "hdd1";
+            hwmon = {
+              platform = "drivetemp-scsi-1-0";
+              index = 1;
+            };
+          }
+          {
+            id = "hdd2";
+            hwmon = {
+              platform = "drivetemp-scsi-2-0";
+              index = 1;
+            };
+          }
+          {
+            id = "hdd3";
+            hwmon = {
+              platform = "drivetemp-scsi-3-0";
+              index = 1;
+            };
+          }
+          {
+            id = "hdd4";
+            hwmon = {
+              platform = "drivetemp-scsi-4-0";
+              index = 1;
+            };
+          }
+        ];
+        curves = [
+          {
+            id = "hdd1-c";
+            linear = {
+              sensor = "hdd1";
+              min = 35;
+              max = 50;
+            };
+          }
+          {
+            id = "hdd2-c";
+            linear = {
+              sensor = "hdd2";
+              min = 35;
+              max = 50;
+            };
+          }
+          {
+            id = "hdd3-c";
+            linear = {
+              sensor = "hdd3";
+              min = 35;
+              max = 50;
+            };
+          }
+          {
+            id = "hdd4-c";
+            linear = {
+              sensor = "hdd4";
+              min = 35;
+              max = 50;
+            };
+          }
+          {
+            id = "hottest-hdd-curve";
+            function = {
+              type = "maximum";
+              curves = [
+                "hdd1-c"
+                "hdd2-c"
+                "hdd3-c"
+                "hdd4-c"
+              ];
+            };
+          }
+        ];
+      };
+    in
+    {
+      description = "Fan controller";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "systemd-modules-load.service" ];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.fan2go}/bin/fan2go --config ${cfg}";
+        StateDirectory = "fan2go";
+        Restart = "always";
+      };
+    };
 
   services.zigbee2mqtt = {
     enable = true;
