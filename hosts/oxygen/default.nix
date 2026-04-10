@@ -77,9 +77,5 @@
   users.users.tom.extraGroups = [
     "dialout" # for picocom
   ];
-  boot.binfmt.emulatedSystems = [
-    "aarch64-linux"
-    "armv7l-linux"
-  ];
   nix.gc.automatic = false; # for dev
 }
