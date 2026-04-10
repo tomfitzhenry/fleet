@@ -45,8 +45,6 @@
     };
   };
 
-  # TODO: Remove when nfs doesn't route via Tailscale.
-  services.tailscale.enable = true;
   services.nfs = {
     server = {
       enable = true;
@@ -56,9 +54,7 @@
                       -subtree_check \
                       172.17.1.44 \
                       -rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid},xprtsec=mtls \
-                      wg-aluminium \
                       aluminium \
-                      wg-oxygen \
                       oxygen
         /export/tom -subtree_check,rw,xprtsec=mtls \
                       oxygen

@@ -47,12 +47,6 @@
     ghostty.terminfo
   ];
 
-  networking.hosts = {
-    "100.87.189.44" = [ "oxygen" ];
-    "100.103.31.75" = [ "aluminium" ];
-    "100.94.214.53" = [ "platinum" ];
-  };
-
   programs.ssh = {
     knownHosts = {
       "codeberg.org" = {

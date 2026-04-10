@@ -37,7 +37,7 @@ in
 
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedUDPPorts = [ port ];
-    networking.hosts = lib.attrsets.mapAttrs' (k: v: lib.nameValuePair v.ip [ "wg-${k}" ]) hosts;
+    networking.hosts = lib.attrsets.mapAttrs' (k: v: lib.nameValuePair v.ip [ k ]) hosts;
 
     networking.wireguard = {
       interfaces.wgFleet = {

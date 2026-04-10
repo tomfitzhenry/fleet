@@ -56,8 +56,6 @@
     pkgs.libsigrok
   ];
 
-  # TODO: Remove when nfs doesn't route via Tailscale.
-  services.tailscale.enable = true;
   fileSystems = {
     "/mnt/share" = {
       device = "platinum:/export/share";
