@@ -45,6 +45,8 @@
     };
   };
 
+  # TODO: Remove when nfs doesn't route via Tailscale.
+  services.tailscale.enable = true;
   services.nfs = {
     server = {
       enable = true;
