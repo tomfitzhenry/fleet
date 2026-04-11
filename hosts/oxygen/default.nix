@@ -62,6 +62,8 @@
       fsType = "nfs";
       options = [
         "xprtsec=mtls"
+        "noauto"
+        "x-systemd.automount"
       ];
     };
     "/mnt/tom" = {
@@ -69,6 +71,8 @@
       fsType = "nfs";
       options = [
         "xprtsec=mtls"
+        "noauto"
+        "x-systemd.automount"
       ];
     };
   };

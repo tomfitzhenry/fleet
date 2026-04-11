@@ -69,6 +69,8 @@
     options = [
       # Authenticate with mTLS.
       "xprtsec=mtls"
+      "noauto"
+      "x-systemd.automount"
     ];
   };
 }
