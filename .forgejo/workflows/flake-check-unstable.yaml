@@ -1,0 +1,46 @@
+name: Nix Flake Check (unstable)
+
+on:
+  schedule:
+    # 3AM, Sunday and Wednesday.
+    - cron: '0 3 * * 0,3'
+  workflow_dispatch:
+
+enable-email-notifications: true
+
+jobs:
+  flake-check-unstable:
+    # Uses a larger machine since the VM tests need more RAM/disk.
+    runs-on: codeberg-medium-lazy
+    container:
+      image: nixos/nix:latest
+
+    steps:
+      - name: Enable flakes + experimental features
+        run: |
+          mkdir -p /etc/nix
+          echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+
+      - name: Install actions/checkout dependencies
+        run: |
+          # https://code.forgejo.org/actions/checkout
+          nix-env -iA nixpkgs.nodejs_24
+
+      - name: Checkout repository
+        uses: https://data.forgejo.org/actions/checkout@v4
+
+      - name: Modify flake.nix to use nixos-unstable
+        run: |
+          # Check that the expected pattern exists and modify it
+          if grep -q 'nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-' flake.nix; then
+            sed -i 's|github:nixos/nixpkgs?ref=nixos-[^"]*|github:nixos/nixpkgs?ref=nixos-unstable|' flake.nix
+          else
+            echo "ERROR: Expected nixpkgs-stable.url pattern not found in flake.nix"
+            exit 1
+          fi
+
+      - name: Run nix flake check
+        # Specify --no-build to avoid running VM tests, since
+        # Forgejo runners don't have KVM, and so the VM tests
+        # are too slow.
+        run: nix flake check --no-build
