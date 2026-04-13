@@ -64,6 +64,7 @@
         "xprtsec=mtls"
         "noauto"
         "x-systemd.automount"
+        "soft"
       ];
     };
     "/mnt/tom" = {
@@ -73,6 +74,7 @@
         "xprtsec=mtls"
         "noauto"
         "x-systemd.automount"
+        "soft"
       ];
     };
   };

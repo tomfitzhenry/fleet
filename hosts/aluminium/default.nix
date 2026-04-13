@@ -71,6 +71,7 @@
       "xprtsec=mtls"
       "noauto"
       "x-systemd.automount"
+      "soft"
     ];
   };
 }
