@@ -50,6 +50,7 @@ in
         };
         fileSystems."/nix/store" = {
           device = "/nix/.ro-store";
+          fsType = "none";
           options = [ "bind" ];
         };
       };

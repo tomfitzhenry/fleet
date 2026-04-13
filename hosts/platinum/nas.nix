@@ -26,10 +26,12 @@
   fileSystems = {
     "/export/share" = {
       device = "/srv/share/media";
+      fsType = "none";
       options = [ "bind" ];
     };
     "/export/tom" = {
       device = "/srv/share/tom";
+      fsType = "none";
       options = [ "bind" ];
     };
   };
