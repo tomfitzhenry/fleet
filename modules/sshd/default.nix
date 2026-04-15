@@ -30,6 +30,9 @@ in
       settings = {
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
+
+        # Avoid closing connections from suspended laptops.
+        TCPKeepAlive = false;
       };
     };
 
