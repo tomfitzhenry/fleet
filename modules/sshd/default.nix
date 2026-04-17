@@ -1,5 +1,10 @@
 # A module for managing sshd.
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   cfg = config.tomf.sshd;
   keys = [
@@ -25,6 +30,16 @@ in
   config = lib.mkIf cfg.enable {
     services.openssh = {
       enable = true;
+      package = pkgs.symlinkJoin {
+        name = "openssh-mptcp";
+        paths = [ pkgs.openssh ];
+        buildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          rm $out/bin/sshd
+          makeWrapper ${pkgs.mptcpd}/bin/mptcpize $out/bin/sshd \
+            --add-flags "run ${pkgs.openssh}/bin/sshd"
+        '';
+      };
       openFirewall = cfg.openFirewall;
       authorizedKeysInHomedir = false;
       settings = {
