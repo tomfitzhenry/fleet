@@ -52,6 +52,17 @@
     "render" # hw acceleration
   ];
 
+  users.users.dev = {
+    uid = 1001;
+    isNormalUser = true;
+    extraGroups = [
+      config.security.tpm2.tssGroup
+    ];
+    openssh.authorizedKeys.keys = [
+      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGUYYx2b7mHdXTxbnHh3euAUNyn+8aC2J2kOCUmp+JjbwipmjH3MbDjwjCvO7Z89wgVFmw0mL4y7EWucNaZqbKQ= tom@oxygen"
+    ];
+  };
+
   services.mosquitto = {
     enable = true;
     listeners = [
