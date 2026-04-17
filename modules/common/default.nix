@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   boot.loader.systemd-boot.configurationLimit = 15;
   boot.loader.grub.configurationLimit = 15;
@@ -15,7 +20,10 @@
   users.users.tom = {
     uid = 1000;
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [
+      config.security.tpm2.tssGroup
+      "wheel"
+    ];
   };
 
   # Use nftables to support networking.firewall.extraForwardRules.
@@ -46,6 +54,8 @@
 
     ghostty.terminfo
   ];
+
+  security.tpm2.enable = true;
 
   programs.ssh = {
     knownHosts = {
