@@ -14,6 +14,7 @@
     111 # for nfs
     2049 # for nfs
     config.services.nfs.server.mountdPort
+    2222
   ];
 
   networking.firewall.allowedUDPPorts = [
