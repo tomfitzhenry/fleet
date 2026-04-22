@@ -28,17 +28,6 @@
     };
   };
 
-  tomf.tlshd = {
-    enable = true;
-    settings = {
-      "authenticate.server" = {
-        "x509.certificate" = "/var/lib/tlshd/cert.pem";
-        "x509.private_key" = "/var/lib/tlshd/key.pem";
-        "x509.truststore" = "/var/lib/tlshd/truststore.pem";
-      };
-    };
-  };
-
   networking.firewall = {
     interfaces.wgFleet = {
       allowedTCPPorts = [
@@ -54,9 +43,8 @@
       exports = ''
         /export/share \
                       -rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid} \
-                      oxygen-nfs \
-                      -xprtsec=mtls \
-                      aluminium
+                      aluminium-nfs \
+                      oxygen-nfs
         /export/tom -subtree_check,rw \
                     oxygen-nfs
       '';

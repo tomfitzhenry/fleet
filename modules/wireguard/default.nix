@@ -25,6 +25,7 @@ let
         "x7/D2CNMhUQnJZvUqOSfjj/8ZoYgd8mphgLAR0ZA9kA=";
 
     oxygen-nfs = mkPeer 4 "6Ay+BfxUNp2BAJgIjcpKhpQmm4xYTu5qHy031/YPYFU=";
+    aluminium-nfs = mkPeer 5 "uKDhQedHX0ungfzCSSSGp9brbf2halh4fcdIRZS2f1s=";
   };
 in
 {

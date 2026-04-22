@@ -18,6 +18,15 @@
   };
 
   tomf = {
+    nfs-client = {
+      enable = true;
+      wireguard.ips = [ "192.168.2.5/32" ];
+      mounts = {
+        "/mnt/share" = {
+          what = "/export/share";
+        };
+      };
+    };
     podman.enable = true;
     remote-builders.enable = true;
     rootfs = {
@@ -27,16 +36,6 @@
     sshd = {
       enable = true;
       openFirewall = true;
-    };
-    tlshd = {
-      enable = true;
-      settings = {
-        "authenticate.client" = {
-          "x509.certificate" = "/var/lib/tlshd/cert.pem";
-          "x509.private_key" = "/var/lib/tlshd/key.pem";
-          "x509.truststore" = "/var/lib/tlshd/truststore.pem";
-        };
-      };
     };
     wireguard.enable = true;
   };
@@ -71,18 +70,6 @@
         omitPasswordAuth = true;
         settings.allow_anonymous = true;
       }
-    ];
-  };
-
-  fileSystems."/mnt/share" = {
-    device = "platinum:/export/share";
-    fsType = "nfs";
-    options = [
-      # Authenticate with mTLS.
-      "xprtsec=mtls"
-      "noauto"
-      "x-systemd.automount"
-      "soft"
     ];
   };
 }
