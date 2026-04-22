@@ -18,7 +18,6 @@
         ../../modules/remote-builders
         ../../modules/rootfs
         ../../modules/sshd
-        ../../modules/tlshd
         ../../modules/wireguard
       ];
 
