@@ -11,12 +11,7 @@
   };
 
   networking.firewall.allowedTCPPorts = [
-    2049 # for nfs
     2222
-  ];
-
-  networking.firewall.allowedUDPPorts = [
-    2049 # for nfs
   ];
 
   # Since NFS exposes paths as-is, let's give them short names by bind-mounting them under /export.
@@ -44,9 +39,18 @@
     };
   };
 
+  networking.firewall = {
+    interfaces.wgFleet = {
+      allowedTCPPorts = [
+        2049 # nfs
+      ];
+    };
+  };
+
   services.nfs = {
     server = {
       enable = true;
+      hostName = "192.168.2.3"; # wireguard address
       exports = ''
         /export/share \
                       -rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid},xprtsec=mtls \
