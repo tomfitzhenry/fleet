@@ -13,6 +13,7 @@
       imports = [
         ./default.nix
         ../../modules/common
+        ../../modules/nfs-client
         ../../modules/podman
         ../../modules/remote-builders
         ../../modules/rootfs

@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  fleetHosts = import ../../lib/hosts.nix;
+in
 {
   nixpkgs.hostPlatform = "x86_64-linux";
   time.timeZone = "Australia/Sydney";
@@ -9,22 +12,24 @@
   boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/b210a23c-b423-466d-afd1-c383a1b37a64";
 
   tomf = {
+    nfs-client = {
+      enable = true;
+      wireguard.ips = [ "192.168.2.4/32" ];
+      mounts = {
+        "/mnt/share" = {
+          what = "/export/share";
+        };
+        "/mnt/tom" = {
+          what = "/export/tom";
+        };
+      };
+    };
     rootfs = {
       device = "/dev/mapper/enc";
       subvolume = "/";
     };
     remote-builders.enable = true;
     sshd.enable = false;
-    tlshd = {
-      enable = true;
-      settings = {
-        "authenticate.client" = {
-          "x509.certificate" = "/var/lib/tlshd/cert.pem";
-          "x509.private_key" = "/var/lib/tlshd/key.pem";
-          "x509.truststore" = "/var/lib/tlshd/truststore.pem";
-        };
-      };
-    };
     wireguard.enable = true;
   };
 
@@ -55,29 +60,6 @@
     # nanoDLA.
     pkgs.libsigrok
   ];
-
-  fileSystems = {
-    "/mnt/share" = {
-      device = "platinum:/export/share";
-      fsType = "nfs";
-      options = [
-        "xprtsec=mtls"
-        "noauto"
-        "x-systemd.automount"
-        "soft"
-      ];
-    };
-    "/mnt/tom" = {
-      device = "platinum:/export/tom";
-      fsType = "nfs";
-      options = [
-        "xprtsec=mtls"
-        "noauto"
-        "x-systemd.automount"
-        "soft"
-      ];
-    };
-  };
 
   users.users.tom.extraGroups = [
     "dialout" # for picocom

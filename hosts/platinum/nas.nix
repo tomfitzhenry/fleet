@@ -53,12 +53,13 @@
       hostName = "192.168.2.3"; # wireguard address
       exports = ''
         /export/share \
-                      -rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid},xprtsec=mtls \
-                      aluminium \
-                      oxygen
-        /export/tom -subtree_check,rw,xprtsec=mtls \
-                      oxygen
-        	'';
+                      -rw,all_squash,anonuid=${toString config.users.users.share.uid},anongid=${toString config.users.groups.share.gid} \
+                      oxygen-nfs \
+                      -xprtsec=mtls \
+                      aluminium
+        /export/tom -subtree_check,rw \
+                    oxygen-nfs
+      '';
     };
   };
   services.btrbk = {

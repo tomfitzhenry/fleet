@@ -40,6 +40,7 @@
         imports = [
           ./default.nix
           ../../modules/common
+          ../../modules/nfs-client
           ../../modules/podman
           ../../modules/rootfs
           ../../modules/sshd

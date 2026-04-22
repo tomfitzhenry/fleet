@@ -23,6 +23,8 @@ let
     platinum =
       mkReachablePeer 3 fleetHosts.platinum.ipv6
         "x7/D2CNMhUQnJZvUqOSfjj/8ZoYgd8mphgLAR0ZA9kA=";
+
+    oxygen-nfs = mkPeer 4 "6Ay+BfxUNp2BAJgIjcpKhpQmm4xYTu5qHy031/YPYFU=";
   };
 in
 {
