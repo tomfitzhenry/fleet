@@ -32,6 +32,7 @@
     {
       nixosConfigurations = {
         argon = mkStableMachine "argon";
+        strontium = mkStableMachine "strontium";
         oxygen = mkStableMachine "oxygen";
         aluminium = mkStableMachine "aluminium";
         platinum = mkStableMachine "platinum";
