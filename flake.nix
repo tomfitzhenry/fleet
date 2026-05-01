@@ -31,6 +31,7 @@
     in
     {
       nixosConfigurations = {
+        argon = mkStableMachine "argon";
         oxygen = mkStableMachine "oxygen";
         aluminium = mkStableMachine "aluminium";
         platinum = mkStableMachine "platinum";
