@@ -1,4 +1,8 @@
 # A module providing a wireguard mesh.
+#
+# To add a new host:
+#   * `(cd /etc/wireguard && umask 077 && wg genkey > wgFleet.key && wg pubkey < wgFleet.key)`
+#   * Add entry below.
 { config, lib, ... }:
 let
   cfg = config.tomf.wireguard;
@@ -26,6 +30,8 @@ let
 
     oxygen-nfs = mkPeer 4 "6Ay+BfxUNp2BAJgIjcpKhpQmm4xYTu5qHy031/YPYFU=";
     aluminium-nfs = mkPeer 5 "uKDhQedHX0ungfzCSSSGp9brbf2halh4fcdIRZS2f1s=";
+
+    redbox = mkReachablePeer 6 fleetHosts.redbox.ipv6 "SxFYSxgRscHQzdigsELNMyIzl7DMhTzpsv8aMJWkCzY=";
   };
 in
 {

@@ -43,6 +43,7 @@ in
       # Open it to LAN below.
       openFirewall = false;
     };
+    wireguard.enable = true;
   };
 
   fileSystems."/nix" = {
@@ -274,12 +275,19 @@ in
             name: service: lib.elem "network-online.target" service.after
           ) config.systemd.services
         );
+        allowlist = [
+          "kea-dhcp4-server"
+          # wireguard depends on network-online.target (I guess for DNS resolution?).
+          # This would make wireguard unavailable if DNS was down.
+          # To mitigate this, our wireguard module relies on IPs directly.
+          "wireguard-"
+        ];
+        allTargetsValid = lib.all (
+          target: lib.any (prefix: lib.hasPrefix prefix target) allowlist
+        ) networkOnlineReverseDependencies;
       in
       {
-        assertion =
-          networkOnlineReverseDependencies == [
-            "kea-dhcp4-server"
-          ];
+        assertion = allTargetsValid;
         message = ''
           The following services depend on 'network-online.target'. 
           To maintain a robust/self-healing router, remove these dependencies and 
