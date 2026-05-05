@@ -83,8 +83,8 @@ in
       };
 
       unitConfig = {
-        Requires = [ "wireguard-wgNfs.service" ];
-        After = [ "wireguard-wgNfs.service" ];
+        Requires = [ "wireguard-wgNfs.target" ];
+        After = [ "wireguard-wgNfs.target" ];
       };
     }) cfg.mounts;
 
