@@ -22,16 +22,18 @@ let
   hosts = {
     oxygen = mkPeer 1 "KaNVCe+3pvRPFG/DznQDktplLMmP/7s5Vw5l6xjcpDs=";
     aluminium =
-      mkReachablePeer 2 fleetHosts.aluminium.ipv6
+      mkReachablePeer 2 "[${fleetHosts.aluminium.ipv6}]"
         "Gfe6lYdGn+CDBokXOe1gVOysyZQJ8LwJrrViuR8vGyc=";
     platinum =
-      mkReachablePeer 3 fleetHosts.platinum.ipv6
+      mkReachablePeer 3 "[${fleetHosts.platinum.ipv6}]"
         "x7/D2CNMhUQnJZvUqOSfjj/8ZoYgd8mphgLAR0ZA9kA=";
 
     oxygen-nfs = mkPeer 4 "6Ay+BfxUNp2BAJgIjcpKhpQmm4xYTu5qHy031/YPYFU=";
     aluminium-nfs = mkPeer 5 "uKDhQedHX0ungfzCSSSGp9brbf2halh4fcdIRZS2f1s=";
 
-    redbox = mkReachablePeer 6 fleetHosts.redbox.ipv6 "SxFYSxgRscHQzdigsELNMyIzl7DMhTzpsv8aMJWkCzY=";
+    redbox =
+      mkReachablePeer 6 "[${fleetHosts.redbox.ipv6}]"
+        "SxFYSxgRscHQzdigsELNMyIzl7DMhTzpsv8aMJWkCzY=";
   };
 in
 {
