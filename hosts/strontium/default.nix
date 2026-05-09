@@ -55,4 +55,12 @@
       };
     };
   };
+
+  # This machine is IPv6-only, so let's provide connectivity via a public NAT64 gateway.
+  services.clatd = {
+    enable = true;
+    # https://nat64.xyz/
+    # https://level66.services/services/nat64/
+    settings.plat-prefix = "2001:67c:2960:6464::/96";
+  };
 }
