@@ -63,4 +63,77 @@
     # https://level66.services/services/nat64/
     settings.plat-prefix = "2001:67c:2960:6464::/96";
   };
+
+  networking.firewall.allowedUDPPorts = [ 53 ];
+  networking.firewall.allowedTCPPorts = [ 53 ];
+  services.knot = {
+    enable = true;
+    settings = {
+      server = {
+        listen = "::";
+      };
+      template = [
+        {
+          id = "member_template";
+          acl = "local";
+        }
+      ];
+      zone = [
+        # A catalog zone. This allows the creation/deletion of zones via DNS UPDATE.
+        # https://www.knot-dns.cz/docs/latest/html/configuration.html#catalog-zones
+        {
+          domain = "catz.";
+          catalog-role = "interpret";
+          catalog-template = "member_template";
+          acl = "local";
+        }
+      ];
+      remote = [
+        {
+          # https://ns-global.zone
+          id = "ns-global";
+          address = [
+            "2607:7c80:54:6::53"
+          ];
+        }
+        {
+          # https://puck.nether.net/dns/
+          id = "puck";
+          address = [
+            "2001:418:3f4::5"
+          ];
+        }
+      ];
+      acl = [
+        {
+          # Allow localhost to AXFR/transfer.
+          # TODO: Add auth.
+          id = "local";
+          address = [ "::1" ];
+          action = [
+            "transfer"
+            "update"
+          ];
+        }
+        {
+          # Allow ns-global to AXFR.
+          id = "ns-global";
+          address = [
+            # https://ns-global.zone/signup/
+            "2607:7c80:54:6::53"
+          ];
+          action = "transfer";
+        }
+        {
+          # Allow puck.nether.net to AXFR.
+          id = "puck";
+          address = [
+            # https://puck.nether.net/dns/static/faq.html
+            "2602:fe55:5::5"
+          ];
+          action = "transfer";
+        }
+      ];
+    };
+  };
 }
