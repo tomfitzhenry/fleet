@@ -108,7 +108,7 @@
           # https://puck.nether.net/dns/
           id = "puck";
           address = [
-            "2001:418:3f4::5"
+            "2602:fe55:5::5"
           ];
         }
       ];
