@@ -75,7 +75,15 @@
       template = [
         {
           id = "member_template";
-          acl = "local";
+          acl = [
+            "local"
+            "ns-global"
+            "puck"
+          ];
+          notify = [
+            "ns-global"
+            "puck"
+          ];
         }
       ];
       zone = [
