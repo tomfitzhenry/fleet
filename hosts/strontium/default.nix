@@ -77,10 +77,12 @@
           id = "member_template";
           acl = [
             "local"
+            "he-slave"
             "ns-global"
             "puck"
           ];
           notify = [
+            "he-ns1"
             "ns-global"
             "puck"
           ];
@@ -97,6 +99,13 @@
         }
       ];
       remote = [
+        {
+          id = "he-ns1";
+          address = [
+            # ns1.he.net
+            "2001:470:100::2"
+          ];
+        }
         {
           # https://ns-global.zone
           id = "ns-global";
@@ -121,6 +130,16 @@
           action = [
             "transfer"
             "update"
+          ];
+        }
+        {
+          id = "he-slave";
+          address = [
+            # slave.dns.he.net
+            "2001:470:600::2"
+          ];
+          action = [
+            "transfer"
           ];
         }
         {
