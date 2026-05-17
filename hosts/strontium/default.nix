@@ -71,12 +71,19 @@
     settings = {
       server = {
         listen = "::";
+
+        # Listen on TLS for mTLS-authenticated DNS UPDATEs.
+        # TODO: Permit mTLS to Knot DNS over public Internet, if/when that seems sane.
+        #
+        # $ knotc status cert-key
+        # public key pin: 60VI3zVqodGsKHT7q1c3KcWkmbAxh7VgR4+0YFhY6qo=
+        listen-tls = "::1";
       };
       template = [
         {
           id = "member_template";
           acl = [
-            "local"
+            "mtls"
             "he-slave"
             "ns-global"
             "puck"
@@ -95,7 +102,7 @@
           domain = "catz.";
           catalog-role = "interpret";
           catalog-template = "member_template";
-          acl = "local";
+          acl = "mtls";
         }
       ];
       remote = [
@@ -123,12 +130,20 @@
       ];
       acl = [
         {
-          # Allow localhost to AXFR/transfer.
-          # TODO: Add auth.
-          id = "local";
-          address = [ "::1" ];
+          id = "mtls";
+          # TODO: Permit mTLS to Knot DNS over public Internet, if/when that seems sane.
+          address = "::1";
+          protocol = [
+            "tls"
+          ];
+          # $ openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:prime256v1 -days 3650 -nodes -keyout ecdsa_key.pem -out ecdsa_cert.pem -subj "/CN=localhost"
+          # $ openssl x509 -in ecdsa_cert.pem -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256 -binary | openssl enc -base64
+          cert-key = "6/VMy2HFtqft/uGCXdq7kneLoGqX6d1XoGszv+1L/hc=";
           action = [
+            # $ kdig @127.0.0.1 -p 8853 -t AXFR $DOMAIN +tls-certfile=ecdsa_cert.pem +tls-keyfile=ecdsa_key.pem +tls-pin=60VI3zVqodGsKHT7q1c3KcWkmbAxh7VgR4+0YFhY6qo=
             "transfer"
+
+            # $ knsupdate -p 8853 --tls --pin 60VI3zVqodGsKHT7q1c3KcWkmbAxh7VgR4+0YFhY6qo= --certfile ecdsa_cert.pem --keyfile ecdsa_key.pem
             "update"
           ];
         }
