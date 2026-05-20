@@ -94,11 +94,13 @@
           acl = [
             "mtls"
             "he-slave"
+            "mythic-beasts"
             "ns-global"
             "puck"
           ];
           notify = [
             "he-ns1"
+            "mythic-beasts"
             "ns-global"
             "puck"
           ];
@@ -120,6 +122,13 @@
           address = [
             # ns1.he.net
             "2001:470:100::2"
+          ];
+        }
+        {
+          # https://www.mythic-beasts.com/support/domains/secondarydns
+          id = "mythic-beasts";
+          address = [
+            "2a00:1098:86::1a:1"
           ];
         }
         {
@@ -164,6 +173,14 @@
           action = [
             "transfer"
           ];
+        }
+        {
+          id = "mythic-beasts";
+          address = [
+            # https://www.mythic-beasts.com/support/domains/secondarydns
+            "2a00:1098:86::1a:1"
+          ];
+          action = "transfer";
         }
         {
           # Allow ns-global to AXFR.
