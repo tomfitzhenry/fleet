@@ -65,8 +65,16 @@
     settings.plat-prefix = "2001:67c:2960:6464::/96";
   };
 
-  networking.firewall.allowedUDPPorts = [ 53 ];
-  networking.firewall.allowedTCPPorts = [ 53 ];
+  networking.firewall = {
+    allowedUDPPorts = [ 53 ];
+    allowedTCPPorts = [ 53 ];
+    interfaces.wgFleet = {
+      allowedTCPPorts = [
+        853 # DNS-over-TLS (DNS UPDATE)
+      ];
+    };
+
+  };
   services.knot = {
     enable = true;
     settings = {
@@ -78,7 +86,7 @@
         #
         # $ knotc status cert-key
         # public key pin: 60VI3zVqodGsKHT7q1c3KcWkmbAxh7VgR4+0YFhY6qo=
-        listen-tls = "::1";
+        listen-tls = "192.168.2.7"; # wireguard
       };
       template = [
         {
@@ -132,8 +140,7 @@
       acl = [
         {
           id = "mtls";
-          # TODO: Permit mTLS to Knot DNS over public Internet, if/when that seems sane.
-          address = "::1";
+          address = "192.168.2.0/24"; # wireguard
           protocol = [
             "tls"
           ];
