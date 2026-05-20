@@ -32,6 +32,7 @@
       enable = true;
       openFirewall = true;
     };
+    wireguard.enable = true;
   };
 
   networking.useNetworkd = true;

@@ -34,6 +34,9 @@ let
     redbox =
       mkReachablePeer 6 "[${fleetHosts.redbox.ipv6}]"
         "SxFYSxgRscHQzdigsELNMyIzl7DMhTzpsv8aMJWkCzY=";
+    strontium =
+      mkReachablePeer 7 "[${fleetHosts.strontium.ipv6}]"
+        "N7UcZ0F4AKvadlZ+PbHabhUaQ4d28FFtUd9BT73YpHs=";
   };
 in
 {
