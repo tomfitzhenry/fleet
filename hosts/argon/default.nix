@@ -21,6 +21,7 @@
   };
 
   tomf = {
+    podman.enable = true;
     rootfs = {
       device = "/dev/disk/by-partlabel/disk-main-root";
       subvolume = "/rootfs";
