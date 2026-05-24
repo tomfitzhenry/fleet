@@ -111,21 +111,37 @@ in
         name = "lan";
         address = [
           "172.17.1.1/24"
-          "2404:bf40:81c1::1/64"
         ];
         bridgeConfig = {
           # Support Virtual Ethernet Port Aggregator (VEPA), per https://virt.kernelnewbies.org/MacVTap
           HairPin = true;
+        };
+        networkConfig = {
+          DHCPPrefixDelegation = true;
+        };
+        dhcpPrefixDelegationConfig = {
+          UplinkInterface = "enp1s0";
+          SubnetId = 1;
+          # corerad handles router advertisements for the LAN.
+          Announce = false;
         };
       };
       "enp1s0" = {
         name = "enp1s0";
         networkConfig = {
           DHCP = "yes";
+          IPv6AcceptRA = true;
         };
         dhcpV4Config = {
           UseDNS = false;
           UseNTP = false;
+        };
+        dhcpV6Config = {
+          UseDNS = false;
+          UseNTP = false;
+          PrefixDelegationHint = "::/48";
+          # Solicit a prefix regardless of the RA's M/O flags.
+          WithoutRA = "solicit";
         };
       };
       "enp2s0" = {
@@ -199,20 +215,9 @@ in
         {
           name = "lan";
           advertise = true;
-          # Don't advertise this router as a default IPv6 gateway — ISP's IPv6 is broken.
-          # Setting default_lifetime to 0 clears the Router Lifetime field in RAs,
-          # so clients won't use this router as a default route.
-          # Clients will still get LAN IPv6 addresses via the prefix below.
-          default_lifetime = "0s";
           prefix = [ { prefix = "::/64"; } ];
           rdnss = [ { } ];
-          # Don't advertise a default IPv6 route — ISP's IPv6 is broken.
-          # Clients will still get LAN IPv6 addresses via the prefix above.
-          #
-          # Advertise a route for the snid NAT46 prefix so that LAN backends can
-          # reply to connections proxied by snid — their reply packets are destined
-          # to 64:ff9b:1::<client-ipv4> and need a path back through the router.
-          route = [ { prefix = "64:ff9b:1::/96"; } ];
+          route = [ { } ];
           verbose = true;
         }
       ];
