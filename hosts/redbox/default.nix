@@ -120,14 +120,13 @@ in
       };
       "enp1s0" = {
         name = "enp1s0";
-        address = [
-          "123.243.70.34/30"
-          "2405:800:2:43::2/126"
-        ];
-        gateway = [
-          "123.243.70.33"
-          "2405:800:2:43::1"
-        ];
+        networkConfig = {
+          DHCP = "yes";
+        };
+        dhcpV4Config = {
+          UseDNS = false;
+          UseNTP = false;
+        };
       };
       "enp2s0" = {
         name = "enp2s0";
