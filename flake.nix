@@ -5,13 +5,23 @@
       url = "github:nlewo/comin";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
+    microvm = {
+      url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
   };
   outputs =
-    { comin, nixpkgs-stable, ... }:
+    {
+      comin,
+      microvm,
+      nixpkgs-stable,
+      ...
+    }:
     let
       mkStableMachine =
         hostname:
         nixpkgs-stable.lib.nixosSystem {
+          specialArgs = { inherit microvm; };
           modules = [
             ./hosts/${hostname}
             { networking.hostName = hostname; }

@@ -71,7 +71,8 @@ in
 
     filterForward = true;
     extraForwardRules = lib.concatLines (
-      map (host: "ip6 daddr ${host} tcp dport 443 counter accept") httpsBackends
+      [ "ip6 daddr ${fleetHosts.aluminium.vmSubnet} counter accept" ]
+      ++ map (host: "ip6 daddr ${host} tcp dport 443 counter accept") httpsBackends
       ++ map (host: "ip6 daddr ${host} udp dport 51820 counter accept") wireguardBackends
     );
   };
@@ -125,6 +126,13 @@ in
           # corerad handles router advertisements for the LAN.
           Announce = false;
         };
+        routes = [
+          {
+            # Route VM subnet to aluminium.
+            Destination = fleetHosts.aluminium.vmSubnet;
+            Gateway = fleetHosts.aluminium.ipv6;
+          }
+        ];
       };
       "enp1s0" = {
         name = "enp1s0";

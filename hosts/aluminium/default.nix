@@ -6,6 +6,8 @@
   ...
 }:
 {
+  imports = [ ./microvm-host.nix ];
+
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "25.05";
 
@@ -71,5 +73,20 @@
         settings.allow_anonymous = true;
       }
     ];
+  };
+
+  networking.useDHCP = false;
+  systemd.network = {
+    enable = true;
+    networks."40-wired" = {
+      matchConfig.Name = "en*";
+      networkConfig.DHCP = "yes";
+    };
+    # Don't let networkd manage wireguard interfaces; they're managed by
+    # the scripted networking wireguard module.
+    networks."30-wireguard" = {
+      matchConfig.Name = "wg*";
+      linkConfig.Unmanaged = "yes";
+    };
   };
 }
