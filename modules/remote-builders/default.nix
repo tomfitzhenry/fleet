@@ -46,10 +46,13 @@ in
         maxJobs = 16;
         speedFactor = 1;
         supportedFeatures = [
-          "nixos-test"
           "benchmark"
           "big-parallel"
+          "gccarch-armv7-a"
+          "gccarch-armv8-a"
           "kvm"
+          "nixos-test"
+          "uid-range"
         ];
         mandatoryFeatures = [ ];
       }
