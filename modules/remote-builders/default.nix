@@ -37,7 +37,10 @@ in
       }
       {
         hostName = "aarch64-build-box.nix-community.org";
-        systems = [ "aarch64-linux" ];
+        systems = [
+          "aarch64-linux"
+          "armv7l-linux"
+        ];
         sshUser = "tomfitzhenry";
         sshKey = "/etc/ssh/nix-community-builder";
         maxJobs = 16;
