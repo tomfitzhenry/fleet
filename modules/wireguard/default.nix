@@ -58,7 +58,7 @@ in
         ips = [ (hosts."${config.networking.hostName}".ip + "/32") ];
         privateKeyFile = "/etc/wireguard/wgFleet.key";
         listenPort = port;
-        mtu = 1420;
+        mtu = 1280;
         peers = lib.attrsets.mapAttrsToList (_: v: {
           publicKey = v.publicKey;
           allowedIPs = [ "${v.ip}/32" ];
