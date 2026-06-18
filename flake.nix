@@ -1,26 +1,38 @@
 {
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-25.11";
-    comin = {
+    nixpkgs-2511.url = "github:nixos/nixpkgs?ref=nixos-25.11";
+    nixpkgs-2605.url = "github:nixos/nixpkgs?ref=nixos-26.05";
+    comin-2511 = {
       url = "github:nlewo/comin";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-2511";
     };
-    microvm = {
+    comin-2605 = {
+      url = "github:nlewo/comin";
+      inputs.nixpkgs.follows = "nixpkgs-2605";
+    };
+    microvm-2511 = {
       url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-2511";
+    };
+    microvm-2605 = {
+      url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs-2605";
     };
   };
   outputs =
     {
-      comin,
-      microvm,
-      nixpkgs-stable,
+      comin-2511,
+      comin-2605,
+      microvm-2511,
+      microvm-2605,
+      nixpkgs-2511,
+      nixpkgs-2605,
       ...
     }:
     let
-      mkStableMachine =
-        hostname:
-        nixpkgs-stable.lib.nixosSystem {
+      mkMachine =
+        nixpkgs: comin: microvm: hostname:
+        nixpkgs.lib.nixosSystem {
           specialArgs = { inherit microvm; };
           modules = [
             ./hosts/${hostname}
@@ -38,24 +50,26 @@
             ./modules/wireguard
           ];
         };
+      mkMachine_2511 = mkMachine nixpkgs-2511 comin-2511 microvm-2511;
+      mkMachine_2605 = mkMachine nixpkgs-2605 comin-2605 microvm-2605;
     in
     {
       nixosConfigurations = {
-        argon = mkStableMachine "argon";
-        strontium = mkStableMachine "strontium";
-        oxygen = mkStableMachine "oxygen";
-        aluminium = mkStableMachine "aluminium";
-        platinum = mkStableMachine "platinum";
-        redbox = mkStableMachine "redbox";
-        rockpro64 = mkStableMachine "rockpro64";
+        argon = mkMachine_2511 "argon";
+        strontium = mkMachine_2511 "strontium";
+        oxygen = mkMachine_2511 "oxygen";
+        aluminium = mkMachine_2511 "aluminium";
+        platinum = mkMachine_2511 "platinum";
+        redbox = mkMachine_2511 "redbox";
+        rockpro64 = mkMachine_2511 "rockpro64";
       };
 
       checks.x86_64-linux = {
         # Disabled until CI can run this.
-        rootfs = nixpkgs-stable.legacyPackages.x86_64-linux.testers.nixosTest (
+        rootfs = nixpkgs-2511.legacyPackages.x86_64-linux.testers.nixosTest (
           import ./modules/rootfs/vm-test.nix
         );
-        oxygen = nixpkgs-stable.legacyPackages.x86_64-linux.testers.nixosTest (
+        oxygen = nixpkgs-2511.legacyPackages.x86_64-linux.testers.nixosTest (
           import ./hosts/oxygen/vm-test.nix
         );
       };
