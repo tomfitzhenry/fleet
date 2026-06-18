@@ -42,8 +42,12 @@
     wireguard.enable = true;
   };
 
-  # Allow non-privileged Podman containers to listen on 443/tcp.
-  boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 443;
+  boot.kernel.sysctl = {
+    # Allow non-privileged Podman containers to listen on 443/tcp.
+    "net.ipv4.ip_unprivileged_port_start" = 443;
+    # Forward traffic to microVMs.
+    "net.ipv6.conf.all.forwarding" = true;
+  };
 
   networking.firewall.allowedTCPPorts = [
     443 # https
