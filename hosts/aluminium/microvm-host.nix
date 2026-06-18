@@ -3,8 +3,9 @@ let
   fleetHosts = import ../../lib/hosts.nix;
 
   vms = [
-    "git"
+    "dev"
     "feed"
+    "git"
   ];
 
   mkTap = name: {

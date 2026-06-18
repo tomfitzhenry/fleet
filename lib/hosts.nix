@@ -18,4 +18,8 @@ in
     ipv6 = aluminium-vm-prefix + "0::11";
     mac = "02:00:00:00:00:02";
   };
+  dev = {
+    ipv6 = aluminium-vm-prefix + "0::12";
+    mac = "02:00:00:00:00:03";
+  };
 }
