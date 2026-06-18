@@ -55,7 +55,8 @@
     in
     {
       nixosConfigurations = {
-        argon = mkMachine_2511 "argon";
+        argon = mkMachine_2605 "argon";
+
         strontium = mkMachine_2511 "strontium";
         oxygen = mkMachine_2511 "oxygen";
         aluminium = mkMachine_2511 "aluminium";
