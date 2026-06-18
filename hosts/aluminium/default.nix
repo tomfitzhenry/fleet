@@ -79,6 +79,11 @@
     ];
   };
 
+  # Create directories for VM writable shares on the BTRFS pool.
+  systemd.tmpfiles.rules = [
+    "d /mnt/btrfs/vm/runner/nix 0755 root root - -"
+  ];
+
   networking.useDHCP = false;
   systemd.network = {
     enable = true;
