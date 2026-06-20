@@ -58,10 +58,10 @@
         argon = mkMachine_2605 "argon";
         oxygen = mkMachine_2605 "oxygen";
         strontium = mkMachine_2605 "strontium";
+        platinum = mkMachine_2605 "platinum";
         rockpro64 = mkMachine_2605 "rockpro64";
 
         aluminium = mkMachine_2511 "aluminium";
-        platinum = mkMachine_2511 "platinum";
         redbox = mkMachine_2511 "redbox";
       };
 
