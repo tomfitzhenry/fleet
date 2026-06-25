@@ -61,8 +61,7 @@
         aluminium = mkMachine_2605 "aluminium";
         platinum = mkMachine_2605 "platinum";
         rockpro64 = mkMachine_2605 "rockpro64";
-
-        redbox = mkMachine_2511 "redbox";
+        redbox = mkMachine_2605 "redbox";
       };
 
       checks.x86_64-linux = {
