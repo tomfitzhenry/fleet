@@ -1,18 +1,9 @@
 {
   inputs = {
-    nixpkgs-2511.url = "github:nixos/nixpkgs?ref=nixos-25.11";
     nixpkgs-2605.url = "github:nixos/nixpkgs?ref=nixos-26.05";
-    comin-2511 = {
-      url = "github:nlewo/comin";
-      inputs.nixpkgs.follows = "nixpkgs-2511";
-    };
     comin-2605 = {
       url = "github:nlewo/comin";
       inputs.nixpkgs.follows = "nixpkgs-2605";
-    };
-    microvm-2511 = {
-      url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "nixpkgs-2511";
     };
     microvm-2605 = {
       url = "github:astro/microvm.nix";
@@ -21,11 +12,8 @@
   };
   outputs =
     {
-      comin-2511,
       comin-2605,
-      microvm-2511,
       microvm-2605,
-      nixpkgs-2511,
       nixpkgs-2605,
       ...
     }:
@@ -50,7 +38,6 @@
             ./modules/wireguard
           ];
         };
-      mkMachine_2511 = mkMachine nixpkgs-2511 comin-2511 microvm-2511;
       mkMachine_2605 = mkMachine nixpkgs-2605 comin-2605 microvm-2605;
     in
     {
