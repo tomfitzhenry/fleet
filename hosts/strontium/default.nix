@@ -24,6 +24,8 @@
   };
 
   tomf = {
+    # Too low RAM.
+    comin.enable = false;
     rootfs = {
       device = "/dev/disk/by-uuid/212006ad-c976-4a1e-ac3b-a7f83ea52de7";
       subvolume = "/";
