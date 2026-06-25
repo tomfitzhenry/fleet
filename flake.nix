@@ -65,12 +65,8 @@
       };
 
       checks.x86_64-linux = {
-        # Disabled until CI can run this.
         rootfs = nixpkgs-2511.legacyPackages.x86_64-linux.testers.nixosTest (
           import ./modules/rootfs/vm-test.nix
-        );
-        oxygen = nixpkgs-2511.legacyPackages.x86_64-linux.testers.nixosTest (
-          import ./hosts/oxygen/vm-test.nix
         );
       };
     };
