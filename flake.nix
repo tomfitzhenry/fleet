@@ -65,7 +65,7 @@
       };
 
       checks.x86_64-linux = {
-        rootfs = nixpkgs-2511.legacyPackages.x86_64-linux.testers.nixosTest (
+        rootfs = nixpkgs-2605.legacyPackages.x86_64-linux.testers.nixosTest (
           import ./modules/rootfs/vm-test.nix
         );
       };
