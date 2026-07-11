@@ -25,7 +25,6 @@ in
   boot.kernelParams = [ "console=ttyS0,115200n8" ];
 
   tomf = {
-    podman.enable = true;
     rootfs = {
       device = "/dev/disk/by-partlabel/disk-main-root";
       subvolume = "/root";
