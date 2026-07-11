@@ -32,7 +32,7 @@ jobs:
       - name: Modify flake.nix to use nixos-unstable
         run: |
           # Check that the expected pattern exists and modify it
-          if grep -q 'nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-' flake.nix; then
+          if grep -q 'nixpkgs-2605.url = "github:nixos/nixpkgs?ref=nixos-' flake.nix; then
             sed -i 's|github:nixos/nixpkgs?ref=nixos-[^"]*|github:nixos/nixpkgs?ref=nixos-unstable|' flake.nix
           else
             echo "ERROR: Expected nixpkgs-stable.url pattern not found in flake.nix"
