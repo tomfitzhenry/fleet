@@ -6,7 +6,6 @@ let
     "dev"
     "feed"
     "git"
-    "runner"
   ];
 
   mkTap = name: {

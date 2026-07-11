@@ -22,8 +22,4 @@ in
     ipv6 = aluminium-vm-prefix + "0::12";
     mac = "02:00:00:00:00:03";
   };
-  runner = {
-    ipv6 = aluminium-vm-prefix + "0::13";
-    mac = "02:00:00:00:00:04";
-  };
 }
