@@ -14,7 +14,20 @@ in
         source = "/nix/store";
         mountPoint = "/nix/.ro-store";
       }
-    ];
+    ]
+    ++
+      map
+        (dir: {
+          tag = "persist-${dir}";
+          source = "/mnt/btrfs/vm/${name}/${dir}";
+          mountPoint = "/${dir}";
+          proto = "virtiofs";
+        })
+        [
+          "etc"
+          "home"
+          "var"
+        ];
     interfaces = [
       {
         type = "tap";
@@ -39,6 +52,12 @@ in
       networkConfig.IPv6AcceptRA = false;
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "z /etc 0755 root root - -"
+    "z /home 0755 root root - -"
+    "z /var 0755 root root - -"
+  ];
 
   networking.firewall.enable = true;
 }
