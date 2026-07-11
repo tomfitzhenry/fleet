@@ -70,7 +70,6 @@
   ];
 
   tomf = {
-    podman.enable = true;
     rootfs = {
       device = "/dev/mapper/rootfs";
       subvolume = "/";
