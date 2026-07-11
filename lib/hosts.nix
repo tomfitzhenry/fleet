@@ -22,4 +22,12 @@ in
     ipv6 = aluminium-vm-prefix + "0::12";
     mac = "02:00:00:00:00:03";
   };
+  home = {
+    ipv6 = aluminium-vm-prefix + "0::13";
+    mac = "02:00:00:00:00:04";
+  };
+  mon = {
+    ipv6 = aluminium-vm-prefix + "0::14";
+    mac = "02:00:00:00:00:04";
+  };
 }
