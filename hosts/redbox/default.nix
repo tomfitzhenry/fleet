@@ -10,7 +10,6 @@ let
   fleetHosts = import ../../lib/hosts.nix;
   httpsBackends = [
     fleetHosts.aluminium.ipv6
-    fleetHosts.platinum.ipv6
   ];
   wireguardBackends = [
     fleetHosts.aluminium.ipv6
