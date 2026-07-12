@@ -17,8 +17,6 @@ in
       enable = true;
       package = pkgs.opentelemetry-collector-contrib;
       settings = {
-        telemetry.metrics.address = "localhost:8888";
-
         receivers = {
           hostmetrics = {
             scrapers = {
