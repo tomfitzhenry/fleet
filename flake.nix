@@ -31,6 +31,7 @@
             ./modules/comin
             ./modules/common
             ./modules/nfs-client
+            ./modules/otel-collector
             ./modules/podman
             ./modules/remote-builders
             ./modules/rootfs

@@ -28,6 +28,7 @@ let
     extraModules = [
       ../../modules/common
       ../../modules/microvm-guest
+      ../../modules/otel-collector
       ../../modules/sshd
     ];
     config = import ../../hosts/${name};
