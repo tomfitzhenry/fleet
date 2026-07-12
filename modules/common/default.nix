@@ -38,6 +38,7 @@
     file
     git
     iftop
+    mg
     ncdu
     netcat-gnu
     nmap
