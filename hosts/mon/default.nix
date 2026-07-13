@@ -41,6 +41,9 @@ in
         servers {
           metrics
         }
+        metrics {
+          per_host
+        }
       }
       import /etc/caddy/vhost.openobserve { } {
         # These credentials are forwarded to OpenObserve.
