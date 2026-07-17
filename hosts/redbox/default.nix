@@ -6,7 +6,6 @@
   ...
 }:
 let
-  snid = pkgs.callPackage ../../pkgs/snid/package.nix { };
   fleetHosts = import ../../lib/hosts.nix;
   httpsBackends = [
     fleetHosts.aluminium.ipv6
@@ -273,7 +272,7 @@ in
   '';
 
   system.services.snid = {
-    imports = [ snid.services.default ];
+    imports = [ pkgs.snid.services.default ];
     snid = {
       listen = [ "tcp:0.0.0.0:443" ];
       mode = "nat46";
