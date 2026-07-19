@@ -155,9 +155,18 @@
           protocol = [
             "tls"
           ];
-          # $ openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:prime256v1 -days 3650 -nodes -keyout ecdsa_key.pem -out ecdsa_cert.pem -subj "/CN=localhost"
-          # $ openssl x509 -in ecdsa_cert.pem -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256 -binary | openssl enc -base64
-          cert-key = "6/VMy2HFtqft/uGCXdq7kneLoGqX6d1XoGszv+1L/hc=";
+          cert-key = [
+            # $ openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:prime256v1 -days 3650 -nodes -keyout ecdsa_key.pem -out ecdsa_cert.pem -subj "/CN=localhost"
+            # $ openssl x509 -in ecdsa_cert.pem -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256 -binary | openssl enc -base64
+            "6/VMy2HFtqft/uGCXdq7kneLoGqX6d1XoGszv+1L/hc="
+
+            # The YubiKey PIV key (slot 82) used for DoT client auth, with its
+            # private key held non-exportably in the device:
+            # $ yubico-piv-tool -s 82 -a read-certificate -o slot82-cert.pem
+            # $ openssl x509 -in slot82-cert.pem -pubkey -noout > public-key.pem
+            # $ openssl ec -pubin -in public-key.pem -outform DER | openssl dgst -sha256 -binary | openssl enc -base64
+            "FBV8rIeMwuopp+mNvojyrUXOqO7pHgWfpKhyy/w87x0="
+          ];
           action = [
             # $ kdig @127.0.0.1 -p 8853 -t AXFR $DOMAIN +tls-certfile=ecdsa_cert.pem +tls-keyfile=ecdsa_key.pem +tls-pin=60VI3zVqodGsKHT7q1c3KcWkmbAxh7VgR4+0YFhY6qo=
             "transfer"
