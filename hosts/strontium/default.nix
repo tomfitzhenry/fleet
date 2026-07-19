@@ -163,9 +163,8 @@
             # The YubiKey PIV key (slot 82) used for DoT client auth, with its
             # private key held non-exportably in the device:
             # $ yubico-piv-tool -s 82 -a read-certificate -o slot82-cert.pem
-            # $ openssl x509 -in slot82-cert.pem -pubkey -noout > public-key.pem
-            # $ openssl ec -pubin -in public-key.pem -outform DER | openssl dgst -sha256 -binary | openssl enc -base64
-            "FBV8rIeMwuopp+mNvojyrUXOqO7pHgWfpKhyy/w87x0="
+            # $ openssl x509 -in slot82-cert.pem -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256 -binary | openssl enc -base64
+            "UC6xiEWQdQB9cCPr0l/v/FeP7eU4bwjClizNdbMFxyU="
           ];
           action = [
             # $ kdig @127.0.0.1 -p 8853 -t AXFR $DOMAIN +tls-certfile=ecdsa_cert.pem +tls-keyfile=ecdsa_key.pem +tls-pin=60VI3zVqodGsKHT7q1c3KcWkmbAxh7VgR4+0YFhY6qo=
