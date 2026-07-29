@@ -75,6 +75,12 @@ in
         }
         reverse_proxy 127.0.0.1:8043
       }
+      import /etc/caddy/vhost.uptime-kuma { } {
+        basic_auth {
+          tom $2a$14$w.rkYXmgon7phJLm.6689OT9w0iGqkXbM6f9huI7YBJUDlHq5tY5y
+        }
+        reverse_proxy 127.0.0.1:3001
+      }
     '';
   };
 
@@ -82,6 +88,8 @@ in
     enable = true;
     configFile = "/etc/gatus/config.yaml";
   };
+
+  services.uptime-kuma.enable = true;
 
   systemd.services.openobserve = {
     description = "OpenObserve";
