@@ -50,6 +50,7 @@
         platinum = mkMachine_2605 "platinum";
         rockpro64 = mkMachine_2605 "rockpro64";
         redbox = mkMachine_2605 "redbox";
+        cam = mkMachine_2605 "cam";
       };
 
       checks.x86_64-linux = {
