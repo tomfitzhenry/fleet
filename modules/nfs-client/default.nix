@@ -85,6 +85,9 @@ in
       unitConfig = {
         Requires = [ "wireguard-wgNfs.target" ];
         After = [ "wireguard-wgNfs.target" ];
+        # Stop this mount when netns-nfs restarts (it deletes the namespace
+        # the mount's NFS socket lives in); the automount re-fires on access.
+        BindsTo = [ "netns-nfs.service" ];
       };
     }) cfg.mounts;
 
