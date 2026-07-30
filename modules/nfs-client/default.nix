@@ -42,6 +42,10 @@ in
     systemd.services.netns-nfs = {
       description = "Network namespace 'nfs' for isolated mounts";
       wantedBy = [ "network.target" ];
+      # Keep the namespace stable across nixos-rebuild switch so that containers
+      # bind-mounting the NFS share keep a stable reference to its superblock.
+      # An explicit `systemctl stop netns-nfs` still tears it down via ExecStop.
+      restartIfChanged = false;
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
