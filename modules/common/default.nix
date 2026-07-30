@@ -29,33 +29,35 @@
   # Use nftables to support networking.firewall.extraForwardRules.
   networking.nftables.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    btrfs-progs
-    cryptsetup
-    curl
-    dig
-    file
-    git
-    iftop
-    mg
-    ncdu
-    netcat-gnu
-    nmap
-    nvme-cli
-    parted
-    pciutils
-    ripgrep
-    smartmontools
-    strace
-    tcpdump
-    tmux
-    tree
-    usbutils
-  ]
-  # No armv7 build: https://github.com/ldc-developers/ldc/issues/3665
-  ++ lib.optional (!pkgs.stdenv.hostPlatform.isAarch32) pkgs.btdu
-  # No armv7 build: https://github.com/NixOS/nixpkgs/issues/466116
-  ++ lib.optional (!pkgs.stdenv.hostPlatform.isAarch32) pkgs.ghostty.terminfo;
+  environment.systemPackages =
+    with pkgs;
+    [
+      btrfs-progs
+      cryptsetup
+      curl
+      dig
+      file
+      git
+      iftop
+      mg
+      ncdu
+      netcat-gnu
+      nmap
+      nvme-cli
+      parted
+      pciutils
+      ripgrep
+      smartmontools
+      strace
+      tcpdump
+      tmux
+      tree
+      usbutils
+    ]
+    # No armv7 build: https://github.com/ldc-developers/ldc/issues/3665
+    ++ lib.optional (!pkgs.stdenv.hostPlatform.isAarch32) pkgs.btdu
+    # No armv7 build: https://github.com/NixOS/nixpkgs/issues/466116
+    ++ lib.optional (!pkgs.stdenv.hostPlatform.isAarch32) pkgs.ghostty.terminfo;
 
   security.tpm2.enable = true;
 
