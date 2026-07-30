@@ -103,6 +103,7 @@ in
         name = "lan";
         address = [
           "172.17.1.1/24"
+          "${fleetHosts.redbox.ipv6}/64"
         ];
         bridgeConfig = {
           # Support Virtual Ethernet Port Aggregator (VEPA), per https://virt.kernelnewbies.org/MacVTap
