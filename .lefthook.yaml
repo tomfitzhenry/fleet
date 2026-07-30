@@ -4,4 +4,5 @@ pre-commit:
   parallel: true
   jobs:
     - run: treefmt --ci
-    - run: nix flake check
+    # The VM tests are too slow.
+    - run: nix flake check --no-build
