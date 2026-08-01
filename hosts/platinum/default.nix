@@ -94,7 +94,8 @@
   };
 
   fileSystems."/srv/share" = {
-    device = "/dev/mapper/share1";
+    # The btrfs fs UUID, per 'btrfs filesystem show'.
+    device = "/dev/disk/by-uuid/2bbcf5df-332e-45fd-a903-c8139db3519b";
     fsType = "btrfs";
   };
 
