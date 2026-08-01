@@ -71,10 +71,6 @@
   };
 
   boot.initrd.luks.devices = {
-    share1 = {
-      device = "/dev/disk/by-uuid/1abdf7a3-7712-48f3-8f77-9067561fbb73";
-      tryEmptyPassphrase = true;
-    };
     share2 = {
       device = "/dev/disk/by-uuid/77e38ce5-3dd6-4b38-8e02-c074d009537f";
       tryEmptyPassphrase = true;
