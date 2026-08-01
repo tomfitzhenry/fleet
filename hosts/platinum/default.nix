@@ -98,6 +98,10 @@
       device = "/dev/disk/by-uuid/a633ae97-cfa1-4343-8740-b450c95df8aa";
       tryEmptyPassphrase = true;
     };
+    share5 = {
+      device = "/dev/disk/by-uuid/fe708d83-cafd-4f33-8486-9f12d9445d17";
+      tryEmptyPassphrase = true;
+    };
   };
 
   fileSystems."/srv/share" = {
