@@ -1,6 +1,5 @@
 # cwwk monster NAS + Jonsbo N2, as a NAS.
 {
-  lib,
   pkgs,
   ...
 }:
@@ -21,16 +20,6 @@
     };
     loader.systemd-boot.enable = true;
   };
-
-  boot.kernelPatches = [
-    {
-      name = "enable-usb-dbgcap";
-      patch = null;
-      structuredExtraConfig = with lib.kernel; {
-        USB_XHCI_DBGCAP = yes;
-      };
-    }
-  ];
 
   boot.kernelParams = [
     # The machine hangs shortly after getting to getty, and this goes away if we limit the max Intel C-state.
