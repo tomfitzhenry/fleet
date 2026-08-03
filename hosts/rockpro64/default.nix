@@ -1,11 +1,14 @@
-# A Pine64 RockPro64, acting as a NAS.
+# A Pine64 RockPro64.
 {
+  config,
   pkgs,
   ...
 }:
 {
   nixpkgs.system = "aarch64-linux";
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
+
+  boot.loader.systemd-boot.enable = true;
 
   boot.kernelParams = [
     # Console on HDMI
@@ -27,33 +30,28 @@
       "pcie_rockchip_host"
       "phy_rockchip_pcie"
     ];
+    luks.devices.rootfs = {
+      device = "/dev/disk/by-partlabel/disk-main-luks";
+      tryEmptyPassphrase = true;
+    };
   };
 
-  boot.loader.systemd-boot.enable = true;
+  fileSystems."/nix" = {
+    device = config.tomf.rootfs.device;
+    fsType = "btrfs";
+    options = [ "subvol=/nix" ];
+    neededForBoot = true;
+  };
 
   tomf = {
     rootfs = {
-      device = "/dev/disk/by-uuid/e73dba77-6da5-4ebf-b755-113ec19cbaa2";
-      subvolume = "/";
+      device = "/dev/mapper/rootfs";
+      subvolume = "/rootfs";
     };
     sshd = {
       enable = true;
       # Expose SSH to LAN.
       openFirewall = true;
-    };
-  };
-
-  # Prevent frequent disk writes, to prevent HDDs spinning up.
-  fileSystems."/var/log".fsType = "tmpfs";
-  boot.tmp.useTmpfs = true;
-
-  systemd.services.hd-idle = {
-    description = "External HD spin down daemon";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.hd-idle}/bin/hd-idle";
-      Restart = "always";
     };
   };
 }
