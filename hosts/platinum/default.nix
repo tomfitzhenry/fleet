@@ -229,6 +229,12 @@
       mqtt.server = "mqtt://aluminium:1883";
       permit_join = true;
       serial.port = "/dev/ttyACM0";
+      # https://www.zigbee2mqtt.io/guide/configuration/device-availability.html#availability-advanced-configuration
+      availability.enabled = true;
+      advanced = {
+        # https://www.zigbee2mqtt.io/guide/configuration/mqtt.html
+        last_seen = "ISO_8601_local";
+      };
     };
   };
 }
