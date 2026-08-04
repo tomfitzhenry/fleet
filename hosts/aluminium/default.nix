@@ -53,6 +53,10 @@
     443 # https
   ];
 
+  networking.firewall.interfaces.wgFleet.allowedTCPPorts = [
+    1883
+  ];
+
   users.users.podman.extraGroups = [
     "render" # hw acceleration
   ];
