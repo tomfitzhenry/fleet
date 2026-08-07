@@ -1,3 +1,10 @@
+This is a NixOS homelab. Machines are defined as NixOS configurations in `hosts/`.
+
+## Designs
+
+- [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) who we're defending against and how
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) principles this homelab follows
+
 ## Development
 
 Pushed commits are pulled by hosts, who then perform SSH signature verification
