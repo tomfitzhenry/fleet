@@ -17,24 +17,49 @@
 
   networking.firewall.allowedTCPPorts = [ 443 ];
 
+  services.oauth2-proxy = {
+    enable = true;
+    provider = "oidc";
+    # Register redirect URIs for both subdomains:
+    #   https://<domain1>/oauth2/callback (yarr)
+    #   https://<domain2>/oauth2/callback (readeck)
+    oidcIssuerUrl = "https://codeberg.org";
+    clientID = "11100d5f-6ae4-4334-8d42-d40575e0ab5e";
+    clientSecretFile = "/etc/oauth2-proxy/codeberg-client-secret";
+    cookie.secretFile = "/etc/oauth2-proxy/cookie-secret";
+    email.addresses = "tom@tom-fitzhenry.me.uk";
+    # oauth2-proxy is behind Caddy — trust X-Forwarded-* from it.
+    reverseProxy = true;
+    trustedProxyIP = [ "127.0.0.1" ];
+    setXauthrequest = true;
+  };
+
   services.caddy = {
     enable = true;
     configFile = pkgs.writeText "Caddyfile" ''
-      import /etc/caddy/vhost.readeck { } {
-        basic_auth {
-          tom $2a$14$w.rkYXmgon7phJLm.6689OT9w0iGqkXbM6f9huI7YBJUDlHq5tY5y
+      # https://oauth2-proxy.github.io/oauth2-proxy/configuration/integrations/caddy
+      (oauth2-proxy-forward) {
+        handle /oauth2/* {
+          reverse_proxy 127.0.0.1:4180
         }
-        reverse_proxy 127.0.0.1:${toString config.services.readeck.settings.server.port} {
-          header_up -Authorization
+        handle {
+          forward_auth 127.0.0.1:4180 {
+            uri /oauth2/auth
+            copy_headers Remote-User Remote-Email Remote-Name
+            @error status 401
+            handle_response @error {
+              redir * /oauth2/sign_in?rd={scheme}://{host}{uri}
+            }
+          }
+          reverse_proxy {args[0]}
         }
       }
+
+      import /etc/caddy/vhost.readeck { } {
+        import oauth2-proxy-forward 127.0.0.1:${toString config.services.readeck.settings.server.port}
+      }
       import /etc/caddy/vhost.yarr { } {
-        basic_auth {
-          tom $2a$14$w.rkYXmgon7phJLm.6689OT9w0iGqkXbM6f9huI7YBJUDlHq5tY5y
-        }
-        reverse_proxy 127.0.0.1:${toString config.services.yarr.port} {
-          header_up -Authorization
-        }
+        import oauth2-proxy-forward 127.0.0.1:${toString config.services.yarr.port}
       }
     '';
   };
