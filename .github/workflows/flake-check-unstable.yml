@@ -1,0 +1,34 @@
+name: Nix Flake Check (unstable)
+
+on:
+  schedule:
+    # 3AM, Sunday and Wednesday.
+    - cron: '0 3 * * 0,3'
+  workflow_dispatch:
+
+jobs:
+  flake-check-unstable:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Modify flake.nix to use nixos-unstable
+        run: |
+          # Check that the expected pattern exists and modify it
+          if grep -q 'nixpkgs-2605.url = "github:nixos/nixpkgs?ref=nixos-' flake.nix; then
+            sed -i 's|github:nixos/nixpkgs?ref=nixos-[^"]*|github:nixos/nixpkgs?ref=nixos-unstable|' flake.nix
+          else
+            echo "ERROR: Expected nixpkgs-stable.url pattern not found in flake.nix"
+            exit 1
+          fi
+
+      - name: Run nix flake check
+        # Specify --no-build to avoid running VM tests, since
+        # GitHub-hosted runners don't have KVM, and so the VM tests
+        # are too slow.
+        run: nix flake check --no-build

@@ -1,0 +1,30 @@
+name: Gittuf Verify
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  schedule:
+    # 3AM, Sunday.
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  gittuf-verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
+
+      - name: Install dependencies
+        run: nix profile install nixpkgs#gittuf
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch gittuf refs
+        run: git fetch origin refs/gittuf/*:refs/gittuf/*
+
+      - name: Run gittuf verify
+        run: gittuf verify-ref master

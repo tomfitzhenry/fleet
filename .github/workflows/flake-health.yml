@@ -1,0 +1,27 @@
+name: Nix Flake Health
+
+on:
+  schedule:
+    # 3AM, every day.
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  flake-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
+
+      - name: Install dependencies
+        run: nix profile install nixpkgs#flake-checker
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: flake-checker age
+        run: flake-checker --nixpkgs-keys nixpkgs-2605 --fail-mode --condition "numDaysOld < 21"
+
+      - name: flake-checker owner
+        run: flake-checker --nixpkgs-keys nixpkgs-2605 --fail-mode --condition "owner == 'nixos'"
