@@ -17,6 +17,9 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v22
 
+      - name: Setup Hestia cache
+        uses: Mic92/hestia@v3
+
       - name: Install dependencies
         run: nix profile install nixpkgs#gittuf
 
