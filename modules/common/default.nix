@@ -17,6 +17,12 @@
   nix.gc.automatic = lib.mkDefault true;
   boot.tmp.cleanOnBoot = true;
 
+  # Pull from the tomf-fleet cachix cache.
+  nix.settings.extra-substituters = [ "https://tomf-fleet.cachix.org" ];
+  nix.settings.extra-trusted-public-keys = [
+    "tomf-fleet.cachix.org-1:h9fKL6LcXBgYr7M68A2fuq5xHlUBt/nKFlhLMLw9Rfo="
+  ];
+
   users.users.tom = {
     uid = 1000;
     isNormalUser = true;
