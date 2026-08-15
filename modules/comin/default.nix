@@ -32,7 +32,7 @@ in
       script = ''
         	  set -eu
               if [ ! -d repo ]; then
-                  git clone https://codeberg.org/tomf/fleet repo
+                  git clone https://github.com/tomfitzhenry/fleet repo
               fi
 
               cd repo
