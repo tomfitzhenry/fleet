@@ -11,8 +11,10 @@
   boot.loader.systemd-boot.enable = true;
 
   boot.kernelParams = [
+    # Serial
+    "console=ttyS2,1500000n8"
+
     # Console on HDMI
-    "console=ttyS0"
     "console=tty0"
   ];
 
@@ -23,6 +25,9 @@
 
   boot.initrd = {
     kernelModules = [
+      # Serial console
+      "8250_dw"
+
       # HDMI
       "rockchipdrm"
 
