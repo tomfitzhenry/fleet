@@ -30,6 +30,7 @@
       config.security.tpm2.tssGroup
       "wheel"
     ];
+    linger = true;
   };
 
   # Use nftables to support networking.firewall.extraForwardRules.
