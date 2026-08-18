@@ -34,9 +34,21 @@ in
     wireguard.enable = true;
   };
 
+  # Swapfile in its own subvolume, since btrfs refuses to snapshot a
+  # subvolume with an active swapfile.
+  #
+  #   sudo btrfs filesystem mkswapfile --size 8G /mnt/btrfs/@swap/swapfile
+  #
+  fileSystems."/swap" = {
+    device = "/dev/mapper/enc";
+    fsType = "btrfs";
+    options = [ "subvol=@swap" ];
+    neededForBoot = true;
+  };
+
   swapDevices = [
     {
-      device = "/swapfile";
+      device = "/swap/swapfile";
     }
   ];
 
