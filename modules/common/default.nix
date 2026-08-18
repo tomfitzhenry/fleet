@@ -53,8 +53,10 @@
       nvme-cli
       parted
       pciutils
+      picocom
       ripgrep
       smartmontools
+      socat
       strace
       tcpdump
       tmux
