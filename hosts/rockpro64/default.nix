@@ -18,11 +18,6 @@
     "console=tty0"
   ];
 
-  boot.blacklistedKernelModules = [
-    # Spams klog.
-    "bluetooth"
-  ];
-
   boot.initrd = {
     kernelModules = [
       # Serial console
