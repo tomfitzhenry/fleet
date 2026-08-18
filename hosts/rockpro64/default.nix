@@ -1,9 +1,5 @@
 # A Pine64 RockPro64.
-{
-  config,
-  pkgs,
-  ...
-}:
+{ config, ... }:
 {
   nixpkgs.system = "aarch64-linux";
   system.stateVersion = "25.11";
@@ -44,6 +40,10 @@
   };
 
   tomf = {
+    op-tee = {
+      enable = true;
+      platform = "rockchip-rk3399";
+    };
     rootfs = {
       device = "/dev/mapper/rootfs";
       subvolume = "/rootfs";
