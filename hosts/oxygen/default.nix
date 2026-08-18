@@ -40,6 +40,10 @@ in
     }
   ];
 
+  # Monthly btrfs scrub (set in modules/rootfs) catches up at boot via the
+  # Persistent timer; throttle it so it's gentler on the disk while working.
+  services.btrfs.autoScrub.limit = "100M";
+
   programs.sway.enable = true;
   programs.niri.enable = true;
   services.upower.enable = true;
