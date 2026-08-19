@@ -27,7 +27,6 @@ in
               network = { };
             };
           };
-          journald = { };
           prometheus.config.scrape_configs = [
             {
               job_name = "opentelemetry-collector";
@@ -46,18 +45,8 @@ in
         };
 
         exporters.otlphttp = {
-          logs_endpoint = "\${env:OTEL_DOMAIN}/api/default/v1/logs";
           metrics_endpoint = "\${env:OTEL_DOMAIN}/api/default/v1/metrics";
           headers.Authorization = "\${env:OTEL_AUTH_HEADER}";
-        };
-
-        service.pipelines.logs = {
-          receivers = [ "journald" ];
-          processors = [
-            "resourcedetection"
-            "batch"
-          ];
-          exporters = [ "otlphttp" ];
         };
 
         service.pipelines.metrics = {
@@ -75,9 +64,6 @@ in
     };
 
     systemd.services.opentelemetry-collector = {
-      # The journald receiver shells out to journalctl.
-      path = [ pkgs.systemd ];
-
       # Environment variables that must be in this file:
       #
       # OTEL_AUTH_HEADER=Basic <base64 of "SERVICE_ACCOUNT_EMAIL:TOKEN">
