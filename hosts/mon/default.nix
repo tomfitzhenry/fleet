@@ -7,6 +7,14 @@ in
 
   system.stateVersion = "25.05";
 
+  # 512 MiB / 1 vCPU (microvm defaults) is too small for openobserve +
+  # uptime-kuma + otel-collector + caddy + gatus: the guest was swapping and
+  # openobserve was getting OOM-killed in a restart loop.
+  microvm = {
+    mem = 1024;
+    vcpu = 2;
+  };
+
   tomf = {
     otel-collector.enable = true;
     sshd = {
@@ -101,6 +109,9 @@ in
       ZO_HTTP_PORT = toString openobservePort;
       # OpenObserve logs verbosely at INFO.
       RUST_LOG = "warn";
+      # Default is 10s: on a slow vCPU with virtiofs storage, back-to-back
+      # compaction pegged the core and logged a DataFusion plan per merge.
+      ZO_COMPACT_INTERVAL = "3600";
     };
     serviceConfig = {
       ExecStart = "${pkgs.openobserve}/bin/openobserve";
