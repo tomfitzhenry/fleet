@@ -7,6 +7,7 @@
 }:
 let
   cfg = config.tomf.comin;
+  repoUrl = "https://github.com/tomfitzhenry/fleet";
 in
 {
   options = {
@@ -32,10 +33,11 @@ in
       script = ''
         	  set -eu
               if [ ! -d repo ]; then
-                  git clone https://github.com/tomfitzhenry/fleet repo
+                  git clone ${repoUrl} repo
               fi
 
               cd repo
+              git remote set-url origin ${repoUrl}
               git pull
               git fetch origin refs/gittuf/*:refs/gittuf/*
 
