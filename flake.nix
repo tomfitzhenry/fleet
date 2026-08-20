@@ -58,6 +58,9 @@
         rootfs = nixpkgs-2605.legacyPackages.x86_64-linux.testers.nixosTest (
           import ./modules/rootfs/vm-test.nix
         );
+        step-ca = nixpkgs-2605.legacyPackages.x86_64-linux.testers.nixosTest (
+          import ./modules/step-ca/vm-test.nix
+        );
       };
     };
 }

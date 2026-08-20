@@ -6,7 +6,10 @@
   ...
 }:
 {
-  imports = [ ./microvm-host.nix ];
+  imports = [
+    ./microvm-host.nix
+    ../../modules/step-ca
+  ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "25.05";
@@ -39,6 +42,7 @@
       enable = true;
       openFirewall = true;
     };
+    step-ca.enable = true;
     wireguard.enable = true;
   };
 

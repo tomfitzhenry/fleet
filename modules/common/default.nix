@@ -5,6 +5,12 @@
   ...
 }:
 {
+  imports = [
+    ../step-ca/client.nix
+  ];
+
+  tomf.step-ca.client.enable = true;
+
   boot.loader.systemd-boot.configurationLimit = 15;
   boot.loader.grub.configurationLimit = 15;
 
