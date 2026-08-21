@@ -23,6 +23,8 @@
     loader.systemd-boot.enable = true;
   };
 
+  nix.gc.automatic = false; # for dev
+
   tomf = {
     nfs-client = {
       enable = true;
