@@ -7,6 +7,7 @@
 }:
 {
   imports = [
+    ./jellyfin.nix
     ./microvm-host.nix
     ../../modules/step-ca
   ];
