@@ -112,6 +112,10 @@
       binaryCachesPath = "${pkgs.writeText "binary-caches.json" "{}"}";
       # The host also runs five microVMs and jellyfin; keep CI builds modest.
       concurrentTasks = 2;
+      remotePlatformsWithSameFeatures = [
+        "aarch64-linux"
+        "armv7l-linux"
+      ];
       # Allow CI to target jobs at this host.
       labels.host = "aluminium";
     };
