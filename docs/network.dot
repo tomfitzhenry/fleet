@@ -1,0 +1,99 @@
+digraph network {
+  rankdir=LR;
+  compound=true;
+  splines=polyline;
+  fontname="sans-serif";
+  node [shape=box, fontname="sans-serif", fontsize=11];
+  edge [fontname="sans-serif", fontsize=9, color=gray30];
+
+  // ---------------------------------------------------------------- Internet
+  subgraph cluster_internet {
+    label="Internet";
+    style="filled,rounded";
+    color="#eee8d5";
+    isp [label="ISP", shape=ellipse, style="filled", fillcolor="#93a1a1"];
+    v4 [label="IPv4 clients", style="filled", fillcolor="#eee8d5"];
+    v6 [label="IPv6 clients", style="filled", fillcolor="#eee8d5"];
+  }
+
+  // ---------------------------------------------------------------- Home LAN
+  subgraph cluster_home {
+    label="Home LAN · 2401:dc20:262f:1::/64\nbehind redbox's stateful firewall (default-deny)";
+    style="filled,rounded";
+    color="#268bd2";
+
+    redbox [label="redbox (router + firewall)\nPC Engines APU1 · nftables default-deny\nDHCP/RA/DNS · snid: IPv4:443 NAT46 proxy", style="filled", fillcolor="#93e1d1"];
+    lan [label="LAN bridge / switch\nredbox enp2s0 + enp3s0", shape=box3d, style="filled", fillcolor="#93a1a1"];
+    aluminium [label="aluminium (VM host)\nOptiplex 7070 Micro\ninbound: 443/tcp, 51820/udp", style="filled", fillcolor="#c5e0b4"];
+    platinum [label="platinum (NAS)\nCWWK monster\ninbound: 51820/udp only", style="filled", fillcolor="#c5e0b4"];
+    oxygen [label="oxygen (desktop)\ndev box, NFS client · no inbound", style="filled", fillcolor="#c5e0b4"];
+    rockpro64 [label="rockpro64 (ARM)\nno inbound", style="filled", fillcolor="#c5e0b4"];
+    family [label="family devices / consoles\nDHCP pool 172.17.1.150-250 · no inbound", style="filled", fillcolor="#eee8d5"];
+
+    subgraph cluster_vms {
+      label="aluminium microvms · 2401:dc20:262f:20::/60\ninbound: all protocols (forwarded by redbox)";
+      style="filled,rounded";
+      color="#6c71c4";
+      git; feed; dev; home; mon;
+    }
+
+    redbox -> lan [label="lan bridge (L2)"];
+    lan -> aluminium;
+    lan -> platinum;
+    lan -> oxygen;
+    lan -> rockpro64;
+    lan -> family;
+
+    aluminium -> git;
+    aluminium -> feed;
+    aluminium -> dev;
+    aluminium -> home;
+    aluminium -> mon;
+  }
+
+  // ---------------------------------------------------------------- WireGuard
+  subgraph cluster_wg {
+    label="WireGuard mesh 192.168.2.0/24\nwgFleet, UDP 51820 — auth/control plane";
+    style="filled,rounded";
+    color="#2aa198";
+    mesh [label="mesh", shape=hexagon, style="filled", fillcolor="#2aa198", fontcolor="white"];
+  }
+
+  // ---------------------------------------------------------------- Remote
+  subgraph cluster_remote {
+    label="Remote";
+    style="filled,rounded";
+    color="#d33682";
+    argon [label="argon\nOracle OCI ARM VM\npodman, sshd open (no WireGuard)", style="filled", fillcolor="#f5c2e7"];
+    strontium [label="strontium\niFog IPv6-only VM\nKnot DNS — public secondary/\ncatalog zones\n2a0c:9a40:2510:1001::10eb", style="filled", fillcolor="#f5c2e7"];
+  }
+
+  // ---------------------------------------------------------------- Edges
+  isp -> v4;
+  isp -> v6;
+
+  v4 -> redbox [label="443/tcp → snid NAT46", style=dashed, color="#dc322f"];
+  v6 -> redbox [label="IPv6 transit (PD ::/48)", color="#268bd2"];
+
+  // The only inbound forwards redbox allows (networking.firewall.extraForwardRules).
+  redbox -> aluminium [label="fwd: 443/tcp · 51820/udp", color="#268bd2"];
+  redbox -> platinum [label="fwd: 51820/udp", color="#268bd2"];
+  redbox -> git [label="fwd: all → /60 via aluminium", lhead=cluster_vms, color="#268bd2"];
+  redbox -> aluminium [label="snid: IPv4:443 → aluminium:443", style=dashed, color="#dc322f", constraint=false];
+
+  // Everything else inbound is dropped at the firewall.
+  v6 -> lan [label="all other inbound: DROP", style=dashed, color="#dc322f", arrowhead=tee, constraint=false];
+
+  v6 -> argon [label="public IPv6 + IPv4", color="#d33682"];
+  v6 -> strontium [label="public IPv6 (IPv6-only)", color="#d33682"];
+
+  redbox -> mesh [label="peer .6", style=dashed, dir=both];
+  aluminium -> mesh [label="peer .2", style=dashed, dir=both];
+  platinum -> mesh [label="peer .3", style=dashed, dir=both];
+  oxygen -> mesh [label="peer .1", style=dashed, dir=both];
+  strontium -> mesh [label="peer .7", style=dashed, dir=both];
+
+  aluminium -> platinum [label="NFS (over WireGuard)", style=dotted, constraint=false];
+  oxygen -> platinum [label="NFS (over WireGuard)", style=dotted, constraint=false];
+  platinum -> aluminium [label="zigbee2mqtt → mqtt://aluminium:1883", style=dotted, constraint=false];
+}
