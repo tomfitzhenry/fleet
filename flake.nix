@@ -9,13 +9,15 @@
       url = "github:astro/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs-2605";
     };
+    hercules-ci-effects.url = "github:hercules-ci/hercules-ci-effects";
   };
   outputs =
-    {
+    inputs@{
+      self,
       comin-2605,
+      hercules-ci-effects,
       microvm-2605,
       nixpkgs-2605,
-      ...
     }:
     let
       mkMachine =
@@ -61,6 +63,14 @@
         step-ca = nixpkgs-2605.legacyPackages.x86_64-linux.testers.nixosTest (
           import ./modules/step-ca/vm-test.nix
         );
+      };
+
+      herculesCI = hercules-ci-effects.lib.mkHerculesCI { inherit inputs; } {
+        herculesCI.ciSystems = [
+          "aarch64-linux"
+          "armv7l-linux"
+          "x86_64-linux"
+        ];
       };
     };
 }
