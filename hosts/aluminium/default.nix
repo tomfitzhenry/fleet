@@ -91,6 +91,32 @@
     ];
   };
 
+  # A Hercules CI agent. https://hercules-ci.com
+  # The agent authenticates to hercules-ci.com with a cluster join token, which
+  # is a secret and is not stored in the repository (ARCHITECTURE.md); install
+  # it by hand on this host:
+  #
+  #   install -d -m 0700 -o hercules-ci-agent -g hercules-ci-agent \
+  #     /var/lib/hercules-ci-agent/secrets
+  #   install -m 0400 -o hercules-ci-agent -g hercules-ci-agent \
+  #     <token-file> /var/lib/hercules-ci-agent/secrets/cluster-join-token.key
+  #
+  # The cluster join token comes from https://hercules-ci.com/dashboard. To
+  # push builds to a cache later, replace binaryCachesPath with a
+  # binary-caches.json in the secrets directory (see
+  # https://docs.hercules-ci.com/hercules-ci-agent/binary-caches-json/).
+  services.hercules-ci-agent = {
+    enable = true;
+    settings = {
+      # A single agent works without a binary cache.
+      binaryCachesPath = "${pkgs.writeText "binary-caches.json" "{}"}";
+      # The host also runs five microVMs and jellyfin; keep CI builds modest.
+      concurrentTasks = 2;
+      # Allow CI to target jobs at this host.
+      labels.host = "aluminium";
+    };
+  };
+
   networking.useDHCP = false;
   systemd.network = {
     enable = true;
