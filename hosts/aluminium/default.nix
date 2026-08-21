@@ -112,8 +112,7 @@
     settings = {
       # A single agent works without a binary cache.
       binaryCachesPath = "${pkgs.writeText "binary-caches.json" "{}"}";
-      # The host also runs five microVMs and jellyfin; keep CI builds modest.
-      concurrentTasks = 2;
+      concurrentTasks = 4;
       remotePlatformsWithSameFeatures = [
         "aarch64-linux"
         "armv7l-linux"
