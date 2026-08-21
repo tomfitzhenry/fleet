@@ -26,7 +26,7 @@ in
         sshUser = "tomfitzhenry";
         sshKey = "/etc/ssh/nix-community-builder";
         maxJobs = 4;
-        speedFactor = 1;
+        speedFactor = 4;
         supportedFeatures = [
           "nixos-test"
           "benchmark"
@@ -44,7 +44,7 @@ in
         sshUser = "tomfitzhenry";
         sshKey = "/etc/ssh/nix-community-builder";
         maxJobs = 16;
-        speedFactor = 1;
+        speedFactor = 4;
         supportedFeatures = [
           "benchmark"
           "big-parallel"
