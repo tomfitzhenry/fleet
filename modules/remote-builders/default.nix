@@ -19,6 +19,14 @@ in
 
     nix.settings.builders-use-substitutes = true;
 
+    # Advertise the gccarch features that arm builds request, so the
+    # nix-daemon (and any hercules-ci-agent using it) dispatches them to the remote
+    # aarch64 builders.
+    nix.settings.extra-system-features = [
+      "gccarch-armv7-a"
+      "gccarch-armv8-a"
+    ];
+
     nix.buildMachines = [
       {
         hostName = "build-box.nix-community.org";
