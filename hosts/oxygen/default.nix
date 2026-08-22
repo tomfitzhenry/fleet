@@ -58,6 +58,15 @@ in
     }
   ];
 
+  # The machine hangs under memory pressure. oomd is enabled by default, but no
+  # slices are configured, so it does nothing. Cover the root slice and user
+  # slices (Fedora's defaults) so runaway processes get killed.
+  systemd.oomd = {
+    enable = true;
+    enableRootSlice = true;
+    enableUserSlices = true;
+  };
+
   # Monthly btrfs scrub (set in modules/rootfs) catches up at boot via the
   # Persistent timer; throttle it so it's gentler on the disk while working.
   services.btrfs.autoScrub.limit = "100M";
