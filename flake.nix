@@ -30,6 +30,7 @@
 
             comin.nixosModules.comin
 
+            ./modules/btrfs-health
             ./modules/comin
             ./modules/common
             ./modules/nfs-client
@@ -57,6 +58,9 @@
       };
 
       checks.x86_64-linux = {
+        btrfs-health = nixpkgs-2605.legacyPackages.x86_64-linux.testers.nixosTest (
+          import ./modules/btrfs-health/vm-test.nix
+        );
         rootfs = nixpkgs-2605.legacyPackages.x86_64-linux.testers.nixosTest (
           import ./modules/rootfs/vm-test.nix
         );
