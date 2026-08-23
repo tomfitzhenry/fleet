@@ -6,6 +6,7 @@
 {
   imports = [
     ./nas.nix
+    ../../modules/mail-relay
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -59,6 +60,11 @@
   ];
 
   tomf = {
+    mail-relay = {
+      enable = true;
+      hostname = "pt.h.tom-fitzhenry.me.uk";
+      recipient = "tom@tom-fitzhenry.me.uk";
+    };
     rootfs = {
       device = "/dev/mapper/rootfs";
       subvolume = "/";
@@ -102,6 +108,13 @@
     fileSystems = [
       "/srv/share"
     ];
+  };
+
+  # Monitor disk health, and email alerts via the mail relay. Notifications go
+  # to the default (root); the relay's aliases forward them on.
+  services.smartd = {
+    enable = true;
+    notifications.mail.enable = true;
   };
 
   systemd.services.hd-idle = {

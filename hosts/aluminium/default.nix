@@ -9,6 +9,7 @@
   imports = [
     ./jellyfin.nix
     ./microvm-host.nix
+    ../../modules/mail-relay
     ../../modules/step-ca
   ];
 
@@ -35,6 +36,11 @@
         };
       };
     };
+    mail-relay = {
+      enable = true;
+      hostname = "al.h.tom-fitzhenry.me.uk";
+      recipient = "tom@tom-fitzhenry.me.uk";
+    };
     podman.enable = true;
     remote-builders.enable = true;
     rootfs = {
@@ -47,6 +53,13 @@
     };
     step-ca.enable = true;
     wireguard.enable = true;
+  };
+
+  # Monitor disk health, and email alerts via the mail relay. Notifications go
+  # to the default (root); the relay's aliases forward them on.
+  services.smartd = {
+    enable = true;
+    notifications.mail.enable = true;
   };
 
   boot.kernel.sysctl = {
