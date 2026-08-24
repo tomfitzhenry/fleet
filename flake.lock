@@ -58,6 +58,23 @@
         "type": "indirect"
       }
     },
+    "ghostunnel": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787574718,
+        "narHash": "sha256-x3eoDWkzwwlQ+NzL/dJ3qF2CNlB42wjNv8Nvm+GKkwA=",
+        "owner": "tomfitzhenry",
+        "repo": "ghostunnel",
+        "rev": "a50e7cb11cba746db22cad130d69760399577e35",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tomfitzhenry",
+        "ref": "pkcs11-cert-chain",
+        "repo": "ghostunnel",
+        "type": "github"
+      }
+    },
     "hercules-ci-effects": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -179,14 +196,15 @@
     },
     "p11-hostd": {
       "inputs": {
+        "ghostunnel": "ghostunnel",
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1787527958,
-        "narHash": "sha256-s2bRIZUj+eR4s/9bZC9TmkJN7eCo1zeIWFyo78qdJCU=",
+        "lastModified": 1787579098,
+        "narHash": "sha256-xEuCI6vagajZaoi0mohHxM20H7C6JJWIDGzY3sHVUUU=",
         "ref": "refs/heads/main",
-        "rev": "a44f48e49ff2c521bbf5501ca902dc1418105d09",
-        "revCount": 25,
+        "rev": "37e80074f2f3f0029e4c5da2c4a84cde6dab9ff9",
+        "revCount": 41,
         "type": "git",
         "url": "ssh://git@github.com/tomfitzhenry/p11-hostd.git"
       },
