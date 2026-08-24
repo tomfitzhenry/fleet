@@ -10,6 +10,7 @@
     ./jellyfin.nix
     ./microvm-host.nix
     ../../modules/mail-relay
+    ../../modules/nsupdated
     ../../modules/step-ca
   ];
 
@@ -40,6 +41,14 @@
       enable = true;
       hostname = "al.h.tom-fitzhenry.me.uk";
       recipient = "tom@tom-fitzhenry.me.uk";
+    };
+    nsupdated = {
+      enable = true;
+      settings = {
+        TYPE = "MYTHICBEASTS";
+        keyID = "$MYTHICBEASTS_KEYID";
+        secret = "$MYTHICBEASTS_SECRET";
+      };
     };
     podman.enable = true;
     remote-builders.enable = true;

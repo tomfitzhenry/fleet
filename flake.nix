@@ -10,6 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs-2605";
     };
     hercules-ci-effects.url = "github:hercules-ci/hercules-ci-effects";
+    multiverse.url = "github:fzakaria/nixpkgs-multiverse";
   };
   outputs =
     inputs@{
@@ -17,13 +18,14 @@
       comin-2605,
       hercules-ci-effects,
       microvm-2605,
+      multiverse,
       nixpkgs-2605,
     }:
     let
       mkMachine =
-        nixpkgs: comin: microvm: hostname:
+        nixpkgs: comin: microvm: multiverse: hostname:
         nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit microvm; };
+          specialArgs = { inherit microvm multiverse; };
           modules = [
             ./hosts/${hostname}
             { networking.hostName = hostname; }
@@ -43,7 +45,7 @@
             ./modules/wireguard
           ];
         };
-      mkMachine_2605 = mkMachine nixpkgs-2605 comin-2605 microvm-2605;
+      mkMachine_2605 = mkMachine nixpkgs-2605 comin-2605 microvm-2605 multiverse;
     in
     {
       nixosConfigurations = {
