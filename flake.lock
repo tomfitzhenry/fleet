@@ -161,13 +161,48 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1787364730,
+        "narHash": "sha256-NcYt9QJfpJiF1lAyN8BDPB4EeScbPU+EwQqPiBElrpU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a831408e6378bc02ebf8cc09b52c96ca86f6bab4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "p11-hostd": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "lastModified": 1787527958,
+        "narHash": "sha256-s2bRIZUj+eR4s/9bZC9TmkJN7eCo1zeIWFyo78qdJCU=",
+        "ref": "refs/heads/main",
+        "rev": "a44f48e49ff2c521bbf5501ca902dc1418105d09",
+        "revCount": 25,
+        "type": "git",
+        "url": "ssh://git@github.com/tomfitzhenry/p11-hostd.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/tomfitzhenry/p11-hostd.git"
+      }
+    },
     "root": {
       "inputs": {
         "comin-2605": "comin-2605",
         "hercules-ci-effects": "hercules-ci-effects",
         "microvm-2605": "microvm-2605",
         "multiverse": "multiverse",
-        "nixpkgs-2605": "nixpkgs-2605"
+        "nixpkgs-2605": "nixpkgs-2605",
+        "p11-hostd": "p11-hostd"
       }
     },
     "spectrum": {

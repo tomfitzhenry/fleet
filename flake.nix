@@ -11,6 +11,8 @@
     };
     hercules-ci-effects.url = "github:hercules-ci/hercules-ci-effects";
     multiverse.url = "github:fzakaria/nixpkgs-multiverse";
+    # Private repo, so it is fetched over SSH (like the fleet itself).
+    p11-hostd.url = "git+ssh://git@github.com/tomfitzhenry/p11-hostd.git";
   };
   outputs =
     inputs@{
@@ -20,12 +22,13 @@
       microvm-2605,
       multiverse,
       nixpkgs-2605,
+      p11-hostd,
     }:
     let
       mkMachine =
         nixpkgs: comin: microvm: multiverse: hostname:
         nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit microvm multiverse; };
+          specialArgs = { inherit microvm multiverse p11-hostd; };
           modules = [
             ./hosts/${hostname}
             { networking.hostName = hostname; }

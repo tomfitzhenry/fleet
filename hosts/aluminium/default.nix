@@ -11,6 +11,7 @@
     ./microvm-host.nix
     ../../modules/mail-relay
     ../../modules/nsupdated
+    ../../modules/p11-hostd
     ../../modules/step-ca
   ];
 
@@ -51,6 +52,7 @@
       };
     };
     podman.enable = true;
+    p11-hostd.enable = true;
     remote-builders.enable = true;
     rootfs = {
       device = "/dev/mapper/rootfs";
