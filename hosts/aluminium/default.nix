@@ -90,11 +90,17 @@
     "render" # hw acceleration
   ];
 
+  services.udev.packages = [
+    pkgs.probe-rs-tools
+  ];
+  users.groups.plugdev = { };
   users.users.dev = {
     uid = 1001;
     isNormalUser = true;
     extraGroups = [
       config.security.tpm2.tssGroup
+      "dialout"
+      "plugdev"
     ];
     linger = true;
     openssh.authorizedKeys.keys = [
