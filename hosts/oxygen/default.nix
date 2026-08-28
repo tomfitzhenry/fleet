@@ -25,6 +25,7 @@ in
       node.alias = "oxygen";
       web.pinned.repositories = [
         "rad:z3BvgcWWXAKMg8Rd8vBqPFE4gmw4z" # dotfiles
+        "rad:z24mzhKEoMoZYtkpRE294sLswEDpu" # nix-embedded-static-binaries
       ];
     };
   };
