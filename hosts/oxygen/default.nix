@@ -17,20 +17,11 @@ in
 
   boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/b210a23c-b423-466d-afd1-c383a1b37a64";
 
-  services.radicle = {
-    enable = true;
-    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIw2p4b9IjL06H2xvWjuku+b2D37FahmjWzbv1h3nS7A";
-    privateKey = "/var/lib/radicle/seednode";
-    settings = {
-      node.alias = "oxygen";
-      web.pinned.repositories = [
-        "rad:z3BvgcWWXAKMg8Rd8vBqPFE4gmw4z" # dotfiles
-        "rad:z24mzhKEoMoZYtkpRE294sLswEDpu" # nix-embedded-static-binaries
-      ];
-    };
-  };
-
   tomf = {
+    radicle-node = {
+      enable = true;
+      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIw2p4b9IjL06H2xvWjuku+b2D37FahmjWzbv1h3nS7A";
+    };
     nfs-client = {
       enable = true;
       wireguard.ips = [ "192.168.2.4/32" ];

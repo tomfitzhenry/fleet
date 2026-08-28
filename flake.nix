@@ -39,6 +39,7 @@
             ./modules/op-tee
             ./modules/otel-collector
             ./modules/podman
+            ./modules/radicle-node
             ./modules/remote-builders
             ./modules/rootfs
             ./modules/sshd

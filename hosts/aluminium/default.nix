@@ -51,6 +51,10 @@
       };
     };
     podman.enable = true;
+    radicle-node = {
+      enable = true;
+      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHrBcb0XDIRmMceUi9gUAPNxwAETFON1eBcKhasurmTq";
+    };
     remote-builders.enable = true;
     rootfs = {
       device = "/dev/mapper/rootfs";
