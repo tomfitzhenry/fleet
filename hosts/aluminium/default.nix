@@ -9,6 +9,7 @@
   imports = [
     ./jellyfin.nix
     ./microvm-host.nix
+    ../../modules/llm-curl
     ../../modules/mail-relay
     ../../modules/nsupdated
     ../../modules/step-ca
@@ -49,6 +50,10 @@
         keyID = "$MYTHICBEASTS_KEYID";
         secret = "$MYTHICBEASTS_SECRET";
       };
+    };
+    llm-curl = {
+      enable = true;
+      user = "dev";
     };
     podman.enable = true;
     radicle-node = {
