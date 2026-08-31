@@ -1,6 +1,6 @@
 # Shadow a user's curl with llm-curl, which serves source-code URLs from local
-# git clones under ~/src instead of the network. The real curl stays available
-# as real-curl. https://github.com/tomfitzhenry/llm-curl
+# git clones in the ghq root (~/ghq) instead of the network. The real curl
+# stays available as real-curl. https://github.com/tomfitzhenry/llm-curl
 {
   config,
   lib,
@@ -36,6 +36,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.${cfg.user}.packages = [ shadow ];
+    # llm-curl shells out to git and ghq to locate and manage clones.
+    users.users.${cfg.user}.packages = [ shadow pkgs.git pkgs.ghq ];
   };
 }

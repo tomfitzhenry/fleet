@@ -7,17 +7,25 @@
 
 buildGoModule (finalAttrs: {
   pname = "llm-curl";
-  version = "0-unstable-2026-08-30";
+  version = "0-unstable-2026-08-31";
 
   src = fetchFromGitHub {
     owner = "tomfitzhenry";
     repo = "llm-curl";
-    rev = "cb3a9cccc89430a32c77d8a8a4b32a491c5c2a42";
-    hash = "sha256-nixGKhNl4i1ijqSUBqWHPfZOf6dwCaVsiUoAhBEXIQ0=";
+    rev = "9589719733c9f56460c128944044d57e54f0f011";
+    hash = "sha256-ejYpQ90qWm8mFoCgDKepntEwiujUGkek0B/qeaTkcP0=";
   };
 
   # The test suite shells out to git to set up throwaway remote repositories.
   nativeBuildInputs = [ git ];
+
+  # The test suite shells out to git to set up throwaway remote repositories,
+  # and clones with --reference against the git-octo-alternate store, so point
+  # that at an empty local repo.
+  preCheck = ''
+    export GIT_OCTO_ALTERNATE_STORE=$TMPDIR/octo-alternate-store
+    git init -q --bare $GIT_OCTO_ALTERNATE_STORE
+  '';
 
   # llm-curl has no third-party Go dependencies, so there is nothing to vendor.
   vendorHash = null;

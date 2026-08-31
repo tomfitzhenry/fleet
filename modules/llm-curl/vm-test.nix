@@ -1,7 +1,7 @@
 # NixOS VM test for the llm-curl module: the user's curl resolves to llm-curl,
-# which serves a recognized source URL from a local git clone under ~/src;
-# real-curl is the real curl. Fall-through to the real curl needs a network,
-# so identity checks stand in for it.
+# which serves a recognized source URL from a local git clone under the ghq
+# root (~/ghq); real-curl is the real curl. Fall-through to the real curl
+# needs a network, so identity checks stand in for it.
 { pkgs, ... }:
 {
   name = "llm-curl";
@@ -20,9 +20,11 @@
         user = "dev";
       };
 
-      # llm-curl shells out to git to serve, and to the real curl on fall-through.
+      # llm-curl shells out to git and ghq to locate clones, and to the real
+      # curl on fall-through.
       environment.systemPackages = [
         pkgs.git
+        pkgs.ghq
         pkgs.curl
       ];
     };
@@ -40,15 +42,15 @@
 
     # A recognized source URL is served from a local clone, not the network.
     machine.succeed(
-        "su - dev -c 'mkdir -p /home/dev/src/github.com/torvalds/linux'")
+        "su - dev -c 'mkdir -p /home/dev/ghq/github.com/torvalds/linux'")
     machine.succeed(
-        "su - dev -c 'cd /home/dev/src/github.com/torvalds/linux && "
+        "su - dev -c 'cd /home/dev/ghq/github.com/torvalds/linux && "
         + "git init -qb master && "
         + "git remote add origin https://github.com/torvalds/linux.git && "
         + "git config user.email test@test.invalid && "
         + "git config user.name test'")
     machine.succeed(
-        "su - dev -c 'cd /home/dev/src/github.com/torvalds/linux && "
+        "su - dev -c 'cd /home/dev/ghq/github.com/torvalds/linux && "
         + 'printf "hello from the local clone" > README && '
         + "git add README && git commit -qm init'")
     out = machine.succeed(
