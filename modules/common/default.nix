@@ -4,6 +4,9 @@
   pkgs,
   ...
 }:
+let
+  git-octo-alternate = pkgs.callPackage ../../pkgs/git-octo-alternate/package.nix { };
+in
 {
   imports = [
     ../step-ca/client.nix
@@ -51,6 +54,7 @@
       dig
       file
       git
+      git-octo-alternate
       iftop
       mg
       ncdu
