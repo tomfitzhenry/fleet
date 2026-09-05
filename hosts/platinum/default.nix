@@ -6,6 +6,7 @@
 {
   imports = [
     ./nas.nix
+    ../../modules/gickup
     ../../modules/mail-relay
   ];
 
@@ -60,6 +61,7 @@
   ];
 
   tomf = {
+    gickup.enable = true;
     mail-relay = {
       enable = true;
       hostname = "pt.h.tom-fitzhenry.me.uk";
