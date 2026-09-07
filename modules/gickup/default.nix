@@ -1,19 +1,20 @@
 # Mirrors every repository under codeberg.org/tomf to a local btrfs directory
 # on the host, so a codeberg outage or account loss doesn't mean losing the
 # repos. gickup refreshes bare mirrors in place each run, so a run is mostly
-# fetches. The mirrors live on platinum's array (/srv/share/codeberg), which
-# the host's btrbk 'share' snapshots version.
+# fetches. The mirrors live on platinum's array (/srv/share/mirrors), which
+# the host's btrbk 'share' snapshots version. structured=true keeps each host's
+# repos apart: codeberg repos land under /srv/share/mirrors/codeberg.org/tomf.
 #
 # The codeberg API token authenticates the run. It is not stored in this
 # repository; install it by hand on the host before the first run:
 #
 #   install -d -m 0700 /etc/gickup
-#   install -m 0400 <token-file> /etc/gickup/token
+#   install -m 0400 <token-file> /etc/gickup/codeberg-token
 #
 # Create the token at codeberg.org/settings/applications with the read:user and
 # read:repository scopes. systemd's LoadCredential hands it to the service at
-# /run/credentials/gickup.service/token, so a replacement token is picked up
-# without a config change.
+# /run/credentials/gickup.service/codeberg-token, so a replacement token is
+# picked up without a config change.
 {
   config,
   lib,
@@ -28,12 +29,12 @@ let
       {
         url = "https://codeberg.org";
         user = "tomf";
-        token_file = "/run/credentials/gickup.service/token";
+        token_file = "/run/credentials/gickup.service/codeberg-token";
       }
     ];
     destination.local = [
       {
-        path = "/srv/share/codeberg";
+        path = "/srv/share/mirrors";
         structured = true;
         bare = true;
         mirror = true;
@@ -88,9 +89,9 @@ in
         # The destination is a plain subdirectory of the array's top-level
         # subvolume, and the array is root-owned, so create it as root (the
         # "+"). The ordering above guarantees the array is mounted by now.
-        ExecStartPre = "+${pkgs.coreutils}/bin/install -d -o gickup -g gickup -m 0750 /srv/share/codeberg";
+        ExecStartPre = "+${pkgs.coreutils}/bin/install -d -o gickup -g gickup -m 0750 /srv/share/mirrors";
         ExecStart = "${pkgs.gickup}/bin/gickup ${configFile}";
-        LoadCredential = "token:/etc/gickup/token";
+        LoadCredential = "codeberg-token:/etc/gickup/codeberg-token";
         # Cloning the largest forks (e.g. linux) can take a while.
         TimeoutStartSec = "6h";
       };
