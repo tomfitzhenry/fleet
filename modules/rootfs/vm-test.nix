@@ -66,8 +66,12 @@ in
     machine.succeed("btrfs subvolume create /mnt/setup/root")
     machine.succeed("umount /mnt/setup")
 
-    # Reboot into btrfs specialisation
-    machine.succeed("bootctl set-default nixos-generation-1-specialisation-boot-btrfs.conf")
+    # Reboot into btrfs specialisation. Recent systemd-boot names entries by
+    # content hash, so find the specialisation by its title instead of the old
+    # generation-based filename.
+    machine.succeed(
+        "bootctl set-default $(grep -l boot-btrfs /boot/loader/entries/*.conf | sed 's|.*/||')"
+    )
     machine.succeed("sync")
     machine.crash()
 
