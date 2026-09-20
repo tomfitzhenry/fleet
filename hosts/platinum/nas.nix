@@ -41,7 +41,7 @@
     };
 
     extraInputRules = ''
-      ip saddr 172.17.1.176 tcp dport 2049 comment "PS4 Netboot" accept comment "PS4 Netboot"
+      ip saddr 172.17.1.176 tcp dport 2049 accept comment "PS4 Netboot"
     '';
   };
 
