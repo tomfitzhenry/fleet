@@ -41,6 +41,7 @@
     };
 
     extraInputRules = ''
+      ip saddr { 172.17.1.44, 172.17.1.176 } tcp dport 8000 accept comment "PS4 Netboot"
       ip saddr 172.17.1.176 tcp dport 2049 accept comment "PS4 Netboot"
     '';
   };
@@ -55,6 +56,7 @@
                       oxygen-nfs
         /export/tom -subtree_check,rw \
                     oxygen-nfs
+
         # The PS4's netboot rootfs tree. Lives on the fast root filesystem, not
         # the HDD array: sync writes over NFS to the spinning array made package
         # installation unusably slow. async is fine for a disposable netboot
@@ -65,6 +67,34 @@
       '';
     };
   };
+
+  # HTTP netboot for the PS4 AIO loader. The loader (ps4-linux-loader, branch
+  # netboot) reads the base URL from netboot.txt on the console and fetches
+  # bzImage, initramfs.cpio.gz, bootargs.txt and optional vram.txt from here.
+  # The tree lives on the same share that NFS exports, so it can be updated
+  # from development machines without touching the console.
+  services.nginx = {
+    enable = true;
+    virtualHosts."ps4-netboot" = {
+      serverName = "ps4-netboot";
+      listen = [
+        {
+          addr = "0.0.0.0";
+          port = 8000;
+        }
+      ];
+      root = "/srv/share/media/gaming/ps4/linux/netboot";
+      locations."/" = {
+        tryFiles = "$uri $uri/ =404";
+      };
+      # The loader is a minimal HTTP/1.0 client.
+      extraConfig = ''
+        autoindex on;
+        default_type application/octet-stream;
+      '';
+    };
+  };
+
   services.btrbk = {
     instances = {
       "share" = {
