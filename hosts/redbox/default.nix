@@ -186,6 +186,15 @@ in
                 pool = "172.17.1.150 - 172.17.1.250";
               }
             ];
+            # The PS4 netboots its rootfs over NFS (see platinum's exports), so
+            # platinum must know its address in advance.
+            reservations = [
+              {
+                "hw-address" = "78:c8:81:a9:55:e8";
+                "ip-address" = "172.17.1.176";
+                "hostname" = "ps4";
+              }
+            ];
             valid-lifetime = 60 * 60 * 23;
             calculate-tee-times = true;
             option-data = [
