@@ -37,6 +37,10 @@ in
 
   config = lib.mkIf cfg.enable {
     # llm-curl shells out to git and ghq to locate and manage clones.
-    users.users.${cfg.user}.packages = [ shadow pkgs.git pkgs.ghq ];
+    users.users.${cfg.user}.packages = [
+      shadow
+      pkgs.git
+      pkgs.ghq
+    ];
   };
 }
