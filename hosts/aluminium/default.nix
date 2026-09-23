@@ -9,6 +9,7 @@
   imports = [
     ./jellyfin.nix
     ./microvm-host.nix
+    ./sunxi.nix
     ../../modules/llm-curl
     ../../modules/mail-relay
     ../../modules/nsupdated
