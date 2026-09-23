@@ -7,6 +7,8 @@ in
   time.timeZone = "Australia/Sydney";
   system.stateVersion = "25.11";
 
+  networking.hostId = "333745f5";
+
   boot.loader.systemd-boot.enable = true;
 
   boot.kernelParams = [
@@ -14,6 +16,9 @@ in
     "panic=30"
   ];
   boot.kernel.sysctl."kernel.sysrq" = "1";
+
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.forceImportRoot = false;
 
   boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/b210a23c-b423-466d-afd1-c383a1b37a64";
 
