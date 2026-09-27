@@ -23,10 +23,6 @@ in
   boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/b210a23c-b423-466d-afd1-c383a1b37a64";
 
   tomf = {
-    radicle-node = {
-      enable = true;
-      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIw2p4b9IjL06H2xvWjuku+b2D37FahmjWzbv1h3nS7A";
-    };
     nfs-client = {
       enable = true;
       wireguard.ips = [ "192.168.2.4/32" ];

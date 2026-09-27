@@ -22,10 +22,6 @@
 
   tomf = {
     podman.enable = true;
-    radicle-node = {
-      enable = true;
-      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFiRuvm5UXP511y0VHXTlVkvJxWeWw8a2qJVKVaLwD+e";
-    };
     rootfs = {
       device = "/dev/disk/by-partlabel/disk-main-root";
       subvolume = "/rootfs";
