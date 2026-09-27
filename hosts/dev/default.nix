@@ -1,4 +1,6 @@
 {
+  imports = [ ../../modules/niks3 ];
+
   system.stateVersion = "25.05";
 
   microvm = {
