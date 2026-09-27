@@ -194,6 +194,20 @@ in
                 "ip-address" = "172.17.1.176";
                 "hostname" = "ps4";
               }
+              {
+                # Stable address so the labgrid remote-hands TP-Link power
+                # driver (h700/tplink.py) can address the plug by IP.
+                "hw-address" = "74:da:88:52:ab:00";
+                "ip-address" = "172.17.1.177";
+                "hostname" = "hs110-fred";
+              }
+              {
+                # Stable address so the labgrid remote-hands TP-Link power
+                # driver (h700/tplink.py) can address the plug by IP.
+                "hw-address" = "50:d4:f7:84:1e:a4";
+                "ip-address" = "172.17.1.178";
+                "hostname" = "hs110-clive";
+              }
             ];
             valid-lifetime = 60 * 60 * 23;
             calculate-tee-times = true;
