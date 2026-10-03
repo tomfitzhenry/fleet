@@ -105,6 +105,7 @@
     # The btrfs fs UUID, per 'btrfs filesystem show'.
     device = "/dev/disk/by-uuid/2bbcf5df-332e-45fd-a903-c8139db3519b";
     fsType = "btrfs";
+    options = [ "nofail" ];
   };
 
   # "The user is supposed to run [scrub] manually or via a periodic system service. The recommended period is a month but it could be less."
