@@ -19,17 +19,26 @@
     "/export/share" = {
       device = "/srv/share/media";
       fsType = "none";
-      options = [ "bind" "nofail" ];
+      options = [
+        "bind"
+        "nofail"
+      ];
     };
     "/export/tom" = {
       device = "/srv/share/tom";
       fsType = "none";
-      options = [ "bind" "nofail" ];
+      options = [
+        "bind"
+        "nofail"
+      ];
     };
     "/export/fastnas" = {
       device = "/srv/fastnas";
       fsType = "none";
-      options = [ "bind" "nofail" ];
+      options = [
+        "bind"
+        "nofail"
+      ];
     };
   };
 
