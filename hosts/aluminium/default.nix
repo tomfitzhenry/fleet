@@ -14,7 +14,6 @@
     ./sunxi.nix
     ../../modules/llm-curl
     ../../modules/mail-relay
-    ../../modules/nsupdated
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -44,14 +43,6 @@
       enable = true;
       hostname = "al.h.tom-fitzhenry.me.uk";
       recipient = "tom@tom-fitzhenry.me.uk";
-    };
-    nsupdated = {
-      enable = true;
-      settings = {
-        TYPE = "MYTHICBEASTS";
-        keyID = "$MYTHICBEASTS_KEYID";
-        secret = "$MYTHICBEASTS_SECRET";
-      };
     };
     llm-curl = {
       enable = true;

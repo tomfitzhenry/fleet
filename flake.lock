@@ -98,21 +98,6 @@
         "type": "github"
       }
     },
-    "multiverse": {
-      "locked": {
-        "lastModified": 1788771595,
-        "narHash": "sha256-4lkKUg1Gevt+rB9XUYdfDAH1l7pitAsy7I/f3LLPwck=",
-        "owner": "fzakaria",
-        "repo": "nixpkgs-multiverse",
-        "rev": "7c81f27f6b082d402d9f949b002258e1128ad8be",
-        "type": "github"
-      },
-      "original": {
-        "owner": "fzakaria",
-        "repo": "nixpkgs-multiverse",
-        "type": "github"
-      }
-    },
     "niks3": {
       "inputs": {
         "nixpkgs": [
@@ -187,7 +172,6 @@
         "comin-2605": "comin-2605",
         "hercules-ci-effects": "hercules-ci-effects",
         "microvm-2605": "microvm-2605",
-        "multiverse": "multiverse",
         "niks3": "niks3",
         "nixpkgs-2605": "nixpkgs-2605"
       }
