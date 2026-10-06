@@ -4,9 +4,6 @@
   pkgs,
   ...
 }:
-let
-  git-octo-alternate = pkgs.callPackage ../../pkgs/git-octo-alternate/package.nix { };
-in
 {
   boot.loader.systemd-boot.configurationLimit = 15;
   boot.loader.grub.configurationLimit = 15;
@@ -52,7 +49,6 @@ in
       dig
       file
       git
-      git-octo-alternate
       iftop
       mg
       ncdu
