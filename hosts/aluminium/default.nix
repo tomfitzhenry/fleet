@@ -12,7 +12,6 @@
     ./opencode-issue-poller.nix
     ./rockchip.nix
     ./sunxi.nix
-    ../../modules/llm-curl
     ../../modules/mail-relay
   ];
 
@@ -43,10 +42,6 @@
       enable = true;
       hostname = "al.h.tom-fitzhenry.me.uk";
       recipient = "tom@tom-fitzhenry.me.uk";
-    };
-    llm-curl = {
-      enable = true;
-      user = "dev";
     };
     podman.enable = true;
     remote-builders.enable = true;

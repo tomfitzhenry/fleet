@@ -71,9 +71,6 @@
         mail-relay = nixpkgs-2605.legacyPackages.x86_64-linux.testers.nixosTest (
           import ./modules/mail-relay/vm-test.nix
         );
-        llm-curl = nixpkgs-2605.legacyPackages.x86_64-linux.testers.nixosTest (
-          import ./modules/llm-curl/vm-test.nix
-        );
       };
 
       herculesCI = hercules-ci-effects.lib.mkHerculesCI { inherit inputs; } {
