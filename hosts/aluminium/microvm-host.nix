@@ -10,7 +10,6 @@ let
   vms = [
     "dev"
     "feed"
-    "git"
     "home"
     "mon"
   ];
