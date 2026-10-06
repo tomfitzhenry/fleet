@@ -8,8 +8,8 @@ in
   system.stateVersion = "25.05";
 
   # 512 MiB / 1 vCPU (microvm defaults) is too small for openobserve +
-  # uptime-kuma + otel-collector + caddy + gatus: the guest was swapping and
-  # openobserve was getting OOM-killed in a restart loop.
+  # otel-collector + caddy: the guest was swapping and openobserve was getting
+  # OOM-killed in a restart loop.
   microvm = {
     mem = 1024;
     vcpu = 2;
@@ -77,27 +77,8 @@ in
         }
         reverse_proxy 127.0.0.1:${toString openobservePort}
       }
-      import /etc/caddy/vhost.gatus { } {
-        basic_auth {
-          tom $2a$14$w.rkYXmgon7phJLm.6689OT9w0iGqkXbM6f9huI7YBJUDlHq5tY5y
-        }
-        reverse_proxy 127.0.0.1:8043
-      }
-      import /etc/caddy/vhost.uptime-kuma { } {
-        basic_auth {
-          tom $2a$14$w.rkYXmgon7phJLm.6689OT9w0iGqkXbM6f9huI7YBJUDlHq5tY5y
-        }
-        reverse_proxy 127.0.0.1:3001
-      }
     '';
   };
-
-  services.gatus = {
-    enable = true;
-    configFile = "/etc/gatus/config.yaml";
-  };
-
-  services.uptime-kuma.enable = true;
 
   systemd.services.openobserve = {
     description = "OpenObserve";
