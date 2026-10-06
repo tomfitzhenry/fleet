@@ -15,7 +15,6 @@
     ../../modules/llm-curl
     ../../modules/mail-relay
     ../../modules/nsupdated
-    ../../modules/step-ca
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -68,7 +67,6 @@
       enable = true;
       openFirewall = true;
     };
-    step-ca.enable = true;
     wireguard.enable = true;
   };
 
