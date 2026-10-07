@@ -9,7 +9,6 @@
   imports = [
     ./jellyfin.nix
     ./microvm-host.nix
-    ./opencode-issue-poller.nix
     ./rockchip.nix
     ./sunxi.nix
     ../../modules/mail-relay
