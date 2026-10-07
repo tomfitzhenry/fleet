@@ -95,5 +95,4 @@ digraph network {
 
   aluminium -> platinum [label="NFS (over WireGuard)", style=dotted, constraint=false];
   oxygen -> platinum [label="NFS (over WireGuard)", style=dotted, constraint=false];
-  platinum -> aluminium [label="zigbee2mqtt → mqtt://aluminium:1883", style=dotted, constraint=false];
 }

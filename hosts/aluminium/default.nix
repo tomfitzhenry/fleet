@@ -52,10 +52,6 @@
     "net.ipv6.conf.all.forwarding" = true;
   };
 
-  networking.firewall.interfaces.wgFleet.allowedTCPPorts = [
-    1883
-  ];
-
   services.udev.packages = [
     pkgs.probe-rs-tools
   ];
@@ -73,17 +69,6 @@
       "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGUYYx2b7mHdXTxbnHh3euAUNyn+8aC2J2kOCUmp+JjbwipmjH3MbDjwjCvO7Z89wgVFmw0mL4y7EWucNaZqbKQ= tom@oxygen"
       # cros
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINtJLuP7ptqokYFS1U9gskAg4u8wRpTb/jEfJlV7Whab"
-    ];
-  };
-
-  services.mosquitto = {
-    enable = true;
-    listeners = [
-      {
-        acl = [ "pattern readwrite #" ];
-        omitPasswordAuth = true;
-        settings.allow_anonymous = true;
-      }
     ];
   };
 

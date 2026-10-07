@@ -243,11 +243,22 @@
       };
     };
 
+  services.mosquitto = {
+    enable = true;
+    listeners = [
+      {
+        acl = [ "pattern readwrite #" ];
+        omitPasswordAuth = true;
+        settings.allow_anonymous = true;
+      }
+    ];
+  };
+
   services.zigbee2mqtt = {
     enable = true;
     settings = {
       frontend = true;
-      mqtt.server = "mqtt://aluminium:1883";
+      mqtt.server = "mqtt://localhost:1883";
       permit_join = true;
       serial.port = "/dev/ttyACM0";
       # https://www.zigbee2mqtt.io/guide/configuration/device-availability.html#availability-advanced-configuration

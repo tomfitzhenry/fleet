@@ -23,8 +23,8 @@ Source: [network.dot](network.dot)
   dropped by default-deny. A VM compromise should not gain it access to oxygen,
   rockpro64, or the family devices.
 - The **WireGuard mesh (`192.168.2.0/24`)** is the control plane joining redbox,
-  aluminium, platinum, oxygen, and strontium. NFS mounts (platinum as server) and MQTT
-  run over it.
+  aluminium, platinum, oxygen, and strontium. NFS mounts (platinum as server) run
+  over it.
 - **argon** is a standalone Oracle OCI VM with an exposed sshd; it is not in the
   WireGuard mesh.
 
