@@ -53,19 +53,7 @@
           reverse_proxy {args[0]}
         }
       }
-
-      import /etc/caddy/vhost.readeck { } {
-        import oauth2-proxy-forward 127.0.0.1:${toString config.services.readeck.settings.server.port}
-      }
     '';
   };
 
-  services.readeck = {
-    enable = true;
-    # Needs READECK_SECRET_KEY=
-    environmentFile = "/var/lib/readeck/env";
-    settings = {
-      server.port = 8000;
-    };
-  };
 }
