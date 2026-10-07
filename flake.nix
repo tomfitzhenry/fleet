@@ -9,10 +9,6 @@
       url = "github:astro/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs-2605";
     };
-    niks3 = {
-      url = "github:Mic92/niks3";
-      inputs.nixpkgs.follows = "nixpkgs-2605";
-    };
     hercules-ci-effects.url = "github:hercules-ci/hercules-ci-effects";
   };
   outputs =
@@ -21,14 +17,13 @@
       comin-2605,
       hercules-ci-effects,
       microvm-2605,
-      niks3,
       nixpkgs-2605,
     }:
     let
       mkMachine =
-        nixpkgs: comin: microvm: niks3: hostname:
+        nixpkgs: comin: microvm: hostname:
         nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit microvm niks3; };
+          specialArgs = { inherit microvm; };
           modules = [
             ./hosts/${hostname}
             { networking.hostName = hostname; }
@@ -48,7 +43,7 @@
             ./modules/wireguard
           ];
         };
-      mkMachine_2605 = mkMachine nixpkgs-2605 comin-2605 microvm-2605 niks3;
+      mkMachine_2605 = mkMachine nixpkgs-2605 comin-2605 microvm-2605;
     in
     {
       nixosConfigurations = {

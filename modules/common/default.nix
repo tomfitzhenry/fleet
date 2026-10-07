@@ -17,14 +17,12 @@
   nix.gc.automatic = lib.mkDefault true;
   boot.tmp.cleanOnBoot = true;
 
-  # Pull from the tomf-fleet cachix cache and the niks3 R2 cache.
+  # Pull from the tomf-fleet cachix cache.
   nix.settings.extra-substituters = [
     "https://tomf-fleet.cachix.org"
-    "https://pub-13e2bc6cc8cf4f34a8cf144e466d114e.r2.dev"
   ];
   nix.settings.extra-trusted-public-keys = [
     "tomf-fleet.cachix.org-1:h9fKL6LcXBgYr7M68A2fuq5xHlUBt/nKFlhLMLw9Rfo="
-    "niks3:3Eeq4Nf6ApaKNlO92bQ4sWQwj+jvwef+UJU0KKstnrE="
   ];
 
   users.users.tom = {

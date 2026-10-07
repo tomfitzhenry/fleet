@@ -1,7 +1,6 @@
 {
   lib,
   microvm,
-  niks3,
   ...
 }:
 let
@@ -33,9 +32,6 @@ let
       ../../modules/otel-collector
       ../../modules/sshd
     ];
-    # Guests are separate NixOS evaluations and don't inherit the host's
-    # specialArgs, so flake inputs a guest may import are forwarded here.
-    specialArgs = { inherit niks3; };
     config = import ../../hosts/${name};
   };
 in
