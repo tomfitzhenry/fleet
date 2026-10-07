@@ -21,7 +21,6 @@
     enable = true;
     provider = "oidc";
     # Register redirect URIs for both subdomains:
-    #   https://<domain1>/oauth2/callback (yarr)
     #   https://<domain2>/oauth2/callback (readeck)
     oidcIssuerUrl = "https://codeberg.org";
     clientID = "11100d5f-6ae4-4334-8d42-d40575e0ab5e";
@@ -58,9 +57,6 @@
       import /etc/caddy/vhost.readeck { } {
         import oauth2-proxy-forward 127.0.0.1:${toString config.services.readeck.settings.server.port}
       }
-      import /etc/caddy/vhost.yarr { } {
-        import oauth2-proxy-forward 127.0.0.1:${toString config.services.yarr.port}
-      }
     '';
   };
 
@@ -72,5 +68,4 @@
       server.port = 8000;
     };
   };
-  services.yarr.enable = true;
 }
