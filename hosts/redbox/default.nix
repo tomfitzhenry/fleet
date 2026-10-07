@@ -7,8 +7,10 @@
 }:
 let
   fleetHosts = import ../../lib/hosts.nix;
-  httpsBackends = [
-    fleetHosts.aluminium.ipv6
+  # snid resolves the SNI to an AAAA record and NAT46s IPv4 TLS there, so
+  # these are the microvms reachable over IPv4.
+  snidBackends = [
+    fleetHosts.feed.ipv6
   ];
   wireguardBackends = [
     fleetHosts.aluminium.ipv6
@@ -63,13 +65,9 @@ in
     filterForward = true;
     extraForwardRules = lib.concatLines (
       [ "ip6 daddr ${fleetHosts.aluminium.vmSubnet} counter accept" ]
-      ++ map (host: "ip6 daddr ${host} tcp dport 443 counter accept") httpsBackends
       ++ map (host: "ip6 daddr ${host} udp dport 51820 counter accept") wireguardBackends
     );
   };
-
-  # Allow non-privileged Podman containers to listen on 443/tcp.
-  boot.kernel.sysctl."net.ipv4.ip_unprivileged_port_start" = 443;
 
   networking.nat = {
     enable = true;
@@ -301,7 +299,7 @@ in
       listen = [ "tcp:0.0.0.0:443" ];
       mode = "nat46";
       nat46Prefix = "64:ff9b:1::";
-      backendCidrs = map (host: "${host}/128") httpsBackends;
+      backendCidrs = map (host: "${host}/128") snidBackends;
     };
   };
 

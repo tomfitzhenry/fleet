@@ -24,7 +24,7 @@ digraph network {
 
     redbox [label="redbox (router + firewall)\nPC Engines APU1 · nftables default-deny\nDHCP/RA/DNS · snid: IPv4:443 NAT46 proxy", style="filled", fillcolor="#93e1d1"];
     lan [label="LAN bridge / switch\nredbox enp2s0 + enp3s0", shape=box3d, style="filled", fillcolor="#93a1a1"];
-    aluminium [label="aluminium (VM host)\nOptiplex 7070 Micro\ninbound: 443/tcp, 51820/udp", style="filled", fillcolor="#c5e0b4"];
+    aluminium [label="aluminium (VM host)\nOptiplex 7070 Micro\ninbound: 51820/udp", style="filled", fillcolor="#c5e0b4"];
     platinum [label="platinum (NAS)\nCWWK monster\ninbound: 51820/udp only", style="filled", fillcolor="#c5e0b4"];
     oxygen [label="oxygen (desktop)\ndev box, NFS client · no inbound", style="filled", fillcolor="#c5e0b4"];
     rockpro64 [label="rockpro64 (ARM)\nno inbound", style="filled", fillcolor="#c5e0b4"];
@@ -76,10 +76,10 @@ digraph network {
   v6 -> redbox [label="IPv6 transit (PD ::/48)", color="#268bd2"];
 
   // The only inbound forwards redbox allows (networking.firewall.extraForwardRules).
-  redbox -> aluminium [label="fwd: 443/tcp · 51820/udp", color="#268bd2"];
+  redbox -> aluminium [label="fwd: 51820/udp", color="#268bd2"];
   redbox -> platinum [label="fwd: 51820/udp", color="#268bd2"];
   redbox -> git [label="fwd: all → /60 via aluminium", lhead=cluster_vms, color="#268bd2"];
-  redbox -> aluminium [label="snid: IPv4:443 → aluminium:443", style=dashed, color="#dc322f", constraint=false];
+  redbox -> feed [label="snid: IPv4:443 → feed:443", style=dashed, color="#dc322f", constraint=false];
 
   // Everything else inbound is dropped at the firewall.
   v6 -> lan [label="all other inbound: DROP", style=dashed, color="#dc322f", arrowhead=tee, constraint=false];

@@ -52,10 +52,6 @@
     "net.ipv6.conf.all.forwarding" = true;
   };
 
-  networking.firewall.allowedTCPPorts = [
-    443 # https
-  ];
-
   networking.firewall.interfaces.wgFleet.allowedTCPPorts = [
     1883
   ];

@@ -8,13 +8,13 @@ Source: [network.dot](network.dot)
 
 - **redbox is the perimeter firewall** (nftables, `filterForward = true`, default-deny).
   LAN hosts have global IPv6 addresses, but inbound is blocked unless it matches a forward
-  rule. Inbound `extraForwardRules` (hosts/redbox/default.nix:64):
+  rule. Inbound `extraForwardRules` (hosts/redbox/default.nix:66):
   - **all IPv6** → aluminium's VM subnet `2401:dc20:262f:20::/60` (the microvms)
-  - **443/tcp** → aluminium (HTTPS; IPv4 clients reach it via snid NAT46)
   - **51820/udp** → aluminium and platinum (WireGuard)
 - **Everything else is dropped**, including all inbound to oxygen, rockpro64, and the
   family devices. IPv4 for LAN hosts is outbound-only NAT (`networking.nat`); the only
-  IPv4 ingress anywhere is snid on redbox.
+  IPv4 ingress anywhere is snid on redbox, which NAT46s `443/tcp` TLS (routed by SNI)
+  to the feed microvm.
 - **Microvms have no more LAN access than the public internet does.** They sit on the
   routed subnet `2401:dc20:262f:20::/60`, so there's no L2 adjacency to LAN hosts, and
   policy routing (`hosts/aluminium/microvm-host.nix`) forces all VM traffic through
