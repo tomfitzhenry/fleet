@@ -1,11 +1,9 @@
 let
   lan-prefix = "2401:dc20:262f:1:";
-  aluminium-vm-prefix = "2401:dc20:262f:20:";
 in
 {
   aluminium = {
     ipv6 = lan-prefix + "e654:e8ff:fe7d:6173";
-    vmSubnet = "${aluminium-vm-prefix}:/60";
   };
   platinum.ipv6 = lan-prefix + "aab8:e0ff:fe06:ae27";
   redbox.ipv6 = lan-prefix + "0::1";

@@ -1,4 +1,4 @@
-# Optiplex 7070 Micro, a VM/container host.
+# Optiplex 7070 Micro, a development host.
 {
   config,
   pkgs,
@@ -7,7 +7,6 @@
 }:
 {
   imports = [
-    ./microvm-host.nix
     ./rockchip.nix
     ./sunxi.nix
   ];
@@ -45,11 +44,6 @@
       openFirewall = true;
     };
     wireguard.enable = true;
-  };
-
-  boot.kernel.sysctl = {
-    # Forward traffic to microVMs.
-    "net.ipv6.conf.all.forwarding" = true;
   };
 
   services.udev.packages = [

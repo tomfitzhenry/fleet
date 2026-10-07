@@ -17,7 +17,7 @@ Machines should be directly routable. This practically means IPv6: every host ge
 own globally routable address.
 
 - Prefer IPv6 for all service-to-service communication.
-- Keep IPv4 at the network edge. Use **snid** for TLS reverse-proxying of IPv4 services.
+- Keep IPv4 at the network edge.
 - Avoid NAT where possible. Direct routing simplifies the network and removes a class of
   bugs.
 
@@ -33,23 +33,7 @@ wire.
 
 ## Process Isolation
 
-### microvm.nix for trust-domain isolation
-
-Linux containers are **not** trusted as a security boundary. Use `microvm.nix` (KVM-based
-virtual machines) to isolate services in different trust domains.
-
-- Services in the same trust domain can share a microvm.
-- Services in different trust domains get separate microvms.
-- The NixOS host is the hypervisor and part of the TCB. Minimise what runs directly on the
-  host: the goal is to move services into microvms over time.
-- Within a microvm, services still run with least privilege (`DynamicUser`, restricted
-  filesystem access).
-
-### virtiofs for persistence
-
-Use `microvm.shares` (virtiofs) for persistent guest directories: not
-`microvm.volumes` (block device images). Shares are backed by host directories under
-`/var/lib/microvms/`.
+Services run with least privilege (`DynamicUser`, restricted filesystem access).
 
 ## Software Stack
 
@@ -83,8 +67,8 @@ When secrets are unavoidable:
 
 - **Per-machine:** btrfs with `btrbk` for local snapshots.
 - **Off-machine:** backups to a NAS, plus `restic` to blob storage.
-- Services that need persistence use virtiofs shares to their microvm host, where the
-  host's btrfs + btrbk handles snapshotting.
+- Services store persistent data on their host's btrfs, where `btrbk` handles
+  snapshotting.
 - No clustered/distributed filesystems: each machine manages its own storage.
 
 ## Uniformity

@@ -5,23 +5,17 @@
       url = "github:nlewo/comin";
       inputs.nixpkgs.follows = "nixpkgs-2605";
     };
-    microvm-2605 = {
-      url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "nixpkgs-2605";
-    };
   };
   outputs =
     inputs@{
       self,
       comin-2605,
-      microvm-2605,
       nixpkgs-2605,
     }:
     let
       mkMachine =
-        nixpkgs: comin: microvm: hostname:
+        nixpkgs: comin: hostname:
         nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit microvm; };
           modules = [
             ./hosts/${hostname}
             { networking.hostName = hostname; }
@@ -39,7 +33,7 @@
             ./modules/wireguard
           ];
         };
-      mkMachine_2605 = mkMachine nixpkgs-2605 comin-2605 microvm-2605;
+      mkMachine_2605 = mkMachine nixpkgs-2605 comin-2605;
     in
     {
       nixosConfigurations = {

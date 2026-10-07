@@ -45,13 +45,12 @@ Use `DynamicUser` / `User=` in systemd units.
 
 If an attacker compromises one service, they should not easily reach others.
 
-- **Within a machine:** services are isolated from each other using `microvm.nix` guests
-  for different trust domains. Linux containers are explicitly **not** trusted as a
-  sandbox boundary.
+- **Within a machine:** services run with least privilege and are not treated as a
+  security boundary for one another.
 - **Across machines:** each host should be independently secured. An attacker who owns one
   machine should not gain access to others by default. Avoid cross-machine trust
   relationships where possible.
-- The NixOS **host/hypervisor** is part of the TCB.
+- The NixOS **host** is part of the TCB.
 
 ### 3. Supply chain
 
@@ -62,9 +61,3 @@ If an attacker compromises one service, they should not easily reach others.
 - **Git integrity:** `gittuf` is used to verify commits before comin deploys them (see
   `modules/comin/`). This protects against compromise of the git remote.
 - **Pinned inputs:** `flake.lock` pins all dependencies.
-
-### 4. Host/guest boundary
-
-- KVM/microvm is the isolation boundary between trust domains. The hypervisor is trusted.
-- Services that need to share a trust domain can run on the same host or same microvm.
-- Services in different trust domains get separate microvms.

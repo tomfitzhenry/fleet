@@ -59,8 +59,7 @@ in
 
     filterForward = true;
     extraForwardRules = lib.concatLines (
-      [ "ip6 daddr ${fleetHosts.aluminium.vmSubnet} counter accept" ]
-      ++ map (host: "ip6 daddr ${host} udp dport 51820 counter accept") wireguardBackends
+      map (host: "ip6 daddr ${host} udp dport 51820 counter accept") wireguardBackends
     );
   };
 
@@ -98,10 +97,6 @@ in
           "172.17.1.1/24"
           "${fleetHosts.redbox.ipv6}/64"
         ];
-        bridgeConfig = {
-          # Support Virtual Ethernet Port Aggregator (VEPA), per https://virt.kernelnewbies.org/MacVTap
-          HairPin = true;
-        };
         networkConfig = {
           DHCPPrefixDelegation = true;
         };
@@ -111,13 +106,6 @@ in
           # corerad handles router advertisements for the LAN.
           Announce = false;
         };
-        routes = [
-          {
-            # Route VM subnet to aluminium.
-            Destination = fleetHosts.aluminium.vmSubnet;
-            Gateway = fleetHosts.aluminium.ipv6;
-          }
-        ];
       };
       "enp1s0" = {
         name = "enp1s0";
