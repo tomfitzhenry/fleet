@@ -8,7 +8,6 @@ let
   fleetHosts = import ../../lib/hosts.nix;
 
   vms = [
-    "dev"
     "feed"
     "home"
     "mon"
