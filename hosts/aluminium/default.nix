@@ -35,7 +35,6 @@
         };
       };
     };
-    podman.enable = true;
     remote-builders.enable = true;
     rootfs = {
       device = "/dev/mapper/rootfs";
@@ -49,8 +48,6 @@
   };
 
   boot.kernel.sysctl = {
-    # Allow non-privileged Podman containers to listen on 443/tcp.
-    "net.ipv4.ip_unprivileged_port_start" = 443;
     # Forward traffic to microVMs.
     "net.ipv6.conf.all.forwarding" = true;
   };
@@ -61,10 +58,6 @@
 
   networking.firewall.interfaces.wgFleet.allowedTCPPorts = [
     1883
-  ];
-
-  users.users.podman.extraGroups = [
-    "render" # hw acceleration
   ];
 
   services.udev.packages = [
