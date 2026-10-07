@@ -7,11 +7,6 @@
 }:
 let
   fleetHosts = import ../../lib/hosts.nix;
-  # snid resolves the SNI to an AAAA record and NAT46s IPv4 TLS there, so
-  # these are the microvms reachable over IPv4.
-  snidBackends = [
-    fleetHosts.feed.ipv6
-  ];
   wireguardBackends = [
     fleetHosts.aluminium.ipv6
     fleetHosts.platinum.ipv6
@@ -285,21 +280,6 @@ in
           forward-tls-upstream = true;
         }
       ];
-    };
-  };
-
-  networking.localCommands = ''
-    # Per https://github.com/AGWA/snid?tab=readme-ov-file#-nat46-prefix-ipv6address-mandatory
-    ip -6 route add local 64:ff9b:1::/96 dev lo
-  '';
-
-  system.services.snid = {
-    imports = [ pkgs.snid.services.default ];
-    snid = {
-      listen = [ "tcp:0.0.0.0:443" ];
-      mode = "nat46";
-      nat46Prefix = "64:ff9b:1::";
-      backendCidrs = map (host: "${host}/128") snidBackends;
     };
   };
 
