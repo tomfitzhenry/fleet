@@ -25,8 +25,6 @@ Source: [network.dot](network.dot)
 - The **WireGuard mesh (`192.168.2.0/24`)** is the control plane joining redbox,
   aluminium, platinum, oxygen, and strontium. NFS mounts (platinum as server) and MQTT
   run over it.
-- **strontium** is a public authoritative DNS server (Knot, catalog zones), reachable
-  over IPv6 and over the WireGuard mesh (DoT on `192.168.2.7:853`).
 - **argon** is a standalone Oracle OCI VM with an exposed sshd; it is not in the
   WireGuard mesh.
 
