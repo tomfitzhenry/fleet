@@ -7,7 +7,6 @@
 }:
 {
   imports = [
-    ./jellyfin.nix
     ./microvm-host.nix
     ./rockchip.nix
     ./sunxi.nix

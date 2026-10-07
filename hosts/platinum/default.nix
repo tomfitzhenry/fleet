@@ -5,6 +5,7 @@
 }:
 {
   imports = [
+    ./jellyfin.nix
     ./nas.nix
     ../../modules/gickup
     ../../modules/mail-relay

@@ -1,4 +1,3 @@
-# jellyfin as a native service, LAN-only. Replaces the podman + pomerium setup.
 {
   pkgs,
   ...
@@ -23,7 +22,7 @@
     };
   };
 
-  # jellyfin: LAN-only, mirroring the pomerium source_ip policy it replaces.
+  # jellyfin: LAN-only.
   networking.firewall.extraInputRules = ''
     ip6 saddr 2401:dc20:262f:1::/64 tcp dport 8096 accept
     ip6 saddr 2401:dc20:262f:1::/64 udp dport 7359 accept # jellyfin auto-discovery
@@ -42,7 +41,7 @@
     "video"
   ];
 
-  # Wait for the NFS automount before jellyfin scans media on /mnt/share.
-  systemd.services.jellyfin.after = [ "mnt-share.automount" ];
-  systemd.services.jellyfin.wants = [ "mnt-share.automount" ];
+  # Wait for the local media array before jellyfin scans /srv/share/media.
+  systemd.services.jellyfin.after = [ "srv-share.mount" ];
+  systemd.services.jellyfin.wants = [ "srv-share.mount" ];
 }
