@@ -11,7 +11,6 @@
     ./microvm-host.nix
     ./rockchip.nix
     ./sunxi.nix
-    ../../modules/mail-relay
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -37,11 +36,6 @@
         };
       };
     };
-    mail-relay = {
-      enable = true;
-      hostname = "al.h.tom-fitzhenry.me.uk";
-      recipient = "tom@tom-fitzhenry.me.uk";
-    };
     podman.enable = true;
     remote-builders.enable = true;
     rootfs = {
@@ -53,13 +47,6 @@
       openFirewall = true;
     };
     wireguard.enable = true;
-  };
-
-  # Monitor disk health, and email alerts via the mail relay. Notifications go
-  # to the default (root); the relay's aliases forward them on.
-  services.smartd = {
-    enable = true;
-    notifications.mail.enable = true;
   };
 
   boot.kernel.sysctl = {
