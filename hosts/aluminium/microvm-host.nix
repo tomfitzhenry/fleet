@@ -7,7 +7,6 @@ let
   fleetHosts = import ../../lib/hosts.nix;
 
   vms = [
-    "feed"
   ];
 
   mkTap = name: {
