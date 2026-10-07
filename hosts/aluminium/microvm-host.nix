@@ -9,7 +9,6 @@ let
 
   vms = [
     "feed"
-    "home"
     "mon"
   ];
 
