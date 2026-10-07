@@ -14,8 +14,4 @@ in
     ipv6 = aluminium-vm-prefix + "0::11";
     mac = "02:00:00:00:00:02";
   };
-  mon = {
-    ipv6 = aluminium-vm-prefix + "0::14";
-    mac = "02:00:00:00:00:04";
-  };
 }

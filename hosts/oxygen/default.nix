@@ -35,7 +35,6 @@ in
         };
       };
     };
-    otel-collector.enable = true;
     rootfs = {
       device = "/dev/mapper/enc";
       subvolume = "/";

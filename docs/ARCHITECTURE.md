@@ -79,11 +79,6 @@ When secrets are unavoidable:
 - This should be rare enough that manual management isn't onerous.
 - No secrets committed to the repository (encrypted or otherwise).
 
-## Observability
-
-Moving toward an **OpenTelemetry + OpenObserve** stack. See `hosts/mon/` for the current
-implementation.
-
 ## Data Storage & Backups
 
 - **Per-machine:** btrfs with `btrbk` for local snapshots.

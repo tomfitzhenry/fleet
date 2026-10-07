@@ -35,7 +35,6 @@
             ./modules/common
             ./modules/nfs-client
             ./modules/op-tee
-            ./modules/otel-collector
             ./modules/podman
             ./modules/remote-builders
             ./modules/rootfs
