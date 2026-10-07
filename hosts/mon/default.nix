@@ -3,8 +3,6 @@ let
   openobservePort = 5080;
 in
 {
-  imports = [ ./gonemaster.nix ];
-
   system.stateVersion = "25.05";
 
   # 512 MiB / 1 vCPU (microvm defaults) is too small for openobserve +
@@ -29,15 +27,6 @@ in
         job_name = "caddy";
         scrape_interval = "60s";
         static_configs = [ { targets = [ "127.0.0.1:2019" ]; } ];
-      }
-      {
-        job_name = "gonemaster";
-        scrape_interval = "60s";
-        metrics_path = "/api/v1/metrics";
-        params = {
-          format = [ "prom" ];
-        };
-        static_configs = [ { targets = [ "127.0.0.1:9117" ]; } ];
       }
     ];
   };
