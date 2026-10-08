@@ -26,7 +26,6 @@
             ./modules/common
             ./modules/nfs-client
             ./modules/op-tee
-            ./modules/podman
             ./modules/remote-builders
             ./modules/rootfs
             ./modules/sshd

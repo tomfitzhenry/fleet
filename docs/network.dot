@@ -51,7 +51,7 @@ digraph network {
     label="Remote";
     style="filled,rounded";
     color="#d33682";
-    argon [label="argon\nOracle OCI ARM VM\npodman, sshd open (no WireGuard)", style="filled", fillcolor="#f5c2e7"];
+    argon [label="argon\nOracle OCI ARM VM\n, sshd open (no WireGuard)", style="filled", fillcolor="#f5c2e7"];
     strontium [label="strontium\niFog IPv6-only VM\n2a0c:9a40:2510:1001::10eb", style="filled", fillcolor="#f5c2e7"];
   }
 

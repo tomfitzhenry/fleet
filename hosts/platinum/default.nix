@@ -71,7 +71,6 @@
       hostname = "pt.h.tom-fitzhenry.me.uk";
       recipient = "tom@tom-fitzhenry.me.uk";
     };
-    podman.enable = true;
     rootfs = {
       device = "/dev/mapper/rootfs";
       subvolume = "/";
