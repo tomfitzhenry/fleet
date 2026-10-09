@@ -43,8 +43,67 @@
       enable = true;
       openFirewall = true;
     };
+    spire = {
+      enable = true;
+      server = {
+        enable = true;
+        # Aluminium's WireGuard address, so the mesh agents can reach it.
+        bindAddress = "192.168.2.2";
+        openFirewall = true;
+        nodes = {
+          oxygen = {
+            ekHash = "c4a5ca47cf839af1ab1edaaece895d1653db23dac47c15c51c31c7c6781d244b";
+            users = [ "tom" ];
+          };
+          aluminium = {
+            ekHash = "be64e7af3f8a51c3c62863661cb681bb5121c91b55a33a4ae61564cb63d8db48";
+            system-units = [ "ghostunnel" ];
+          };
+          platinum = {
+            ekHash = "d23ac4cfd2e1d98ec105771a142013b0449d2d4a26dad357961c15c583bb6262";
+          };
+        };
+      };
+      # Aluminium's own agent provides the SVID for its ghostunnel server.
+      agent.enable = true;
+    };
     wireguard.enable = true;
   };
+
+  # The server binds aluminium's WireGuard address, so bring the interface up
+  # first to avoid a bind failure (and restart loop) at boot.
+  systemd.services.spire-server = {
+    after = [ "wireguard-wgFleet.service" ];
+    wants = [ "wireguard-wgFleet.service" ];
+  };
+
+  # SPIFFE-mTLS front-end for sshd. Accepts only a process running as tom on
+  # oxygen (spiffe://fleet/oxygen/user/tom) and forwards to the local sshd. The
+  # server presents aluminium's own SVID (spiffe://fleet/aluminium/ghostunnel).
+  systemd.services.ghostunnel = {
+    description = "SPIFFE-mTLS ghostunnel to local sshd";
+    wantedBy = [ "multi-user.target" ];
+    after = [
+      "spire-agent.service"
+      "wireguard-wgFleet.service"
+    ];
+    wants = [ "wireguard-wgFleet.service" ];
+    requires = [ "spire-agent.service" ];
+    serviceConfig = {
+      ExecStart = ''
+        ${pkgs.ghostunnel}/bin/ghostunnel server \
+          --use-workload-api-addr unix:///run/spire/agent/public/api.sock \
+          --listen 192.168.2.2:2222 \
+          --target 127.0.0.1:22 \
+          --allow-uri spiffe://fleet/oxygen/user/tom
+      '';
+      Restart = "on-failure";
+      RestartSec = 2;
+      DynamicUser = true;
+    };
+  };
+
+  networking.firewall.interfaces.wgFleet.allowedTCPPorts = [ 2222 ];
 
   services.udev.packages = [
     pkgs.probe-rs-tools

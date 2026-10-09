@@ -1,0 +1,14 @@
+--- a/cmd/main.go
++++ b/cmd/main.go
+@@ -107,6 +107,11 @@
+ 		if err := staticRun(mainConfig); err != nil {
+ 			os.Exit(1)
+ 		}
++		// Static mode owns the process lifecycle. Returning from staticRun
++		// means a clean shutdown; do not fall through to run(), which calls
++		// ctrl.SetupSignalHandler() a second time and panics with
++		// "close of closed channel".
++		os.Exit(0)
+ 	}
+ 
+ 	if err := run(mainConfig); err != nil {

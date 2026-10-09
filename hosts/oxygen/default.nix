@@ -41,6 +41,16 @@ in
     };
     remote-builders.enable = true;
     sshd.enable = false;
+    spire = {
+      enable = true;
+      # Oxygen is an agent of aluminium's central server; it enrolls nothing
+      # locally. Its EK hash is pinned in aluminium's `server.nodes.oxygen`.
+      agent = {
+        enable = true;
+        serverAddress = "aluminium";
+        serverPort = 8081;
+      };
+    };
     wireguard.enable = true;
   };
 

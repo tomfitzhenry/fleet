@@ -28,6 +28,7 @@
             ./modules/op-tee
             ./modules/remote-builders
             ./modules/rootfs
+            ./modules/spire
             ./modules/sshd
             ./modules/wireguard
           ];
@@ -45,12 +46,19 @@
         redbox = mkMachine_2605 "redbox";
       };
 
+      packages.x86_64-linux.spire-controller-manager =
+        nixpkgs-2605.legacyPackages.x86_64-linux.callPackage ./pkgs/spire-controller-manager
+          { };
+
       checks.x86_64-linux = {
         rootfs = nixpkgs-2605.legacyPackages.x86_64-linux.testers.nixosTest (
           import ./modules/rootfs/vm-test.nix
         );
         mail-relay = nixpkgs-2605.legacyPackages.x86_64-linux.testers.nixosTest (
           import ./modules/mail-relay/vm-test.nix
+        );
+        spire = nixpkgs-2605.legacyPackages.x86_64-linux.testers.nixosTest (
+          import ./modules/spire/vm-test.nix
         );
       };
     };
