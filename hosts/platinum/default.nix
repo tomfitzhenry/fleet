@@ -27,20 +27,6 @@
   boot.kernelParams = [
     "iomem=relaxed"
     "spi_intel.writeable=1"
-
-    # The machine hangs shortly after getting to getty, and this goes away if we limit the max Intel C-state.
-    # Intel C6 seems stable with 4800MHz DDR5.
-    # Intel C8 seems stable with 3200MHz DDR5 (i.e. underclocked).
-    #
-    # For a NAS, I prefer more power saving than faster RAM, so let's go with Intel C8.
-    #
-    # On this board, the cstate -> Intel C mapping is:
-    #   3 -> Intel C6
-    #   4 -> Intel C8
-    #   5 -> Intel C10
-    #
-    # Update: Instability returned after plugging in SATA drives. Bad PSU? Dropping max cstate to C6.
-    "intel_idle.max_cstate=3"
   ];
 
   # Experiments in more power saving...
