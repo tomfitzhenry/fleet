@@ -31,16 +31,6 @@
     "pmc_core.warn_on_s0ix_failures=1"
   ];
 
-  # Experiments in more power saving...
-  specialisation = {
-    pcie-sleep.configuration = {
-      boot.kernelParams = [
-        "nvme_core.default_ps_max_latency_us=5500"
-        "i915.enable_guc=3"
-      ];
-    };
-  };
-
   # Workaround OS hangs.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
