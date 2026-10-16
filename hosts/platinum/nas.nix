@@ -40,6 +40,16 @@
         "nofail"
       ];
     };
+    # Expose the NAS dir under the same path that clients use.
+    # Motivation: Ensure paths resolve to the same file on client/server.
+    "/mnt/share" = {
+      device = "/srv/share/media";
+      fsType = "none";
+      options = [
+        "bind"
+        "nofail"
+      ];
+    };
   };
 
   networking.firewall = {
