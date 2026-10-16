@@ -27,6 +27,8 @@
   boot.kernelParams = [
     "iomem=relaxed"
     "spi_intel.writeable=1"
+    "acpi_s2idle.check_lps0_constraints=1"
+    "pmc_core.warn_on_s0ix_failures=1"
   ];
 
   # Experiments in more power saving...
