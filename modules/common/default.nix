@@ -42,13 +42,20 @@
     with pkgs;
     [
       btrfs-progs
+      coreboot-utils
       cryptsetup
       curl
       dig
+      dmidecode
       file
+      flashrom
       git
       iftop
+      linuxPackages.turbostat
+      lspci
+      mcelog
       mg
+      msr-tools
       ncdu
       netcat-gnu
       nmap
@@ -56,6 +63,7 @@
       parted
       pciutils
       picocom
+      python3
       ripgrep
       smartmontools
       socat
