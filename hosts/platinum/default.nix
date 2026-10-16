@@ -37,9 +37,10 @@
   # Use out-of-tree driver until IT8613E is supported in mainline.
   boot.extraModulePackages = [ pkgs.linuxPackages_latest.it87 ];
   boot.kernelModules = [
-    "drivetemp"
+    # TODO: Re-enable after idle debugging.
+    #"drivetemp"
     # Fan driver for CWWK NAS motherboard.
-    "it87"
+    #"it87"
   ];
 
   tomf = {
