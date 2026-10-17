@@ -52,7 +52,6 @@
       git
       iftop
       linuxPackages.turbostat
-      lspci
       mcelog
       mg
       msr-tools
