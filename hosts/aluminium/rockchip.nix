@@ -22,5 +22,8 @@
   services.udev.extraRules = ''
     # Pine64 QuartzPro64 (RK3588) maskrom and rkdeveloptool loader.
     SUBSYSTEM=="usb", ATTR{idVendor}=="2207", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+
+    # dedibridge
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="dada", TAG+="uaccess", GROUP="plugdev", MODE="0660"
   '';
 }
