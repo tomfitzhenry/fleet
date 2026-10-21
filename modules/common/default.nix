@@ -14,6 +14,12 @@
 
   zramSwap.enable = true;
 
+  # https://emudhra.we-have-a-problem.com/
+  security.pki.caCertificateBlacklist = [
+    "Comodo AAA Services root"
+    "emSign ECC Root CA - G3"
+  ];
+
   nix.gc.automatic = lib.mkDefault true;
   boot.tmp.cleanOnBoot = true;
 
