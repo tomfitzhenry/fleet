@@ -233,13 +233,13 @@ in
 
   services.unbound = {
     enable = true;
+    localControlSocketPath = "/run/unbound/unbound.ctl";
+
     settings = {
       server = {
         interface = [
-          "lan"
-
-          # Act as local stub resolver, since we disabled resolved, so that unbound could listen on all IPs.
-          "lo"
+          "0.0.0.0"
+          "::0"
         ];
         access-control = [
           "0.0.0.0/0 allow"
