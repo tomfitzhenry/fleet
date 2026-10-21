@@ -44,7 +44,7 @@ in
     # "The user is supposed to run [scrub] manually or via a periodic system service. The recommended period is a month but it could be less."
     # https://btrfs.readthedocs.io/en/latest/Scrub.html
     services.btrfs.autoScrub = {
-      enable = true;
+      enable = lib.mkDefault true;
       fileSystems = [
         "/mnt/btrfs"
       ];
