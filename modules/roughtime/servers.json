@@ -1,0 +1,40 @@
+{
+  "servers": [
+    {
+      "name": "int08h-Roughtime",
+      "version": 1,
+      "publicKeyType": "ed25519",
+      "publicKey": "AW5uAoTSTDfG5NfY1bTh08GUnOqlRb+HVhbJ3ODJvsE=",
+      "addresses": [
+        {
+          "protocol": "udp",
+          "address": "roughtime.int08h.com:2002"
+        }
+      ]
+    },
+    {
+      "name": "time.txryan.com",
+      "version": 1,
+      "publicKeyType": "ed25519",
+      "publicKey": "iBVjxg/1j7y1+kQUTBYdTabxCppesU/07D4PMDJk2WA=",
+      "addresses": [
+        {
+          "protocol": "udp",
+          "address": "time.txryan.com:5319"
+        }
+      ]
+    },
+    {
+      "name": "roughtime.alastyr.com",
+      "version": 1,
+      "publicKeyType": "ed25519",
+      "publicKey": "/2Al59PlwUTJHas/VS+FN6BhO9ify/wIjoH2Ezv4V7w=",
+      "addresses": [
+        {
+          "protocol": "udp",
+          "address": "roughtime.alastyr.com:2002"
+        }
+      ]
+    }
+  ]
+}

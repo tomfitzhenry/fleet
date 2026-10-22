@@ -40,6 +40,7 @@ in
       subvolume = "/";
     };
     remote-builders.enable = true;
+    roughtime.enable = true;
     sshd.enable = false;
     spire = {
       enable = true;

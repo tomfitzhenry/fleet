@@ -1,0 +1,45 @@
+--- a/crates/roughenough-client/src/main.rs
++++ b/crates/roughenough-client/src/main.rs
+@@ -37,7 +37,7 @@
+ 
+     if args.set_clock {
+         match clock_target(midpoint) {
+-            Ok(midpoint) => set_system_clock(midpoint),
++            Ok(midpoint) => set_system_clock(midpoint, &args),
+             Err(msg) => {
+                 error!("{msg}");
+                 std::process::exit(1);
+@@ -107,6 +107,15 @@
+             std::process::exit(-1);
+         });
+ 
++    for measurement in &measurements {
++        info!(
++            "{}: {} (+/-{}s)",
++            measurement.hostname(),
++            format_time(measurement.midpoint(), args),
++            measurement.radius()
++        );
++    }
++
+     let violations = CausalityViolation::find(&measurements);
+ 
+     if violations.is_empty() {
+@@ -133,7 +142,7 @@
+     None
+ }
+ 
+-fn set_system_clock(midpoint: u64) {
++fn set_system_clock(midpoint: u64, args: &Args) {
+     assert!(
+         midpoint > 1_500_000_000,
+         "not setting clock to suspicious midpoint: {midpoint}"
+@@ -150,6 +159,8 @@
+     if ret != 0 {
+         let err = std::io::Error::last_os_error();
+         error!("Failed to set system clock: {}", err);
++    } else {
++        info!("Set system clock to {}", format_time(midpoint, args));
+     }
+ }
+ 

@@ -25,6 +25,7 @@ in
       device = "/dev/disk/by-partlabel/disk-main-root";
       subvolume = "/root";
     };
+    roughtime.enable = true;
     sshd = {
       enable = true;
       # Avoid exposing SSH to WAN.

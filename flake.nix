@@ -28,6 +28,7 @@
             ./modules/op-tee
             ./modules/remote-builders
             ./modules/rootfs
+            ./modules/roughtime
             ./modules/spire
             ./modules/sshd
             ./modules/wireguard
