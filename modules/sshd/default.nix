@@ -26,6 +26,7 @@ in
     services.openssh = {
       enable = true;
       openFirewall = cfg.openFirewall;
+      enableRecommendedAlgorithms = false;
       settings = {
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
